@@ -1,0 +1,10 @@
+<ng-container *ngIf="formControl$ | async as formControl">
+  <ng-container *ngIf="shouldDisplayErrorMessage(formControl); else fakeBlock">
+    <ego-validation-message [errors]="formControl.errors">
+    </ego-validation-message>
+  </ng-container>
+  <ng-template #fakeBlock>
+    <!-- Use fake block to avoid markup moving when error is occurred. -->
+    <ego-validation-message> </ego-validation-message>
+  </ng-template>
+</ng-container>

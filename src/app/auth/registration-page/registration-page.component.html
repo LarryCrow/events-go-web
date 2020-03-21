@@ -1,0 +1,31 @@
+<section class="functionality">
+  <header class="links">
+    <a routerLink="/events">На главную</a>
+    <a routerLink="/auth/login">Войти</a>
+  </header>
+  <div class="form">
+    <ng-container *ngIf="roleFormShown; else clientForm">
+      <header class="margin form-header">
+        <h1>Регистрация</h1>
+        <button type="button" (click)="changeForm()">
+          Я участник
+        </button>
+      </header>
+      <ego-host-registration-form></ego-host-registration-form>
+    </ng-container>
+  </div>
+</section>
+
+<section class="banner">
+</section>
+
+<ng-template #clientForm>
+  <header class="margin form-header">
+    <h1>Регистрация</h1>
+    <button type="button" title="Я участник" (click)="changeForm()">
+      Я организатор
+    </button>
+  </header>
+
+  <ego-client-registration-form></ego-client-registration-form>
+</ng-template>

@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onFormSubmit(form)">
+  <label>
+    <p>Email</p>
+    <input type="text" type="email" formControlName="email" />
+    <ego-form-control-validation-message controlName="email"></ego-form-control-validation-message>
+  </label>
+  <label>
+    <p>Пароль</p>
+    <input type="text" type="password" formControlName="pass" />
+    <ego-form-control-validation-message controlName="pass"></ego-form-control-validation-message>
+  </label>
+  <div class="button-panel">
+    <button class="submit-btn" type="submit">Вперёд</button>
+  </div>
+  <div class="errors">
+    <p class="error-msg">{{error}}</p>
+  </div>
+  <div class="links">
+    <a routerLink="/events" class="">Авторизоваться позже</a>
+    <a routerLink="/auth/register" class="no-account-link">Нет аккаунта?</a>
+  </div>
+</form>

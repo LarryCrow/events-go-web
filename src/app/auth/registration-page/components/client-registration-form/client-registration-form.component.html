@@ -1,0 +1,16 @@
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onFormSubmit()" class="margin">
+  <label>
+    <p>Email</p>
+    <input type="text" type="email" formControlName="email" />
+    <ego-form-control-validation-message controlName="email"></ego-form-control-validation-message>
+  </label>
+  <label>
+    <p>Пароль</p>
+    <input type="text" type="password" formControlName="pass" />
+    <ego-form-control-validation-message controlName="pass"></ego-form-control-validation-message>
+  </label>
+  <button class="submit-btn" type="submit">Вперёд</button>
+  <div class="errors">
+    <p class="error-msg">{{error}}</p>
+  </div>
+</form>

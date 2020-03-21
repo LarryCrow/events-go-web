@@ -1,0 +1,66 @@
+.container {
+  width: 1100px;
+  margin: 50px auto;
+}
+
+.row {
+  display: flex;
+}
+
+.main-img {
+  width: 400px;
+}
+
+.images {
+  flex-basis: 400px;
+}
+
+.image-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 400px;
+  margin: 15px 0 0 0;
+
+  button {
+    margin: 0;
+    padding: 0;
+    background: 0;
+  }
+}
+
+.img-item {
+  flex-basis: 1;
+  
+  &:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+
+.base-information {
+  padding: 0 20px;
+  h1 {
+    text-align: center;
+    margin-top: 0;
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: var(--base-contrast);
+  }
+}
+
+.map {
+  width: 1000px;
+  height: 500px;
+}
+
+.canceled {
+  color: red;
+}

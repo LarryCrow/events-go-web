@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  min-height: 1rem;
+  margin-top: 5px;
+  font-weight: normal;
+}
+
+div {
+  /* To avoid markup moving on displaying error. */
+  line-height: 1rem;
+  color: var(--error-message);
+}

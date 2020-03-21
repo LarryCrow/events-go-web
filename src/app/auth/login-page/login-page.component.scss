@@ -1,0 +1,82 @@
+:host {
+  --space: 40px;
+
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('src/assets/wave.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+form {
+  width: 400px;
+  border-radius: 10px;
+  background: white;
+  padding: calc(var(--space) * 1.25) var(--space);
+  box-shadow: 0 0 10px 0 grey;
+}
+
+form > *:not(:last-child) {
+  margin: calc(var(--space) / 2) 0;
+}
+
+label {
+  display: block;
+}
+
+.button-panel {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+label p {
+  text-align: center;
+}
+
+.submit-btn {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  align-self: center;
+  padding: 10px 15px;
+  width: 110px;
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(
+    to right,
+    var(--primary-color) 50%,
+    var(--base-contrast) 50%
+  );
+  background-size: 200% 100%;
+  background-position: right bottom;
+
+  &:hover {
+    background-position: left bottom;
+    color: var(--base-contrast);
+  }
+}
+
+.errors {
+  height: 20px;
+
+  .error-msg {
+    margin: 0;
+    text-align: center;
+    color: var(--error-message);
+  }
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+}
+
+// .no-account-link {
+//   display: block;
+//   margin: 0 auto;
+//   width: 100px;
+// }
