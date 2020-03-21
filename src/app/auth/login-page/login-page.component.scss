@@ -49,14 +49,14 @@ label p {
   background: linear-gradient(
     to right,
     var(--primary-color) 50%,
-    var(--base-contrast) 50%
+    var(--primary-contrast-color) 50%
   );
   background-size: 200% 100%;
   background-position: right bottom;
 
   &:hover {
     background-position: left bottom;
-    color: var(--base-contrast);
+    color: var(--primary-contrast-color);
   }
 }
 
@@ -73,10 +73,8 @@ label p {
 .links {
   display: flex;
   justify-content: space-between;
+  
+  a {
+    color: var(--primary-color);
+  }
 }
-
-// .no-account-link {
-//   display: block;
-//   margin: 0 auto;
-//   width: 100px;
-// }

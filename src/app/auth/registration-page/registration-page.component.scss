@@ -19,6 +19,10 @@
   display: flex;
   justify-content: space-between;
   margin-top: calc(var(--space) / 2);
+
+  a {
+    color: var(--primary-color);
+  }
 }
 
 .functionality .form-header {
@@ -33,8 +37,7 @@
     margin: 0;
   }
 
-  button {
-    background: none;
+  button.link {
     text-decoration: underline;
   }
 }

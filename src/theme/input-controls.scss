@@ -1,0 +1,56 @@
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input:not([type]) {
+  padding: 7.5px 16px;
+  border: 1px solid var(--primary-border-color);
+  border-radius: var(--input-border-radius);
+}
+
+select {
+  padding: 6.5px 16px;
+  border: 1px solid var(--primary-border-color);
+  background: transparent;
+  border-radius: var(--input-border-radius);
+}
+
+button {
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+button.link {
+  background: transparent;
+}
+
+textarea {
+  padding: 6.5px 16px;
+  border: 1px solid var(--primary-border-color);
+  resize: vertical;
+  min-height: 4.5rem;
+  border-radius: var(--input-border-radius);
+}
+
+label > span {
+  color: var(--label-font-color);
+  display: block;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+
+label > input,
+label > select,
+label > textarea,
+label > span + input,
+label > span + select,
+label > span + textarea {
+  width: 100%;
+}
+
+::placeholder {
+  color: var(--placeholder-color);
+  font-style: italic;
+}

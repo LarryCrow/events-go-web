@@ -7,7 +7,7 @@
     <ng-container *ngIf="roleFormShown; else clientForm">
       <header class="margin form-header">
         <h1>Регистрация</h1>
-        <button type="button" (click)="changeForm()">
+        <button class="link" type="button" (click)="changeForm()">
           Я участник
         </button>
       </header>
@@ -22,7 +22,7 @@
 <ng-template #clientForm>
   <header class="margin form-header">
     <h1>Регистрация</h1>
-    <button type="button" title="Я участник" (click)="changeForm()">
+    <button class="link" type="button" title="Я участник" (click)="changeForm()">
       Я организатор
     </button>
   </header>

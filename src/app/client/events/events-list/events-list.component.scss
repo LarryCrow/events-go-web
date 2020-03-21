@@ -11,13 +11,13 @@
   width: 100%;
   margin-top: 20px;
   position: sticky;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
 
   input {
-    border: 0;
-    width: 100%;
+    border: none;
     height: var(--search-block-size);
     padding: 0 calc(var(--search-block-size) + 5px);
+    width: 100%;
   }
 
   .search-btn {
@@ -35,3 +35,7 @@
     right: 0;
   }
 }
+
+li {
+  margin-top: 15px;
+} 
