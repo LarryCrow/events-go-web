@@ -1,13 +1,13 @@
-h2,
-p {
-  margin: 0;
-}
-
 .event {
   display: grid;
   grid-template-columns: 180px 520px 100px;
   grid-template-rows: 140px;
-  margin-bottom: 15px;
+}
+
+.avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .body {

@@ -6,10 +6,16 @@
 * {
   box-sizing: border-box;
   font-family: "FiraSans", Roboto, "Helvetica Neue", sans-serif;
+  font-size: var(--font-size);
   list-style: none;
   margin: 0;
   padding: 0;
   text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, a {
+  color: var(--primary-font-color);
 }
 
 html, body { height: 100%; }
@@ -17,9 +23,4 @@ body { margin: 0;}
 
 a {
   text-decoration: none;
-  color: var(--primary-color);
-}
-
-a:visited {
-  color: var(--primary-color);
 }
