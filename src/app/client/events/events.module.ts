@@ -12,11 +12,16 @@ import { EventsListComponent } from './events-list/events-list.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: EventsListComponent,
   },
   {
     path: ':id',
     component: EventDetailsComponent,
+  },
+  {
+    path: 'create',
+    redirectTo: '',
   },
 ];
 
