@@ -1,0 +1,36 @@
+:host {
+  --item-size: 15px;
+}
+
+nav {
+  width: 100%;
+  background: var(--primary-color);
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+li {
+  & > * {
+    padding: var(--item-size);
+  }
+
+  a {
+    display: block;
+    cursor: pointer;
+    // width: 130px;
+    text-align: center;
+  }
+}
+
+.app-logo {
+  flex: 1;
+}
+
+.active-link {
+  background: red;
+}

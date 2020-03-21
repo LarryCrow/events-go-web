@@ -1,6 +1,6 @@
 <div class="container" *ngIf="event$ | async as event">
   <div class="row">
-    <div class="images">
+    <div class="image">
       <img src="/assets/default-image.jpg" class="main-img" />
     </div>
     <div class="base-information">
@@ -18,6 +18,9 @@
       </p>
       <p>
         Адрес: {{event.place}}
+      </p>
+      <p>
+        Количество участников: {{event.participations.length}}
       </p>
       <button *ngIf="!isUserSubscribed; else unsubscribeBtn" type="button" (click)="onSubscribeBtnClick(event.id)"> Я
         пойду! </button>

@@ -56,6 +56,7 @@ export class AuthService {
 
   /**
    * Login request.
+   *
    * @param email - Email.
    * @param password - Password.
    */
@@ -82,6 +83,8 @@ export class AuthService {
 
   /**
    * Register a host.
+   *
+   * @param data Data for registration.
    */
   public registerHost(data: RegistrationData): Observable<void> {
     const formData = new FormData();
@@ -107,6 +110,8 @@ export class AuthService {
 
   /**
    * Register a client.
+   *
+   * @param data Data for registration.
    */
   public registerClient(data: RegistrationData): Observable<void> {
     const body = {
@@ -157,6 +162,15 @@ export class AuthService {
         }),
       )
       .subscribe((res) => this.userChange$.next(this.createUser(res)));
+  }
+
+  /**
+   * Make logout.
+   */
+  public logout(): void {
+    this.token = '';
+    this.clearStorage();
+    this.userChange$.next(null);
   }
 
   private saveToken(authData: LoginDto): void {

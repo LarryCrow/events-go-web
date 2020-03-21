@@ -1,1 +1,17 @@
+<nav *ngIf="isMenuDisplayed$ | async">
+  <ul *ngIf="menuLinks$ | async as items">
+    <li class="app-logo">
+      <p>Events go</p>
+    </li>
+    <li *ngFor="let item of items">
+      <a *ngIf="item.value; else logoutItem" [routerLink]="item.value" routerLinkActive="active-link">
+        {{item.title}}
+      </a>
+      <ng-template #logoutItem>
+        <a (click)="item.func()">{{item.title}}</a>
+      </ng-template>
+    </li>
+  </ul>
+</nav>
+
 <router-outlet></router-outlet>
