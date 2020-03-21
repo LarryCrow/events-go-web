@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/fonts/fonts.scss';
+@import './theme/input-controls.scss';
+@import './theme/variables.scss';
 
 * {
   box-sizing: border-box;
@@ -12,3 +14,12 @@
 
 html, body { height: 100%; }
 body { margin: 0;}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+a:visited {
+  color: var(--primary-color);
+}
