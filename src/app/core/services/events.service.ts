@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { EventMapper } from '../mappers/event.mapper';
 import { Event } from '../models/event';
 import { EventSearchFilters } from '../models/event-search-filters';
+import { SaveEventModel } from '../models/save-event';
 
 import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
@@ -99,9 +100,28 @@ export class EventsService {
   }
 
   /**
+   * Creates an event.
+   *
+   * @param data Data to create an event.
+   */
+  public create(data: SaveEventModel): Observable<Event> {
+    const body = {
+      title: data.title,
+      price: data.price,
+      description: data.description,
+      place: '56.0074051, 92.8726339',
+      date: data.date,
+    };
+    return this.http.post<EventDto>(`${this.EVENTS_URL}`, body)
+      .pipe(
+        map((res) => this.eventMapper.fromDto(res)),
+      );
+  }
+
+  /**
    * Update event.
    */
-  public update(): Observable<any> {
+  public update(data: SaveEventModel): Observable<any> {
     return null;
   }
 }
