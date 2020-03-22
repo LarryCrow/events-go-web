@@ -1,0 +1,24 @@
+<form *ngIf="form$ | async as form" [formGroup]="form" (ngSubmit)="onFormSubmit(form)">
+  <label>
+    <span>Название </span>
+    <input formControlName="title" type="text">
+    <ego-form-control-validation-message controlName="title"></ego-form-control-validation-message>
+  </label>
+  <label>
+    <span>Стоимость</span>
+    <input formControlName="price" type="number">
+    <ego-form-control-validation-message controlName="price"></ego-form-control-validation-message>
+  </label>
+  <label>
+    <span>Дата</span>
+    <input formControlName="date" type="date">
+    <ego-form-control-validation-message controlName="date"></ego-form-control-validation-message>
+  </label>
+  <label>
+    <span>Описание</span>
+    <textarea formControlName="description"></textarea>
+    <ego-form-control-validation-message controlName="description"></ego-form-control-validation-message>
+  </label>
+  <button type="button">Выбрать изображение</button>
+  <button type="submit">Сохранить</button>
+</form>

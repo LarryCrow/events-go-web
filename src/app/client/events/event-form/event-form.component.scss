@@ -1,0 +1,13 @@
+:host {
+  --space: 20px
+}
+
+form {
+  border: 2px solid var(--primary-border-color);
+  padding: calc(var(--space) * 2);
+
+  & > *:not(:last-child) {
+    display: block;
+    margin-bottom: var(--space);
+  }
+}
