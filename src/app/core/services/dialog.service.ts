@@ -10,17 +10,24 @@ import { DialogInfoComponent } from 'src/app/shared/components/dialog-info/dialo
   providedIn: 'root',
 })
 export class DialogService {
+
+  /**
+   * @constructor
+   *
+   * @param dialog Mat dialog.
+   */
   public constructor(
     private readonly dialog: MatDialog,
   ) { }
 
   /**
    * Opens dialog modal window to inform a user.
+   *
    * @param message - Message.
    */
   public openInformationDialog(message: string): Observable<any> {
     const dialogRef = this.dialog.open(DialogInfoComponent, {
-      width: '250px',
+      maxWidth: '500px',
       data: { message: message },
     });
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, first, switchMap, share, map } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { filter, first, switchMap, share, map, startWith, shareReplay } from 'rxjs/operators';
 
 import { Event } from '../../../core/models/event';
 import { MapOptions } from '../../../core/models/map-options';
@@ -10,8 +10,7 @@ import { DialogService } from '../../../core/services/dialog.service';
 import { EventsService } from '../../../core/services/events.service';
 import { UserService } from '../../../core/services/user.service';
 
-const EVENT_CANCELED_MESSAGE = 'Простите, на данный момент мероприятие отменено. Но раз эта страница до сих пор существует, \
-  организатор сказал, что событие ещё может быть проведено.';
+const EVENT_CANCELED_MESSAGE = 'Простите, на данный момент мероприятие отменено. Подпишитесь, чтобы не пропустить новости';
 
 const UNAUTHORIZED_SUBSCRIBE = 'Для того, чтобы подписаться на событие, вам необходимо авторизоватьcя.';
 const INCORRECT_ROLE = 'Организатор не может подписываться на события.';
@@ -26,30 +25,48 @@ const INCORRECT_ROLE = 'Организатор не может подписыв�
 })
 export class EventDetailsComponent {
   /**
-   * Event.
-   */
-  public event$: Observable<Event>;
-
-  /**
    * Is a user subscribed or not.
    */
   public isUserSubscribed = false;
-
+  /**
+   * Event.
+   */
+  public event$: Observable<Event>;
   /**
    * Map options.
    */
-  public mapOptions$: Observable<MapOptions>;
+  public readonly mapOptions$: Observable<MapOptions>;
+  /**
+   * Is a user a host of an event.
+   */
+  public isUserHost$: Observable<boolean>;
 
+  private readonly update$ = new BehaviorSubject<void>(null);
+
+  /**
+   * @constructor
+   *
+   * @param eventsService Events service.
+   * @param route Activated route.
+   * @param dialogService Dialog service.
+   * @param userService User service.
+   * @param router Router.
+   */
   public constructor(
     private readonly eventsService: EventsService,
     private readonly route: ActivatedRoute,
     private readonly dialogService: DialogService,
     private readonly userService: UserService,
+    private readonly router: Router,
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    this.event$ = this.eventsService.getEvent(id)
+    this.event$ = this.update$
       .pipe(
-        share(),
+        switchMap(() => this.eventsService.getEvent(id)),
+        shareReplay({
+          refCount: true,
+          bufferSize: 1,
+        }),
       );
 
     this.userService.currentUser$
@@ -62,6 +79,7 @@ export class EventDetailsComponent {
       .subscribe((val) => this.isUserSubscribed = val);
 
     this.mapOptions$ = this.initMapOptionsStream(this.event$);
+    this.isUserHost$ = this.isHostStream(this.event$);
     this.isEventCanceled(this.event$);
   }
 
@@ -75,14 +93,16 @@ export class EventDetailsComponent {
       .pipe(
         first(),
         switchMap((user) => {
-          if (user) {
-            if (user.role === Role.Host) {
-              return this.dialogService.openInformationDialog(INCORRECT_ROLE);
-            }
-            return this.eventsService.subscribe(eventId);
+          if (!user) {
+            return this.dialogService.openInformationDialog(UNAUTHORIZED_SUBSCRIBE);
           }
-          return this.dialogService.openInformationDialog(UNAUTHORIZED_SUBSCRIBE);
+          if (user.role === Role.Host) {
+            return this.dialogService.openInformationDialog(INCORRECT_ROLE);
+          }
+          return this.eventsService.subscribe(eventId);
         }),
+        // If dialog is shown, null returns.
+        filter(res => res),
       )
       .subscribe(() => this.isUserSubscribed = true);
   }
@@ -98,10 +118,16 @@ export class EventDetailsComponent {
       .subscribe(() => this.isUserSubscribed = false);
   }
 
+  /**
+   * Handles click on 'Редактировать' button. Opens the edit page.
+   */
+  public onEditButtonClick(): void {
+    this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
   private initMapOptionsStream(event$: Observable<Event>): Observable<MapOptions> {
     return event$
       .pipe(
-        first(),
         map((event) => new MapOptions({
           position: event.place,
         })),
@@ -114,5 +140,18 @@ export class EventDetailsComponent {
       filter(event => event.isCanceled),
       switchMap(_ => this.dialogService.openInformationDialog(EVENT_CANCELED_MESSAGE)),
     ).subscribe();
+  }
+
+  private isHostStream(event$: Observable<Event>): Observable<boolean> {
+    return combineLatest([
+      event$,
+      this.userService.currentUser$,
+    ])
+      .pipe(
+        first(),
+        filter(([_, user]) => user && user.role === Role.Host),
+        map(([event, user]) => event.host.id === user.id),
+        startWith(false),
+      );
   }
 }
