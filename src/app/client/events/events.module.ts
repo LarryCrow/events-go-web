@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Routes, RouterModule } from '@angular/router';
 import { IsHostGuard } from 'src/app/core/guards/is-host.guard';
 
@@ -51,6 +52,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    MatSnackBarModule,
   ],
 })
 export class EventsModule { }

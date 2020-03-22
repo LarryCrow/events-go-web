@@ -16,7 +16,7 @@
   </label>
   <div class="select-image">
     <input type="file" hidden accept=".jpg,.jpeg,.png" (change)="handleFileInput($event)" #inputFile />
-    <button type="button" class="fake-load-btn" (click)="inputFile.click()">Выбрать изображение</button>
+    <button type="button" class="fake-load-btn secondary" (click)="inputFile.click()">Выбрать изображение</button>
     <div *ngIf="selectedFile" class="selected-image">
       <span>{{ selectedFile }}</span>
       <button type="button" (click)="removeImage()" class="remove-image">
@@ -25,7 +25,7 @@
     </div>
     <p *ngIf="avatarError" class="avatar-error">{{avatarError}}</p>
   </div>
-  <button class="submit-btn" type="submit">Вперёд</button>
+  <button class="primary submit-btn" type="submit">Вперёд</button>
   <div class="errors">
     <p class="error-msg">{{error}}</p>
   </div>

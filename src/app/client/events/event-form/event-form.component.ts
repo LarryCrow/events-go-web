@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable, of, BehaviorSubject, from } from 'rxjs';
-import { Event } from 'src/app/core/models/event';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap, first } from 'rxjs/operators';
+import { Event } from 'src/app/core/models/event';
 import { SaveEventModel } from 'src/app/core/models/save-event';
 import { EventsService } from 'src/app/core/services/events.service';
 
@@ -12,7 +13,7 @@ import { EventsService } from 'src/app/core/services/events.service';
 @Component({
   selector: 'ego-event-form',
   templateUrl: './event-form.component.html',
-  styleUrls: ['./event-form.component.scss']
+  styleUrls: ['./event-form.component.scss'],
 })
 export class EventFormComponent implements OnInit {
   /**
@@ -24,12 +25,18 @@ export class EventFormComponent implements OnInit {
    * Form.
    */
   public readonly form$: Observable<FormGroup>;
+  /**
+   * Emit an event if it is saved successfully.
+   */
+  @Output()
+  public save = new EventEmitter<Event>();
 
   private readonly init$ = new BehaviorSubject<void>(null);
 
   public constructor(
     private readonly fb: FormBuilder,
     private readonly eventService: EventsService,
+    private readonly snackBar: MatSnackBar,
   ) {
     this.form$ = this.init$
       .pipe(
@@ -57,14 +64,19 @@ export class EventFormComponent implements OnInit {
       title: form.value.title,
       date: form.value.date,
       description: form.value.description,
-      price: form.value.description,
+      price: form.value.price,
     } as SaveEventModel;
 
     this.eventService.create(body)
       .pipe(
         first(),
       )
-      .subscribe();
+      .subscribe((event) => {
+        this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 3000 });
+        if (this.save) {
+          this.save.emit(event);
+        }
+      });
   }
 
   private initFormStream(): Observable<FormGroup> {
