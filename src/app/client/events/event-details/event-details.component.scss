@@ -48,6 +48,10 @@
   }
 }
 
+.action-buttons > *:not(:first-child) {
+  margin-left: var(--space);
+}
+
 .map {
   width: 1000px;
   height: 500px;

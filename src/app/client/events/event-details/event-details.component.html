@@ -22,11 +22,18 @@
       <p>
         Количество участников: {{event.participations.length}}
       </p>
-      <button *ngIf="!isUserSubscribed; else unsubscribeBtn" type="button" (click)="onSubscribeBtnClick(event.id)"> Я
-        пойду! </button>
-      <ng-template #unsubscribeBtn>
-        <button type="button" (click)="onUnsubscribeBtnClick(event.id)"> Не пойду </button>
-      </ng-template>
+      <!-- TODO: Button to edit an event. -->
+      <div class="action-buttons">
+        <button *ngIf="!isUserSubscribed; else unsubscribeBtn" type="button" (click)="onSubscribeBtnClick(event.id)">
+          Я пойду!
+        </button>
+        <ng-container *ngIf="{value: isUserHost$ | async} as context">
+          <button *ngIf="context.value" (click)="onEditButtonClick()"> Редактировать </button>
+        </ng-container>
+        <ng-template #unsubscribeBtn>
+          <button type="button" (click)="onUnsubscribeBtnClick(event.id)"> Не пойду </button>
+        </ng-template>
+      </div>
     </div>
   </div>
   <div class="description">

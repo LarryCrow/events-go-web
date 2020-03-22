@@ -16,12 +16,16 @@ const routes: Routes = [
     component: EventsListComponent,
   },
   {
-    path: ':id',
-    component: EventDetailsComponent,
-  },
-  {
     path: 'create',
     redirectTo: '',
+  },
+  {
+    path: ':id/edit',
+    redirectTo: ':id',
+  },
+  {
+    path: ':id',
+    component: EventDetailsComponent,
   },
 ];
 
