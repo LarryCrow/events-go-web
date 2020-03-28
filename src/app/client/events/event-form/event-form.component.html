@@ -1,0 +1,41 @@
+<form *ngIf="form$ | async as form" [formGroup]="form" (ngSubmit)="onFormSubmit(form)">
+  <label>
+    <span>Название </span>
+    <input formControlName="title" type="text">
+    <ego-form-control-validation-message controlName="title"></ego-form-control-validation-message>
+  </label>
+  <div class="row">
+    <label>
+      <span>Стоимость</span>
+      <input formControlName="price" type="number">
+      <ego-form-control-validation-message controlName="price"></ego-form-control-validation-message>
+    </label>
+    <label class="date-field">
+      <span>Дата</span>
+      <div class="date-field">
+        <input matInput [min]="minDate" [matDatepicker]="myDatepicker" formControlName="date">
+        <mat-datepicker-toggle class="datepicker-btn" matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </div>
+      <ego-form-control-validation-message controlName="date"></ego-form-control-validation-message>
+    </label>
+  </div>
+  <label>
+    <span>Адрес</span>
+    <input formControlName="address" type="text" [matAutocomplete]="addressAutocomplete" />
+    <mat-autocomplete #addressAutocomplete="matAutocomplete" (optionSelected)="onAddressSelect($event)"
+      [displayWith]="displayAddressValue" autoActiveFirstOption>
+      <mat-option *ngFor="let address of addresses$ | async" [value]="address">
+        {{ address.value }}
+      </mat-option>
+    </mat-autocomplete>
+    <ego-form-control-validation-message controlName="address"></ego-form-control-validation-message>
+  </label>
+  <label>
+    <span>Описание</span>
+    <textarea formControlName="description"></textarea>
+    <ego-form-control-validation-message controlName="description"></ego-form-control-validation-message>
+  </label>
+  <button type="button" class="secondary">Выбрать изображение</button>
+  <button type="submit" class="primary submit-btn">Сохранить</button>
+</form>
