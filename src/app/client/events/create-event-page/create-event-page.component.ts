@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { EventsService } from 'src/app/core/services/events.service';
   selector: 'ego-create-event-page',
   templateUrl: './create-event-page.component.html',
   styleUrls: ['./create-event-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateEventPageComponent {
 

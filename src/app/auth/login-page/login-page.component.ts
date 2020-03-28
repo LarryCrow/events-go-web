@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 /**
  * Login page.
@@ -12,6 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
   selector: 'ego-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent {
   /**

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -18,6 +18,7 @@ const AVATAR_ERROR = {
   selector: 'ego-host-registration-form',
   templateUrl: './host-registration-form.component.html',
   styleUrls: ['./host-registration-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HostRegistrationFormComponent {
   /**

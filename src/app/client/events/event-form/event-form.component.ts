@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, of } from 'rxjs';
@@ -15,6 +15,7 @@ import { AddressesService } from 'src/app/core/services/addresses.service';
   selector: 'ego-event-form',
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventFormComponent {
   /**

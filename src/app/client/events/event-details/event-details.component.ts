@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { filter, first, switchMap, map, startWith, shareReplay } from 'rxjs/operators';
@@ -23,6 +23,7 @@ const INCORRECT_ROLE = 'Организатор не может подписыв�
   selector: 'ego-event-details',
   templateUrl: './event-details.component.html',
   styleUrls: ['./event-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventDetailsComponent {
   /**
