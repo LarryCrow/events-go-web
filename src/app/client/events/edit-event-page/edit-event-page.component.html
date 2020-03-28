@@ -1,1 +1,3 @@
-<p>edit-event-page works!</p>
+<div class="container" *ngIf="event$ | async as event">
+  <ego-event-form [event]="event" (save)="onFormSave($event)"></ego-event-form>
+</div>
