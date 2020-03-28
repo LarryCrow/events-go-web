@@ -2,18 +2,54 @@
   --space: 20px
 }
 
+
 form {
   background: var(--card-background);
-  // border: 2px solid var(--primary-border-color);
   box-shadow: 0 0 10px 0 var(--primary-border-color);
   padding: calc(var(--space) * 2);
 
   & > *:not(:last-child) {
-    display: block;
     margin-bottom: var(--space);
+  }
+
+  label {
+    display: block;
+  }
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & > * {
+    flex: 1;
+  }
+
+  & > :not(:first-child) {
+    margin-left: var(--space);
+  }
+}
+
+.date-field {
+  display: flex;
+  flex-direction: row;
+
+  input {
+    flex: 1;
+  }
+
+  mat-datepicker-toggle {
+    height: 36px;
+    width: 36px;
   }
 }
 
 button {
   padding: calc(var(--space) / 2) calc(var(--space) / 1.5);
+}
+
+.pull-right {
+  margin-left: auto;
 }

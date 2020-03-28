@@ -109,7 +109,7 @@ export class EventsService {
       title: data.title,
       price: data.price,
       description: data.description,
-      place: '56.0074051, 92.8726339',
+      place: data.place,
       date: data.date,
     };
     return this.http.post<EventDto>(`${this.EVENTS_URL}`, body)

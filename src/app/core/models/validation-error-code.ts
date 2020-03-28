@@ -38,6 +38,10 @@ export enum ValidationErrorCode {
    * Jus law error.
    */
   AppError = 'appError',
+  /**
+   * Address was entered not fully.
+   */
+  IncorrectAddress = 'incorrectAddress',
 }
 
 /**

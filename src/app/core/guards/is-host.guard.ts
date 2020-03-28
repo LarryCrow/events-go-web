@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
 import { map } from 'rxjs/operators';
+
 import { Role } from '../models/role.enum';
+import { UserService } from '../services/user.service';
 
 /**
  * Checks if the current user is a host

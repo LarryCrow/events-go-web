@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { filter, first, switchMap, share, map, startWith, shareReplay } from 'rxjs/operators';
+import { filter, first, switchMap, map, startWith, shareReplay } from 'rxjs/operators';
+import { AddressesService } from 'src/app/core/services/addresses.service';
 
 import { Event } from '../../../core/models/event';
 import { MapOptions } from '../../../core/models/map-options';
@@ -40,6 +41,10 @@ export class EventDetailsComponent {
    * Is a user a host of an event.
    */
   public isUserHost$: Observable<boolean>;
+  /**
+   * Name to display event address.
+   */
+  public readbleName$: Observable<string>;
 
   private readonly update$ = new BehaviorSubject<void>(null);
 
@@ -51,6 +56,7 @@ export class EventDetailsComponent {
    * @param dialogService Dialog service.
    * @param userService User service.
    * @param router Router.
+   * @param addressService Addresses service.
    */
   public constructor(
     private readonly eventsService: EventsService,
@@ -58,6 +64,7 @@ export class EventDetailsComponent {
     private readonly dialogService: DialogService,
     private readonly userService: UserService,
     private readonly router: Router,
+    private readonly addressService: AddressesService,
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     this.event$ = this.update$
@@ -69,6 +76,12 @@ export class EventDetailsComponent {
         }),
       );
 
+    this.readbleName$ = this.event$
+      .pipe(
+        first(),
+        switchMap((event) => this.addressService.getAddressByCoordinates(event.place)),
+        map((address) => address.value),
+      );
     this.userService.currentUser$
       .pipe(
         first(),

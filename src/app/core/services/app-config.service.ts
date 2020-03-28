@@ -11,4 +11,6 @@ import { environment } from '../../../environments/environment';
 export class AppConfig {
   /** Base URL. */
   public readonly baseUrl = environment.baseUrl;
+  /** Base URL for Dadata API. */
+  public readonly baseDadatasUrl = environment.baseDadataUrl;
 }

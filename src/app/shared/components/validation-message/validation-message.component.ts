@@ -24,6 +24,7 @@ const ValidationErrorMessageFactories = {
   [ValidationErrorCode.AppError]: ({ message }: AppErrorData) => message,
   [ValidationErrorCode.Min]: ({ actual, min }: MinValueErrorData) => `Минимальное значение ${min}`,
   [ValidationErrorCode.Max]: ({ actual, max }: MaxValueErrorData) => `Максимальное значение ${max}`,
+  [ValidationErrorCode.IncorrectAddress]: () => 'Некорректный адрес.',
 };
 
 /**

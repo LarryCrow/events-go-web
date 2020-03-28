@@ -12,4 +12,6 @@ export interface SaveEventModel {
   description: string;
   /** Date */
   date: string;
+  /** Place */
+  place: string;
 }
