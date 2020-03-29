@@ -62,7 +62,7 @@ export class HostRegistrationFormComponent {
       email: this.form.value.email as string,
       pass: this.form.value.pass as string,
       name: this.form.value.name as string,
-      avatar: this.form.value.avatar as string,
+      avatar: this.form.value.avatar,
     };
     this.authService.registerHost(data)
       .pipe(
@@ -127,7 +127,7 @@ export class HostRegistrationFormComponent {
       email: [null, [Validators.email, Validators.required]],
       pass: [null, [Validators.required, Validators.minLength(5)]],
       name: [null, [Validators.required]],
-      avatar: [null],
+      avatar: [null, [Validators.required]],
     });
   }
 }

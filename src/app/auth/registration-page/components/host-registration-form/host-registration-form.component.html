@@ -1,16 +1,16 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="onFormSubmit()" class="margin">
   <label>
-    <span>Email</span>
+    <span>Email*</span>
     <input type="text" type="email" formControlName="email" />
     <ego-form-control-validation-message controlName="email"></ego-form-control-validation-message>
   </label>
   <label>
-    <span>Пароль</span>
+    <span>Пароль*</span>
     <input type="text" type="password" formControlName="pass" />
     <ego-form-control-validation-message controlName="pass"></ego-form-control-validation-message>
   </label>
   <label>
-    <span>Название организации</span>
+    <span>Название организации*</span>
     <input type="text" type="text" formControlName="name" />
     <ego-form-control-validation-message controlName="name"></ego-form-control-validation-message>
   </label>
@@ -24,6 +24,7 @@
       </button>
     </div>
     <p *ngIf="avatarError" class="avatar-error">{{avatarError}}</p>
+    <ego-form-control-validation-message controlName="avatar"></ego-form-control-validation-message>
   </div>
   <button class="primary submit-btn" type="submit">Вперёд</button>
   <div class="errors">

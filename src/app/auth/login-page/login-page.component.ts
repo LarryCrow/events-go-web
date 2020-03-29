@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 /**
  * Login page.
