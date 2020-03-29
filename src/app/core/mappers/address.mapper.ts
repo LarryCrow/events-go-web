@@ -20,8 +20,8 @@ export class AddressMapper {
       unstrictedValue: dto.unrestricted_value,
       isBuilding: dto.data.house_type ? true : false,
       coords: dto.data.geo_lat && dto.data.geo_lon && new Coords({
-        lat: parseInt(dto.data.geo_lat, 10) || null,
-        lon: parseInt(dto.data.geo_lon, 10) || null,
+        lat: parseFloat(dto.data.geo_lat) || null,
+        lon: parseFloat(dto.data.geo_lon) || null,
       }) || null,
     });
   }

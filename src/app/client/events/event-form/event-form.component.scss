@@ -46,10 +46,10 @@ form {
   }
 }
 
-button {
-  padding: calc(var(--space) / 2) calc(var(--space) / 1.5);
+textarea {
+  resize: none;
 }
 
-.pull-right {
-  margin-left: auto;
+button {
+  padding: calc(var(--space) / 2) calc(var(--space) / 1.5);
 }

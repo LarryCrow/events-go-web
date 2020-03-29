@@ -45,7 +45,7 @@ export class EditEventPageComponent {
    * @param eventToSave Event object.
    */
   public onFormSave(eventToSave: SaveEventModel): void {
-    this.eventService.create(eventToSave)
+    this.eventService.update(eventToSave)
       .pipe(first())
       .subscribe(() => {
         this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 3000 });

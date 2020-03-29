@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable, of } from 'rxjs';
-import { switchMap, first, tap, debounceTime, filter } from 'rxjs/operators';
+import { Observable, of, ReplaySubject, merge, NEVER } from 'rxjs';
+import { switchMap, tap, debounceTime, filter, switchMapTo, startWith } from 'rxjs/operators';
 import { Address, Coords } from 'src/app/core/models/address';
 import { Event } from 'src/app/core/models/event';
 import { SaveEventModel } from 'src/app/core/models/save-event';
@@ -17,7 +17,7 @@ import { AddressesService } from 'src/app/core/services/addresses.service';
   styleUrls: ['./event-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EventFormComponent {
+export class EventFormComponent implements OnInit {
   /**
    * Event object.
    */
@@ -41,14 +41,26 @@ export class EventFormComponent {
    */
   public minDate = new Date();
 
+  private init$ = new ReplaySubject(1);
   private selectedAddressCoords: Coords;
 
+  /**
+   * @constructor
+   *
+   * @param fb Form builder.
+   * @param addressesService Addresses service.
+   */
   public constructor(
     private readonly fb: FormBuilder,
     private readonly addressesService: AddressesService,
   ) {
     this.form$ = this.initFormStream();
     this.addresses$ = this.initAddressesForAutocompleteStream(this.form$);
+  }
+
+  /** @inheritdoc */
+  public ngOnInit(): void {
+    this.init$.next();
   }
 
   /**
@@ -61,11 +73,8 @@ export class EventFormComponent {
     if (form.invalid) {
       return;
     }
-    if (!this.selectedAddressCoords) {
-      form.controls.address.setErrors({ 'incorrectAddress': true });
-      return;
-    }
     const eventToSave = {
+      id: this.event ? this.event.id : undefined,
       title: form.value.title,
       date: form.value.date.toISOString(),
       description: form.value.description,
@@ -83,10 +92,8 @@ export class EventFormComponent {
   public onAddressSelect(value: MatAutocompleteSelectedEvent): void {
     const selectedAddress = value.option.value as Address;
     this.addressesService.getCoordinatesByAddress(selectedAddress.unstrictedValue)
-      .pipe(
-        first(),
-        filter((address) => address.isBuilding),
-      ).subscribe((address) => (this.selectedAddressCoords = address.coords));
+      .pipe(filter((address) => address.isBuilding))
+      .subscribe((address) => (this.selectedAddressCoords = address.coords));
   }
 
   /**
@@ -98,43 +105,47 @@ export class EventFormComponent {
   }
 
   private initFormStream(): Observable<FormGroup> {
-    let form: FormGroup;
-    if (!this.event) {
-      form = this.fb.group({
-        'title': [null, [Validators.required, Validators.maxLength(50)]],
-        'price': [null, [Validators.required, Validators.min(0)]],
-        'date': [null, [Validators.required]],
-        'description': [null, [Validators.required]],
-        'avatar': [null],
-        'address': [null, [Validators.required, this.validateAddress.bind(this)]],
-      });
-    } else {
-      form = this.fb.group({
-        'title': [this.event.title, [Validators.required, Validators.maxLength(50)]],
-        'price': [this.event.price, [Validators.required, Validators.min(0)]],
-        'date': [this.event.date, [Validators.required]],
-        'description': [this.event.description, [Validators.required]],
-        'avatar': [null],
-        'address': [null, [Validators.required]],
-      });
-    }
-    return of(form);
+    const form = this.createForm();
+    return merge(of(form), this.fillFormWithValues(form));
+  }
+
+  private createForm(): FormGroup {
+    return this.fb.group({
+      title: [null, [Validators.required, Validators.maxLength(50)]],
+      price: [null, [Validators.required, Validators.min(0)]],
+      date: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      avatar: [null],
+      address: [null, [Validators.required]],
+    });
+  }
+
+  private fillFormWithValues(form: FormGroup): Observable<never> {
+    return this.init$.pipe(
+      switchMap(() => this.event ? this.addressesService.getAddressByCoordinates(this.event.place) : NEVER),
+      tap((address) => {
+        form.patchValue({
+          title: this.event.title,
+          price: this.event.price,
+          date: this.event.date,
+          description: this.event.description,
+          // avatar: this.event,
+          address: address,
+        }, { emitEvent: false });
+        this.selectedAddressCoords = address.coords;
+      }),
+      switchMapTo(NEVER),
+    );
   }
 
   private initAddressesForAutocompleteStream(form$: Observable<FormGroup>): Observable<Address[]> {
     return form$
       .pipe(
         switchMap((form) => form.controls.address.valueChanges),
+        startWith(''),
         filter(addressQuery => typeof addressQuery === 'string'),
         debounceTime(500),
         switchMap((addressQuery) => this.addressesService.suggestAddress(addressQuery)),
-        tap((val) => console.log(val)),
       );
-  }
-
-  private validateAddress(control: AbstractControl): ValidationErrors | null {
-    return this.selectedAddressCoords
-      ? null
-      : { incorrectAddress: true } as ValidationErrors;
   }
 }
