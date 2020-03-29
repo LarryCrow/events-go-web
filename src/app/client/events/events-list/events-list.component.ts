@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { EventsService } from '../../../core/services/events.service';
   selector: 'ego-events-list',
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventsListComponent {
   /**

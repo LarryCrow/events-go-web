@@ -1,33 +1,43 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { Event } from 'src/app/core/models/event';
 import { SaveEventModel } from 'src/app/core/models/save-event';
 import { EventsService } from 'src/app/core/services/events.service';
 
 /**
- * Create event page.
+ * Page to edit an event.
  */
 @Component({
-  selector: 'ego-create-event-page',
-  templateUrl: './create-event-page.component.html',
-  styleUrls: ['./create-event-page.component.scss'],
+  selector: 'ego-edit-event-page',
+  templateUrl: './edit-event-page.component.html',
+  styleUrls: ['./edit-event-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateEventPageComponent {
+export class EditEventPageComponent {
+  /**
+   * Event.
+   */
+  public readonly event$: Observable<Event>;
 
   /**
-   * @constructor
-   *
-   * @param eventService Event service.
-   * @param router Router.
-   * @param snackBar Material SnackBar.
-   */
+ * @constructor
+ *
+ * @param eventService Event service.
+ * @param snackBar Material SnackBar.
+ * @param route Activated route.
+ */
   public constructor(
     private readonly eventService: EventsService,
-    private readonly router: Router,
     private readonly snackBar: MatSnackBar,
-  ) { }
+    private readonly route: ActivatedRoute,
+  ) {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.event$ = this.eventService.getEvent(id)
+      .pipe(first());
+  }
 
   /**
    * Handle 'save' event of 'ego-event-form'.
@@ -35,11 +45,10 @@ export class CreateEventPageComponent {
    * @param eventToSave Event object.
    */
   public onFormSave(eventToSave: SaveEventModel): void {
-    this.eventService.create(eventToSave)
+    this.eventService.update(eventToSave)
       .pipe(first())
       .subscribe(() => {
         this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 3000 });
-        this.router.navigate(['/events']);
       });
   }
 }

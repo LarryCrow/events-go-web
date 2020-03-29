@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Event } from '../../../core/models/event';
@@ -10,6 +10,7 @@ import { Event } from '../../../core/models/event';
   selector: 'ego-event-list-item',
   templateUrl: './event-list-item.component.html',
   styleUrls: ['./event-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventListItemComponent {
   /**

@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { EventMapper } from '../mappers/event.mapper';
 import { Event } from '../models/event';
@@ -54,6 +54,15 @@ export class EventsService {
     return this.http.get<EventDto>(`${this.EVENTS_URL}${id}`)
       .pipe(
         map((event) => this.eventMapper.fromDto(event)),
+        catchError((err) => {
+          let message = 'Что-то пошло не так';
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 404) {
+              message = 'Событие с таким индетификатор не найдено.';
+            }
+          }
+          return throwError(new Error(message));
+        }),
       );
   }
 
@@ -122,6 +131,16 @@ export class EventsService {
    * Update event.
    */
   public update(data: SaveEventModel): Observable<any> {
-    return null;
+    const body = {
+      title: data.title,
+      price: data.price,
+      description: data.description,
+      place: data.place,
+      date: data.date,
+    };
+    return this.http.patch<EventDto>(`${this.EVENTS_URL}${data.id}/`, body)
+      .pipe(
+        map((res) => this.eventMapper.fromDto(res)),
+      );
   }
 }

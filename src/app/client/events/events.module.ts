@@ -11,6 +11,7 @@ import { IsHostGuard } from 'src/app/core/guards/is-host.guard';
 import { SharedModule } from '../../shared/shared.module';
 
 import { CreateEventPageComponent } from './create-event-page/create-event-page.component';
+import { EditEventPageComponent } from './edit-event-page/edit-event-page.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventListItemComponent } from './event-list-item/event-list-item.component';
@@ -29,7 +30,8 @@ const routes: Routes = [
   },
   {
     path: ':id/edit',
-    redirectTo: ':id',
+    component: EditEventPageComponent,
+    canActivate: [IsHostGuard],
   },
   {
     path: ':id',
@@ -47,6 +49,7 @@ const routes: Routes = [
     EventDetailsComponent,
     CreateEventPageComponent,
     EventFormComponent,
+    EditEventPageComponent,
   ],
   imports: [
     CommonModule,

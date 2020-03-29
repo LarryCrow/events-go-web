@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   selector: 'ego-client-registration-form',
   templateUrl: './client-registration-form.component.html',
   styleUrls: ['./client-registration-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientRegistrationFormComponent {
   /**
