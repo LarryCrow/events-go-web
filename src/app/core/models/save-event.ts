@@ -14,4 +14,8 @@ export interface SaveEventModel {
   date: string;
   /** Place */
   place: string;
+  /** File */
+  avatar: File;
+  /** Event type id. */
+  type_id: number;
 }

@@ -24,6 +24,8 @@ export class Event {
   public isCanceled: boolean;
   /** Is complete. */
   public isComplete: boolean;
+  /** Avatar */
+  public avatar: string;
 
   public constructor(data: Partial<Event>) {
     this.id = data.id;
@@ -36,5 +38,6 @@ export class Event {
     this.participations = data.participations;
     this.isCanceled = data.isCanceled;
     this.isComplete = data.isComplete;
+    this.avatar = data.avatar;
   }
 }

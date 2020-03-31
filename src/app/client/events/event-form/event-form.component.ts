@@ -80,6 +80,8 @@ export class EventFormComponent implements OnInit {
       description: form.value.description,
       price: form.value.price,
       place: this.selectedAddressCoords.getStringCoords(),
+      avatar: form.value.avatar,
+      type_id: 1,
     } as SaveEventModel;
 
     this.save.emit(eventToSave);
@@ -115,7 +117,7 @@ export class EventFormComponent implements OnInit {
       price: [null, [Validators.required, Validators.min(0)]],
       date: [null, [Validators.required]],
       description: [null, [Validators.required]],
-      avatar: [null],
+      avatar: [null, [Validators.required]],
       address: [null, [Validators.required]],
     });
   }
@@ -129,8 +131,8 @@ export class EventFormComponent implements OnInit {
           price: this.event.price,
           date: this.event.date,
           description: this.event.description,
-          // avatar: this.event,
           address: address,
+          avatar: this.event.avatar,
         }, { emitEvent: false });
         this.selectedAddressCoords = address.coords;
       }),

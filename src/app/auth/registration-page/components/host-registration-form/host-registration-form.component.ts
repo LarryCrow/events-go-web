@@ -83,9 +83,9 @@ export class HostRegistrationFormComponent {
   }
 
   /**
- * Handle file input.
- * @param event - Event.
- */
+   * Handle file input.
+   * @param event - Event.
+   */
   public handleFileInput(event: Event): void {
     this.avatarError = '';
     const available_types = [

@@ -29,6 +29,7 @@ export class EventMapper {
       place: this.getCoordinates(dto.place),
       price: dto.price,
       title: dto.title,
+      avatar: dto.avatar,
     });
   }
 

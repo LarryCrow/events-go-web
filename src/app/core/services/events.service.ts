@@ -99,9 +99,6 @@ export class EventsService {
    * @param eventId Event id.
    */
   public isUserSubscribed(eventId: number): Observable<boolean> {
-    const body = {
-      event_id: eventId,
-    };
     return this.http.get(`${this.SUBSCRIPTION_URL}${eventId}`)
       .pipe(
         map((res) => res['is_subscribed']),
@@ -114,14 +111,15 @@ export class EventsService {
    * @param data Data to create an event.
    */
   public create(data: SaveEventModel): Observable<Event> {
-    const body = {
-      title: data.title,
-      price: data.price,
-      description: data.description,
-      place: data.place,
-      date: data.date,
-    };
-    return this.http.post<EventDto>(`${this.EVENTS_URL}`, body)
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('price', data.price.toString());
+    formData.append('description', data.description);
+    formData.append('place', data.place);
+    formData.append('date', data.date);
+    formData.append('avatar', data.avatar);
+    formData.append('type_id', data.type_id.toString());
+    return this.http.post<EventDto>(`${this.EVENTS_URL}`, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
       );

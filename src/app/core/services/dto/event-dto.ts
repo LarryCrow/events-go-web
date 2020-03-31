@@ -24,4 +24,6 @@ export interface EventDto {
   is_canceled: boolean;
   /** Is complete. */
   is_complete: boolean;
+  /** Avatar. */
+  avatar: string;
 }
