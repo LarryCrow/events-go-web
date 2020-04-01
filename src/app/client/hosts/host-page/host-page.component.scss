@@ -1,0 +1,14 @@
+.container {
+  width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.unscrollable {
+  display: fixed;
+}
+
+.description {
+  flex-basis: 300px;
+}
