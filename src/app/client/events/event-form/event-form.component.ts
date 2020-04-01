@@ -2,11 +2,13 @@ import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, of, ReplaySubject, merge, NEVER } from 'rxjs';
-import { switchMap, tap, debounceTime, filter, switchMapTo, startWith } from 'rxjs/operators';
+import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share } from 'rxjs/operators';
 import { Address, Coords } from 'src/app/core/models/address';
 import { Event } from 'src/app/core/models/event';
 import { SaveEventModel } from 'src/app/core/models/save-event';
 import { AddressesService } from 'src/app/core/services/addresses.service';
+import { EventType } from 'src/app/core/models/event-type';
+import { EventTypesService } from 'src/app/core/services/event-types.service';
 
 /**
  * Form to create or edit event.
@@ -37,6 +39,10 @@ export class EventFormComponent implements OnInit {
    */
   public readonly addresses$: Observable<Address[]>;
   /**
+   * Event types.
+   */
+  public readonly types$: Observable<EventType[]>;
+  /**
    * Min date for matDatePicker
    */
   public minDate = new Date();
@@ -53,9 +59,11 @@ export class EventFormComponent implements OnInit {
   public constructor(
     private readonly fb: FormBuilder,
     private readonly addressesService: AddressesService,
+    private readonly eventTypeService: EventTypesService,
   ) {
     this.form$ = this.initFormStream();
     this.addresses$ = this.initAddressesForAutocompleteStream(this.form$);
+    this.types$ = this.initTypesStream();
   }
 
   /** @inheritdoc */
@@ -80,8 +88,8 @@ export class EventFormComponent implements OnInit {
       description: form.value.description,
       price: form.value.price,
       place: this.selectedAddressCoords.getStringCoords(),
-      avatar: form.value.avatar,
-      type_id: 1,
+      avatar: form.value.avatar instanceof File ? form.value.avatar : null,
+      type_id: form.value.type,
     } as SaveEventModel;
 
     this.save.emit(eventToSave);
@@ -119,6 +127,7 @@ export class EventFormComponent implements OnInit {
       description: [null, [Validators.required]],
       avatar: [null, [Validators.required]],
       address: [null, [Validators.required]],
+      type: [null, [Validators.required]],
     });
   }
 
@@ -133,6 +142,7 @@ export class EventFormComponent implements OnInit {
           description: this.event.description,
           address: address,
           avatar: this.event.avatar,
+          type: this.event.type.id,
         }, { emitEvent: false });
         this.selectedAddressCoords = address.coords;
       }),
@@ -149,5 +159,10 @@ export class EventFormComponent implements OnInit {
         debounceTime(500),
         switchMap((addressQuery) => this.addressesService.suggestAddress(addressQuery)),
       );
+  }
+
+  private initTypesStream(): Observable<EventType[]> {
+    return this.eventTypeService.getEventTypes()
+      .pipe(share());
   }
 }

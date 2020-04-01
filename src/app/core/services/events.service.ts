@@ -129,14 +129,17 @@ export class EventsService {
    * Update event.
    */
   public update(data: SaveEventModel): Observable<any> {
-    const body = {
-      title: data.title,
-      price: data.price,
-      description: data.description,
-      place: data.place,
-      date: data.date,
-    };
-    return this.http.patch<EventDto>(`${this.EVENTS_URL}${data.id}/`, body)
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('price', data.price.toString());
+    formData.append('description', data.description);
+    formData.append('place', data.place);
+    formData.append('date', data.date);
+    if (data.avatar) {
+      formData.append('avatar', data.avatar);
+    }
+    formData.append('type_id', data.type_id.toString());
+    return this.http.patch<EventDto>(`${this.EVENTS_URL}${data.id}/`, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
       );

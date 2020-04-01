@@ -11,6 +11,9 @@
         <a [routerLink]="['/host', event.host.id]">{{ event.host.name }}</a>
       </p>
       <p>
+        Тип мероприятия: {{event.type.value}}
+      </p>
+      <p>
         Дата проведения: <span>{{event.date | date:'dd/MM/yyyy'}}</span>
       </p>
       <p>

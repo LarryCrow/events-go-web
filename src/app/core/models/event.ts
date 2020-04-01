@@ -1,4 +1,5 @@
 import { Host } from './host';
+import { EventType } from './event-type';
 
 /**
  * Event model.
@@ -26,6 +27,8 @@ export class Event {
   public isComplete: boolean;
   /** Avatar */
   public avatar: string;
+  /** Type */
+  public type: EventType;
 
   public constructor(data: Partial<Event>) {
     this.id = data.id;
@@ -39,5 +42,6 @@ export class Event {
     this.isCanceled = data.isCanceled;
     this.isComplete = data.isComplete;
     this.avatar = data.avatar;
+    this.type = data.type;
   }
 }

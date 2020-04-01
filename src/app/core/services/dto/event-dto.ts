@@ -1,3 +1,4 @@
+import { EventTypeDto } from './event-type-dto';
 import { HostDto } from './host-dto';
 
 /**
@@ -26,4 +27,6 @@ export interface EventDto {
   is_complete: boolean;
   /** Avatar. */
   avatar: string;
+  /** Type */
+  type: EventTypeDto;
 }

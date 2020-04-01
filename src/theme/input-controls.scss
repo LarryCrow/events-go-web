@@ -17,6 +17,12 @@ select {
   border-radius: var(--input-border-radius);
 }
 
+input,
+select,
+textarea {
+  background-color: var(--primary-contrast-color);
+}
+
 button {
   border: none;
   text-align: center;
