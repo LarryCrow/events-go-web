@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let event of events; trackBy: trackEvent">
+    <ego-event-list-item [event]="event">
+    </ego-event-list-item>
+  </li>
+</ul>

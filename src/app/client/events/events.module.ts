@@ -14,14 +14,13 @@ import { CreateEventPageComponent } from './create-event-page/create-event-page.
 import { EditEventPageComponent } from './edit-event-page/edit-event-page.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventFormComponent } from './event-form/event-form.component';
-import { EventListItemComponent } from './event-list-item/event-list-item.component';
-import { EventsListComponent } from './events-list/events-list.component';
+import { EventsPageComponent } from './events-list/events-page.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: EventsListComponent,
+    component: EventsPageComponent,
   },
   {
     path: 'create',
@@ -44,8 +43,7 @@ const routes: Routes = [
  */
 @NgModule({
   declarations: [
-    EventsListComponent,
-    EventListItemComponent,
+    EventsPageComponent,
     EventDetailsComponent,
     CreateEventPageComponent,
     EventFormComponent,

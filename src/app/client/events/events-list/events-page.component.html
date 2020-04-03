@@ -4,10 +4,5 @@
     <button class="search-btn filters">Ф</button>
     <button class="search-btn search" (click)="searchValue()">П</button>
   </div>
-  <ul>
-    <li *ngFor="let event of events$ | async">
-      <ego-event-list-item [event]="event">
-      </ego-event-list-item>
-    </li>
-  </ul>
+  <ego-events-list [events]="events$ | async"></ego-events-list>
 </div>

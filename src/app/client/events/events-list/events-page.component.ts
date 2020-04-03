@@ -11,12 +11,12 @@ import { EventsService } from '../../../core/services/events.service';
  * Events list page.
  */
 @Component({
-  selector: 'ego-events-list',
-  templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.scss'],
+  selector: 'ego-events-page',
+  templateUrl: './events-page.component.html',
+  styleUrls: ['./events-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EventsListComponent {
+export class EventsPageComponent {
   /**
    * Events list.
    */

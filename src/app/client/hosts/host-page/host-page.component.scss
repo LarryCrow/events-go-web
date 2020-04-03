@@ -1,14 +1,43 @@
-.container {
+:host {
+  --space: 20px;
+
   width: 1000px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  padding: var(--space) 0;
 }
 
 .unscrollable {
   display: fixed;
+  position: sticky;
+  top: var(--space);
+  height: 100%;
 }
 
 .description {
   flex-basis: 300px;
+  padding-right: var(--space);
+}
+
+.avatar {
+  height: 300px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.events {
+  flex-basis: 700px;
+  padding-left: var(--space);
+}
+
+.events header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
