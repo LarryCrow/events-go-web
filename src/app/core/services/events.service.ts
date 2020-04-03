@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { SaveEventModel } from '../models/save-event';
 import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
 import { SubscriptionDto } from './dto/subscription-dto';
+import { createHttpParams } from 'src/app/shared/utils/http-params';
 
 /**
  * Events service.
@@ -39,8 +40,8 @@ export class EventsService {
    */
   public getEvents(filters?: EventSearchFilters): Observable<Event[]> {
     const url = new URL('', this.EVENTS_URL);
-    url.searchParams.set('title', filters.title || '');
-    return this.http.get<EventDto[]>(url.toString())
+    const params = createHttpParams(filters);
+    return this.http.get<EventDto[]>(url.toString(), { params })
       .pipe(
         map((events) => events.map(event => this.eventMapper.fromDto(event))),
       );

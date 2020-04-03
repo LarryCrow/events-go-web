@@ -1,8 +1,9 @@
-<div class="container">
+<div class="container" *ngIf="host$ | async as host">
   <div class="description unscrollable">
     <div class="img">
       <img src="#">
     </div>
+    <h1>{{host.name}}</h1>
     <button>Подписаться</button>
     <p>Количество подписчиков: </p>
     <p>Социальные сети:</p>
@@ -13,6 +14,11 @@
     </ul>
   </div>
   <div class="event">
+    <ul>
+      <li *ngFor="let event of events$ | async">
+        {{event.title}}
+      </li>
+    </ul>
     Список событий
   </div>
 </div>

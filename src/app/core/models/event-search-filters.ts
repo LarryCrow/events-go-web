@@ -1,17 +1,13 @@
 /**
  * Filters for event searching.
  */
-export class EventSearchFilters {
+export interface EventSearchFilters {
   /**
    * Event title.
    */
-  public title: string;
-
+  title?: string;
   /**
-   * @constructor
-   * @param data - Initial data.
+   * Host ID.
    */
-  public constructor(data: Partial<EventSearchFilters>) {
-    this.title = data.title;
-  }
+  hostId?: number;
 }

@@ -26,9 +26,7 @@ export class EventsListComponent {
    */
   public inputControl = new FormControl('');
 
-  private filters = new EventSearchFilters({});
-
-  private searchValue$ = new BehaviorSubject<EventSearchFilters>(this.filters);
+  private searchValue$ = new BehaviorSubject<EventSearchFilters>({});
 
   /**
    * @constructor
@@ -46,7 +44,9 @@ export class EventsListComponent {
    * Handle search button click.
    */
   public searchValue(): void {
-    this.filters.title = this.inputControl.value;
-    this.searchValue$.next(this.filters);
+    const filters = {
+      title: this.inputControl.value,
+    } as EventSearchFilters;
+    this.searchValue$.next(filters);
   }
 }
