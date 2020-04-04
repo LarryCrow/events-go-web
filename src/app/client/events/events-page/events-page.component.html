@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="search-block">
+    <input
+      [formControl]="inputControl"
+      placeholder="Введите название события или имя организатора"
+    />
+    <button class="search-btn filters">Ф</button>
+    <button class="search-btn search" (click)="searchValue()">П</button>
+  </div>
+  <ng-container *ngIf="events$ | async as events">
+    <ego-events-list [events]="events"></ego-events-list>
+  </ng-container>
+</div>

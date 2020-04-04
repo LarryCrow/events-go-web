@@ -1,13 +1,28 @@
 /**
  * Filters for event searching.
  */
-export interface EventSearchFilters {
+export class EventSearchFilters {
   /**
    * Event title.
    */
-  title?: string;
+  public title?: string;
+  /**
+   * Host name.
+   */
+  public host?: string;
   /**
    * Host ID.
    */
-  hostId?: number;
+  public host_id?: number;
+  /**
+   * Only upcoming events.
+   */
+  public upcoming?: boolean = true;
+
+  public constructor(date: Partial<EventSearchFilters>) {
+    this.title = date.title;
+    this.host = date.host;
+    this.host_id = date.host_id;
+    this.upcoming = date.upcoming;
+  }
 }

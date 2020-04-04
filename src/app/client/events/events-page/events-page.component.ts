@@ -26,7 +26,7 @@ export class EventsPageComponent {
    */
   public inputControl = new FormControl('');
 
-  private searchValue$ = new BehaviorSubject<EventSearchFilters>({});
+  private searchValue$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
 
   /**
    * @constructor

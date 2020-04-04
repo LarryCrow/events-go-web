@@ -1,8 +1,0 @@
-<div class="container">
-  <div class="search-block">
-    <input [formControl]="inputControl" placeholder="Введите название события или имя организатора" />
-    <button class="search-btn filters">Ф</button>
-    <button class="search-btn search" (click)="searchValue()">П</button>
-  </div>
-  <ego-events-list [events]="events$ | async"></ego-events-list>
-</div>

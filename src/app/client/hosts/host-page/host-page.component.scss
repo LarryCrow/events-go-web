@@ -1,5 +1,5 @@
 :host {
-  --space: 20px;
+  --space: 10px;
 
   width: 1000px;
   margin: 0 auto;
@@ -17,7 +17,11 @@
 
 .description {
   flex-basis: 300px;
-  padding-right: var(--space);
+  padding-right: calc(var(--space) * 2);
+
+  & > * {
+    margin-bottom: calc(var(--space) * 1.5);
+  }
 }
 
 .avatar {
@@ -30,9 +34,30 @@ img {
   object-fit: cover;
 }
 
+.subscribe {
+  padding: var(--space);
+}
+
+.social-media {
+  li {
+    margin-bottom: calc(var(--space) * 1.5);
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    width: 25px;
+    height: 25px;
+    margin-right: var(--space);
+  }
+}
+
 .events {
   flex-basis: 700px;
-  padding-left: var(--space);
+  padding-left: calc(var(--space) * 2);
 }
 
 .events header {
@@ -40,4 +65,5 @@ img {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: calc(var(--space) * 2);
 }

@@ -1,11 +1,22 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { Event } from 'src/app/core/models/event';
 import { Host } from 'src/app/core/models/host';
 import { EventsService } from 'src/app/core/services/events.service';
 import { HostsService } from 'src/app/core/services/hosts.service';
+import { EventSearchFilters } from 'src/app/core/models/event-search-filters';
+
+/**
+ * List of modes.
+ */
+enum ListMode {
+  /** Display all events */
+  All,
+  /** Display upcoming events. */
+  Upcoming,
+}
 
 /**
  * Host page.
@@ -25,6 +36,14 @@ export class HostPageComponent {
    * Events list.
    */
   public readonly events$: Observable<Event[]>;
+  /**
+   * Control which items should be displayed.
+   */
+  public readonly listMode$ = new BehaviorSubject<ListMode>(ListMode.Upcoming);
+  /**
+   * Available modes.
+   */
+  public readonly modes = ListMode;
 
   /**
    * @constructor
@@ -43,6 +62,14 @@ export class HostPageComponent {
     this.events$ = this.initEventsStream();
   }
 
+  /**
+   * Handle 'click' event of the 'Показат всё' button.
+   */
+  public toggleListMode(value: ListMode): void {
+    this.listMode$.next(value);
+    console.log('TODO: Implement after filters are ready at backend.');
+  }
+
   private initHostStream(id: number): Observable<Host> {
     return this.hostService.getHost(id)
       .pipe(
@@ -54,13 +81,23 @@ export class HostPageComponent {
   }
 
   private initEventsStream(): Observable<Event[]> {
-    return this.host$
+    return combineLatest([
+      this.host$,
+      this.listMode$,
+    ])
       .pipe(
-        switchMap((host) => this.eventService.getEvents({ hostId: host.id })),
+        switchMap(([host, mode]) => this.eventService.getEvents(this.getSearchFilters(host.id, mode))),
         shareReplay({
           refCount: true,
           bufferSize: 1,
         }),
       );
+  }
+
+  private getSearchFilters(host_id: number, mode: ListMode): EventSearchFilters {
+    return new EventSearchFilters({
+      host_id: host_id,
+      upcoming: mode === ListMode.Upcoming,
+    });
   }
 }

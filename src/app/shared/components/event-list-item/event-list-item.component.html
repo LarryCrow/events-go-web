@@ -4,7 +4,9 @@
   </div>
   <div class="body">
     <h2 class="title">
-      <a [routerLink]="event.id">{{ event.title }}</a>
+      <a [routerLink]="['/events', event.id]" routerLinkAbsolute="true">{{
+        event.title
+      }}</a>
     </h2>
     <p>{{ event.description }}</p>
   </div>

@@ -14,7 +14,7 @@ import { CreateEventPageComponent } from './create-event-page/create-event-page.
 import { EditEventPageComponent } from './edit-event-page/edit-event-page.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventFormComponent } from './event-form/event-form.component';
-import { EventsPageComponent } from './events-list/events-page.component';
+import { EventsPageComponent } from './events-page/events-page.component';
 
 const routes: Routes = [
   {
