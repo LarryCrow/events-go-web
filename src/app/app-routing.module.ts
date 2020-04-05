@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./client/events/events.module').then(m => m.EventsModule),
   },
   {
+    path: 'hosts',
+    loadChildren: () => import('./client/hosts/hosts.module').then(m => m.HostsModule),
+  },
+  {
     path: '**',
     redirectTo: 'events',
   },

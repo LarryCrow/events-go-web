@@ -1,0 +1,54 @@
+<ng-container *ngIf="host$ | async as host">
+  <div class="description unscrollable">
+    <div class="avatar">
+      <img [src]="host.avatar" />
+    </div>
+    <h1>{{ host.name }}</h1>
+    <p>Социальные сети:</p>
+    <ul class="social-media">
+      <li>
+        <a href="instagram.com">
+          <img src="/assets/icon/instagram.svg" />
+          Instagram
+        </a>
+      </li>
+      <li>
+        <a href="vk.com"><img src="assets/icon/vk.svg" />VK</a>
+      </li>
+      <li>
+        <a href="twitter.com"><img src="assets/icon/twitter.svg" />Twitter</a>
+      </li>
+      <li>
+        <a href="tg.com"><img src="assets/icon/telegram.svg" />Telegram</a>
+      </li>
+    </ul>
+  </div>
+  <div class="events" *ngIf="events$ | async as events">
+    <header *ngIf="(listMode$ | async) === modes.Upcoming; else allEvents">
+      <h2>Предстоящие события:</h2>
+      <button
+        class="clear"
+        type="button"
+        name="Показать все события"
+        (click)="toggleListMode(modes.All)"
+      >
+        Показать все
+      </button>
+    </header>
+    <ego-events-list [events]="events"></ego-events-list>
+  </div>
+</ng-container>
+
+<ng-template #allEvents>
+  <header>
+    <h2>Все события:</h2>
+    <button
+      class="clear"
+      type="button"
+      name="Показать предстоящие события"
+      (click)="toggleListMode(modes.Upcoming)"
+    >
+      Показать предстоящие
+    </button>
+  </header>
+</ng-template>

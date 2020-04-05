@@ -1,17 +1,21 @@
 .event {
-  display: grid;
-  grid-template-columns: 180px 520px 100px;
-  grid-template-rows: 140px;
+  display: flex;
+  height: 140px;
 }
 
-.avatar img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+.avatar {
+  flex-basis: 140px;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .body {
   padding: 0 15px;
+  flex: 4;
 
   .title {
     white-space: nowrap;
@@ -29,5 +33,6 @@
 }
 
 .date {
+  flex: 1;
   text-align: right;
 }

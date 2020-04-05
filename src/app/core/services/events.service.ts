@@ -1,7 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { createHttpParams } from 'src/app/shared/utils/http-params';
 
 import { EventMapper } from '../mappers/event.mapper';
 import { Event } from '../models/event';
@@ -19,7 +20,7 @@ import { SubscriptionDto } from './dto/subscription-dto';
   providedIn: 'root',
 })
 export class EventsService {
-  private readonly EVENTS_URL = `${this.appConfig.baseUrl}events/`;
+  private readonly EVENTS_URL = `${this.appConfig.baseUrl}events`;
   private readonly SUBSCRIPTION_URL = `${this.appConfig.baseUrl}subscription/`;
 
   /**
@@ -38,9 +39,8 @@ export class EventsService {
    * Gets list of events.
    */
   public getEvents(filters?: EventSearchFilters): Observable<Event[]> {
-    const url = new URL('', this.EVENTS_URL);
-    url.searchParams.set('title', filters.title || '');
-    return this.http.get<EventDto[]>(url.toString())
+    const params = createHttpParams(filters);
+    return this.http.get<EventDto[]>(this.EVENTS_URL, { params })
       .pipe(
         map((events) => events.map(event => this.eventMapper.fromDto(event))),
       );
@@ -51,7 +51,7 @@ export class EventsService {
    * @param id - Event id.
    */
   public getEvent(id: number | string): Observable<Event> {
-    return this.http.get<EventDto>(`${this.EVENTS_URL}${id}`)
+    return this.http.get<EventDto>(`${this.EVENTS_URL}/${id}`)
       .pipe(
         map((event) => this.eventMapper.fromDto(event)),
         catchError((err) => {
@@ -119,7 +119,7 @@ export class EventsService {
     formData.append('date', data.date);
     formData.append('avatar', data.avatar);
     formData.append('type_id', data.type_id.toString());
-    return this.http.post<EventDto>(`${this.EVENTS_URL}`, formData)
+    return this.http.post<EventDto>(`${this.EVENTS_URL}/`, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
       );
@@ -139,7 +139,7 @@ export class EventsService {
       formData.append('avatar', data.avatar);
     }
     formData.append('type_id', data.type_id.toString());
-    return this.http.patch<EventDto>(`${this.EVENTS_URL}${data.id}/`, formData)
+    return this.http.patch<EventDto>(`${this.EVENTS_URL}/${data.id}/`, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
       );

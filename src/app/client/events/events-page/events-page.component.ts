@@ -11,12 +11,12 @@ import { EventsService } from '../../../core/services/events.service';
  * Events list page.
  */
 @Component({
-  selector: 'ego-events-list',
-  templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.scss'],
+  selector: 'ego-events-page',
+  templateUrl: './events-page.component.html',
+  styleUrls: ['./events-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EventsListComponent {
+export class EventsPageComponent {
   /**
    * Events list.
    */
@@ -26,12 +26,12 @@ export class EventsListComponent {
    */
   public inputControl = new FormControl('');
 
-  private filters = new EventSearchFilters({});
-
-  private searchValue$ = new BehaviorSubject<EventSearchFilters>(this.filters);
+  private searchValue$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
 
   /**
    * @constructor
+   *
+   * @param eventsService Event service.
    */
   public constructor(
     private readonly eventsService: EventsService,
@@ -46,7 +46,9 @@ export class EventsListComponent {
    * Handle search button click.
    */
   public searchValue(): void {
-    this.filters.title = this.inputControl.value;
-    this.searchValue$.next(this.filters);
+    const filters = {
+      title: this.inputControl.value,
+    } as EventSearchFilters;
+    this.searchValue$.next(filters);
   }
 }

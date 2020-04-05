@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay, map } from 'rxjs/operators';
 
-import { AppConfig } from './app-config.service';
 import { EventTypeMapper } from '../mappers/event-type-mapper';
-import { EventTypeDto } from './dto/event-type-dto';
 import { EventType } from '../models/event-type';
+
+import { AppConfig } from './app-config.service';
+import { EventTypeDto } from './dto/event-type-dto';
 
 /**
  * Event types service.

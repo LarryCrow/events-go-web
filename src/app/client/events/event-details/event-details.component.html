@@ -8,7 +8,7 @@
       <h2 class="canceled" *ngIf="event.isCanceled">Мероприятие отменено</h2>
       <p>
         Организатор:
-        <a [routerLink]="['/host', event.host.id]">{{ event.host.name }}</a>
+        <a [routerLink]="['/hosts', event.host.id]">{{ event.host.name }}</a>
       </p>
       <p>
         Тип мероприятия: {{event.type.value}}
