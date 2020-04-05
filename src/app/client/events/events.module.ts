@@ -15,6 +15,7 @@ import { EditEventPageComponent } from './edit-event-page/edit-event-page.compon
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventsPageComponent } from './events-page/events-page.component';
+import { MyEventsPageComponent } from './my-events-page/my-events-page.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,7 @@ const routes: Routes = [
     CreateEventPageComponent,
     EventFormComponent,
     EditEventPageComponent,
+    MyEventsPageComponent,
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,7 @@ import { HttpParams } from '@angular/common/http';
 export function createHttpParams(params: {}): HttpParams {
   let httpParams: HttpParams = new HttpParams();
   Object.keys(params).forEach(param => {
+    // To allow use 'false' as a property value.
     if (typeof params[param] !== 'undefined' && params[param] != null) {
       httpParams = httpParams.set(param, params[param]);
     }

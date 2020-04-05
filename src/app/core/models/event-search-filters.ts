@@ -17,12 +17,17 @@ export class EventSearchFilters {
   /**
    * Only upcoming events.
    */
-  public upcoming?: boolean = true;
+  public upcoming = true;
 
-  public constructor(date: Partial<EventSearchFilters>) {
-    this.title = date.title;
-    this.host = date.host;
-    this.host_id = date.host_id;
-    this.upcoming = date.upcoming;
+  /**
+   * @constructor
+   *
+   * @param data Initialize data.
+   */
+  public constructor(data: Partial<EventSearchFilters>) {
+    this.title = data.title;
+    this.host = data.host;
+    this.host_id = data.host_id;
+    this.upcoming = typeof data.upcoming === 'boolean' ? data.upcoming : true;
   }
 }
