@@ -67,7 +67,6 @@ export class HostPageComponent {
    */
   public toggleListMode(value: ListMode): void {
     this.listMode$.next(value);
-    console.log('TODO: Implement after filters are ready at backend.');
   }
 
   private initHostStream(id: number): Observable<Host> {

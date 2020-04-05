@@ -30,6 +30,8 @@ export class EventsPageComponent {
 
   /**
    * @constructor
+   *
+   * @param eventsService Event service.
    */
   public constructor(
     private readonly eventsService: EventsService,
