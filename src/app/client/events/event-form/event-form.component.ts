@@ -5,9 +5,9 @@ import { Observable, of, ReplaySubject, merge, NEVER } from 'rxjs';
 import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share } from 'rxjs/operators';
 import { Address, Coords } from 'src/app/core/models/address';
 import { Event } from 'src/app/core/models/event';
+import { EventType } from 'src/app/core/models/event-type';
 import { SaveEventModel } from 'src/app/core/models/save-event';
 import { AddressesService } from 'src/app/core/services/addresses.service';
-import { EventType } from 'src/app/core/models/event-type';
 import { EventTypesService } from 'src/app/core/services/event-types.service';
 
 /**

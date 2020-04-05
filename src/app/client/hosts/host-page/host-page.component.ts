@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { Event } from 'src/app/core/models/event';
+import { EventSearchFilters } from 'src/app/core/models/event-search-filters';
 import { Host } from 'src/app/core/models/host';
 import { EventsService } from 'src/app/core/services/events.service';
 import { HostsService } from 'src/app/core/services/hosts.service';
-import { EventSearchFilters } from 'src/app/core/models/event-search-filters';
 
 /**
  * List of modes.

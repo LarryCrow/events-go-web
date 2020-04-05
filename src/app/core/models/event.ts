@@ -1,5 +1,5 @@
-import { Host } from './host';
 import { EventType } from './event-type';
+import { Host } from './host';
 
 /**
  * Event model.
