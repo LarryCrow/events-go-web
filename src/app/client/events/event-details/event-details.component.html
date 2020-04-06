@@ -1,7 +1,10 @@
 <div class="container" *ngIf="event$ | async as event">
   <div class="row">
     <div class="image">
-      <img [src]="event.avatar || '/assets/default-image.jpg'" class="main-img" />
+      <img
+        [src]="event.avatar || '/assets/default-image.jpg'"
+        class="main-img"
+      />
     </div>
     <div class="base-information">
       <h1>{{ event.title }}</h1>
@@ -10,30 +13,30 @@
         Организатор:
         <a [routerLink]="['/hosts', event.host.id]">{{ event.host.name }}</a>
       </p>
+      <p>Тип мероприятия: {{ event.type.value }}</p>
       <p>
-        Тип мероприятия: {{event.type.value}}
+        Дата проведения: <span>{{ event.date | date: "dd/MM/yyyy" }}</span>
       </p>
-      <p>
-        Дата проведения: <span>{{event.date | date:'dd/MM/yyyy'}}</span>
-      </p>
-      <p>
-        Стоимость: {{event.price}}
-      </p>
-      <p>
-        Адрес: {{readbleName | async}}
-      </p>
-      <p>
-        Количество участников: {{event.participations.length}}
-      </p>
+      <p>Стоимость: {{ event.price }}</p>
+      <p>Адрес: {{ readbleName$ | async }}</p>
+      <p>Количество участников: {{ event.participations.length }}</p>
       <div class="action-buttons">
-        <button *ngIf="!isUserSubscribed; else unsubscribeBtn" type="button" (click)="onSubscribeBtnClick(event.id)">
+        <button
+          *ngIf="!isUserSubscribed; else unsubscribeBtn"
+          type="button"
+          (click)="onSubscribeBtnClick(event.id)"
+        >
           Я пойду!
         </button>
-        <ng-container *ngIf="{value: isUserHost$ | async} as context">
-          <button *ngIf="context.value" (click)="onEditButtonClick()"> Редактировать </button>
+        <ng-container *ngIf="{ value: isUserHost$ | async } as context">
+          <button *ngIf="context.value" (click)="onEditButtonClick()">
+            Редактировать
+          </button>
         </ng-container>
         <ng-template #unsubscribeBtn>
-          <button type="button" (click)="onUnsubscribeBtnClick(event.id)"> Не пойду </button>
+          <button type="button" (click)="onUnsubscribeBtnClick(event.id)">
+            Не пойду
+          </button>
         </ng-template>
       </div>
     </div>

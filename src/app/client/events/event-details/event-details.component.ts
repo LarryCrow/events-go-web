@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { filter, first, switchMap, map, startWith, shareReplay } from 'rxjs/operators';
+import { Observable, combineLatest, ReplaySubject } from 'rxjs';
+import { filter, first, switchMap, map, startWith, shareReplay, switchMapTo } from 'rxjs/operators';
 import { AddressesService } from 'src/app/core/services/addresses.service';
 
 import { Event } from '../../../core/models/event';
@@ -47,7 +47,7 @@ export class EventDetailsComponent {
    */
   public readbleName$: Observable<string>;
 
-  private readonly update$ = new BehaviorSubject<void>(null);
+  private readonly update$ = new ReplaySubject<void>(1);
 
   /**
    * @constructor
@@ -68,24 +68,16 @@ export class EventDetailsComponent {
     private readonly addressService: AddressesService,
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    this.event$ = this.update$
-      .pipe(
-        switchMap(() => this.eventsService.getEvent(id)),
-        shareReplay({
-          refCount: true,
-          bufferSize: 1,
-        }),
-      );
+    this.update$.next();
+    this.event$ = this.initEventStream(id);
 
     this.readbleName$ = this.event$
       .pipe(
-        first(),
         switchMap((event) => this.addressService.getAddressByCoordinates(event.place)),
         map((address) => address.value),
       );
     this.userService.currentUser$
       .pipe(
-        first(),
         filter((user) => user && user.role === Role.Client),
         switchMap(() => this.event$),
         switchMap((event) => this.eventsService.isUserSubscribed(event.id)),
@@ -137,6 +129,17 @@ export class EventDetailsComponent {
    */
   public onEditButtonClick(): void {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  private initEventStream(eventId: string): Observable<Event> {
+    return this.update$
+      .pipe(
+        switchMapTo(this.eventsService.getEvent(eventId)),
+        shareReplay({
+          refCount: true,
+          bufferSize: 1,
+        }),
+      );
   }
 
   private initMapOptionsStream(event$: Observable<Event>): Observable<MapOptions> {
