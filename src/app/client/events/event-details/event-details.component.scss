@@ -17,7 +17,8 @@
 }
 
 .image {
-  width: 400px;
+  flex-basis: 300px;
+  max-height: 300px;
   background: black;
 }
 

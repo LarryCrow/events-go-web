@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * Login page.
@@ -23,7 +24,7 @@ export class LoginPageComponent {
   /**
    * Error message.
    */
-  public error = '';
+  public apiError$ = new BehaviorSubject<string>('');
 
   /**
    * Run the animation.
@@ -44,21 +45,19 @@ export class LoginPageComponent {
     if (form.invalid) {
       return;
     }
-    this.error = '';
+    this.apiError$.next('');
     // Fields are required and we are able to cast value to string.
     const email = form.value.email as string;
     const pass = form.value.pass as string;
     this.authService.login(email, pass)
-      .pipe(
-        first(),
-      )
+      .pipe(first())
       .subscribe(
         () => {
           this.router.navigate(['/events']);
         },
         (err) => {
           if (err instanceof Error) {
-            this.error = err.message;
+            this.apiError$.next(err.message);
           } else {
             console.log(err);
           }

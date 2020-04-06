@@ -29,7 +29,7 @@ export class EventDetailsComponent {
   /**
    * Is a user subscribed or not.
    */
-  public isUserSubscribed = false;
+  public readonly isUserSubscribed$: Observable<boolean>;
   /**
    * Event.
    */
@@ -41,13 +41,17 @@ export class EventDetailsComponent {
   /**
    * Is a user a host of an event.
    */
-  public isUserHost$: Observable<boolean>;
+  public readonly isUserHost$: Observable<boolean>;
   /**
    * Name to display event address.
    */
-  public readbleName$: Observable<string>;
+  public readonly readbleName$: Observable<string>;
+  /**
+   * Number of event subscribers.
+   */
+  public readonly subscribersNumber$: Observable<number>;
 
-  private readonly update$ = new ReplaySubject<void>(1);
+  private readonly updateSubscription$ = new ReplaySubject<void>(1);
 
   /**
    * @constructor
@@ -68,22 +72,9 @@ export class EventDetailsComponent {
     private readonly addressService: AddressesService,
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    this.update$.next();
     this.event$ = this.initEventStream(id);
-
-    this.readbleName$ = this.event$
-      .pipe(
-        switchMap((event) => this.addressService.getAddressByCoordinates(event.place)),
-        map((address) => address.value),
-      );
-    this.userService.currentUser$
-      .pipe(
-        filter((user) => user && user.role === Role.Client),
-        switchMap(() => this.event$),
-        switchMap((event) => this.eventsService.isUserSubscribed(event.id)),
-      )
-      .subscribe((val) => this.isUserSubscribed = val);
-
+    this.readbleName$ = this.getReadableEventLocation();
+    this.isUserSubscribed$ = this.initIsUserSubscribedStream();
     this.mapOptions$ = this.initMapOptionsStream(this.event$);
     this.isUserHost$ = this.initEventHostStream(this.event$);
     this.isEventCanceled(this.event$);
@@ -110,7 +101,7 @@ export class EventDetailsComponent {
         // If dialog is shown, null returns.
         filter(res => res),
       )
-      .subscribe(() => this.isUserSubscribed = true);
+      .subscribe(() => this.updateSubscription$.next());
   }
 
   /**
@@ -121,7 +112,7 @@ export class EventDetailsComponent {
   public onUnsubscribeBtnClick(eventId: number): void {
     this.eventsService.unsubscribe(eventId)
       .pipe(first())
-      .subscribe(() => this.isUserSubscribed = false);
+      .subscribe(() => this.updateSubscription$.next());
   }
 
   /**
@@ -132,9 +123,8 @@ export class EventDetailsComponent {
   }
 
   private initEventStream(eventId: string): Observable<Event> {
-    return this.update$
+    return this.eventsService.getEvent(eventId)
       .pipe(
-        switchMapTo(this.eventsService.getEvent(eventId)),
         shareReplay({
           refCount: true,
           bufferSize: 1,
@@ -145,6 +135,7 @@ export class EventDetailsComponent {
   private initMapOptionsStream(event$: Observable<Event>): Observable<MapOptions> {
     return event$
       .pipe(
+        first(),
         map((event) => new MapOptions({
           position: event.place,
         })),
@@ -169,6 +160,27 @@ export class EventDetailsComponent {
         filter(([_, user]) => user && user.role === Role.Host),
         map(([event, user]) => event.host.id === user.id),
         startWith(false),
+      );
+  }
+
+  private getReadableEventLocation(): Observable<string> {
+    return this.event$
+      .pipe(
+        first(),
+        switchMap((event) => this.addressService.getAddressByCoordinates(event.place)),
+        map((address) => address.value),
+      );
+  }
+
+  private initIsUserSubscribedStream(): Observable<boolean> {
+    const subscription$ = this.updateSubscription$
+      .pipe(startWith(null));
+
+    return this.userService.currentUser$
+      .pipe(
+        filter((user) => user && user.role === Role.Client),
+        switchMapTo(combineLatest([this.event$, subscription$])),
+        switchMap(([event, _]) => this.eventsService.isUserSubscribed(event.id)),
       );
   }
 }

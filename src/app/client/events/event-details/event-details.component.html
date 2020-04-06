@@ -19,15 +19,21 @@
       </p>
       <p>Стоимость: {{ event.price }}</p>
       <p>Адрес: {{ readbleName$ | async }}</p>
-      <p>Количество участников: {{ event.participations.length }}</p>
+      <!-- TODO: Think how to update it more convinient -->
+      <!-- <p>Количество участников: {{ event.participations.length }}</p> -->
       <div class="action-buttons">
-        <button
-          *ngIf="!isUserSubscribed; else unsubscribeBtn"
-          type="button"
-          (click)="onSubscribeBtnClick(event.id)"
+        <ng-container
+          *ngIf="{ value: isUserSubscribed$ | async } as subscription"
         >
-          Я пойду!
-        </button>
+          <button
+            *ngIf="!subscription.value; else unsubscribeBtn"
+            type="button"
+            (click)="onSubscribeBtnClick(event.id)"
+          >
+            Я пойду!
+          </button>
+        </ng-container>
+
         <ng-container *ngIf="{ value: isUserHost$ | async } as context">
           <button *ngIf="context.value" (click)="onEditButtonClick()">
             Редактировать
