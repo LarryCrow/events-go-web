@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 import { Role } from './core/models/role.enum';
 import { AuthService } from './core/services/auth.service';

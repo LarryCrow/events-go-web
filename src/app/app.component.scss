@@ -1,34 +1,46 @@
 :host {
-  --item-size: 15px;
+  --font-size: 1.25rem;
+  --item-size: 10px;
 }
 
 nav {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   background: var(--primary-color);
+  font-size: var(--font-size);
+  align-items: center;
+  padding: calc(var(--item-size) / 2);
+}
+
+.app-logo {
+  text-transform: uppercase;
+  transition-duration: 0.15s;
+
+  &:hover {
+    color: var(--primary-contrast-color);
+  }
 }
 
 ul {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
 }
 
 li {
-  & > * {
-    padding: var(--item-size);
-  }
-
   a {
     display: block;
     cursor: pointer;
-    // width: 130px;
+    padding: var(--item-size);
     text-align: center;
+    border-radius: 5px;
+    transition-duration: 0.15s;
   }
-}
 
-.app-logo {
-  flex: 1;
+  a:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 
 // .active-link {
