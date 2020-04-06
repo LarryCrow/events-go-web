@@ -1,0 +1,26 @@
+:host {
+  --space: 30px;
+}
+
+.greetings {
+  text-align: center;
+  margin-top: 30vh;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: normal;
+  margin-bottom: var(--space);
+}
+
+p {
+  font-size: 30px;
+  margin-bottom: var(--space);
+  font-weight: 300;
+}
+
+button {
+  padding: 10px 50px;
+  font-size: 20px;
+  font-weight: 300;
+}

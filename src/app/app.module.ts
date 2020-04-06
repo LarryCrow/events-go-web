@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomePageComponent } from './client/home-page/home-page.component';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 import { SharedModule } from './shared/shared.module';
 
@@ -15,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
