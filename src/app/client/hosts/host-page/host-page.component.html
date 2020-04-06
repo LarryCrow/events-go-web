@@ -6,20 +6,24 @@
     <h1>{{ host.name }}</h1>
     <p>Социальные сети:</p>
     <ul class="social-media">
-      <li>
-        <a href="instagram.com">
+      <li *ngIf="host.social.instagram">
+        <a [href]="host.social.instagram">
           <img src="/assets/icon/instagram.svg" />
           Instagram
         </a>
       </li>
-      <li>
-        <a href="vk.com"><img src="assets/icon/vk.svg" />VK</a>
+      <li *ngIf="host.social.vk">
+        <a [href]="host.social.vk"><img src="assets/icon/vk.svg" />VK</a>
       </li>
-      <li>
-        <a href="twitter.com"><img src="assets/icon/twitter.svg" />Twitter</a>
+      <li *ngIf="host.social.twitter">
+        <a [href]="host.social.twitter"
+          ><img src="assets/icon/twitter.svg" />Twitter</a
+        >
       </li>
-      <li>
-        <a href="tg.com"><img src="assets/icon/telegram.svg" />Telegram</a>
+      <li *ngIf="host.social.telegram">
+        <a [href]="host.social.telegram"
+          ><img src="assets/icon/telegram.svg" />Telegram</a
+        >
       </li>
     </ul>
   </div>

@@ -1,0 +1,5 @@
+<div class="container">
+  <ng-container *ngIf="events$ | async as events">
+    <ego-events-list [events]="events"></ego-events-list>
+  </ng-container>
+</div>

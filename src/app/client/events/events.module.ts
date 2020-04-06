@@ -29,6 +29,10 @@ const routes: Routes = [
     canActivate: [IsHostGuard],
   },
   {
+    path: 'my',
+    component: MyEventsPageComponent,
+  },
+  {
     path: ':id/edit',
     component: EditEventPageComponent,
     canActivate: [IsHostGuard],

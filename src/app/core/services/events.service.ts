@@ -58,7 +58,7 @@ export class EventsService {
           let message = 'Что-то пошло не так';
           if (err instanceof HttpErrorResponse) {
             if (err.status === 404) {
-              message = 'Событие с таким индетификатор не найдено.';
+              message = 'Событие с таким номером не найдено.';
             }
           }
           return throwError(new Error(message));
@@ -142,6 +142,16 @@ export class EventsService {
     return this.http.patch<EventDto>(`${this.EVENTS_URL}/${data.id}/`, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
+      );
+  }
+
+  /**
+   * Get a user events.
+   */
+  public getMyEvents(): Observable<Event[]> {
+    return this.http.get<EventDto[]>(`${this.EVENTS_URL}/my`)
+      .pipe(
+        map((events) => events.map(event => this.eventMapper.fromDto(event))),
       );
   }
 }
