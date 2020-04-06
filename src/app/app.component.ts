@@ -50,7 +50,7 @@ export class AppComponent {
   ];
 
   private readonly allEvents: MenuLink = { title: 'Все события', value: '/events' };
-  private readonly myEvents: MenuLink = { title: 'Мои события', value: '/myevents' };
+  private readonly myEvents: MenuLink = { title: 'Мои события', value: '/events/my' };
   private readonly createEvent: MenuLink = { title: 'Создать событие', value: '/events/create' };
   private readonly login: MenuLink = { title: 'Войти', value: '/auth/login' };
   private readonly logout: MenuLink = { title: 'Выйти', func: () => this.onLogoutClick() };
