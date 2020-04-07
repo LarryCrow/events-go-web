@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('src/assets/wave.svg');
+  background-image: url("src/assets/wave.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,13 +14,14 @@
 form {
   width: 400px;
   border-radius: 10px;
-  background: white;
+  background: var(--primary-contrast-color);
   padding: calc(var(--space) * 1.25) var(--space);
   box-shadow: 0 0 10px 0 grey;
+  text-align: center;
 }
 
 form > *:not(:last-child) {
-  margin: calc(var(--space) / 2) 0;
+  margin-bottom: calc(var(--space) / 3);
 }
 
 label {
@@ -28,19 +29,30 @@ label {
 }
 
 .button-panel {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   width: 100%;
   margin-bottom: 0;
+
+  & > *:not(:last-child) {
+    margin-bottom: 12px;
+  }
+
+  button {
+    padding: 10px 0px;
+    width: 160px;
+  }
 }
 
-label p {
-  text-align: center;
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid var(--separate);
 }
 
-.submit-btn {
-  padding: 10px 15px;
-  width: 110px;
+.forgot-pass-link {
+  font-size: 0.86rem;
+  text-decoration: underline;
 }
 
 .errors {
@@ -53,11 +65,6 @@ label p {
   }
 }
 
-.links {
-  display: flex;
-  justify-content: space-between;
-  
-  a {
-    color: var(--primary-color);
-  }
+.login-later {
+  font-size: 0.75rem;
 }

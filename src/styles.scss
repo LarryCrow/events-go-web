@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import './assets/fonts/fonts.scss';
-@import './theme/default-theme.scss';
-@import './theme/input-controls.scss';
-@import './theme/variables.scss';
+@import "./assets/fonts/fonts.scss";
+@import "./theme/default-theme.scss";
+@import "./theme/input-controls.scss";
+@import "./theme/variables.scss";
 
 * {
   box-sizing: border-box;
@@ -13,13 +13,23 @@
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6,
-p, a {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   color: var(--primary-font-color);
 }
 
-html, body { height: 100%; }
-body { margin: 0;}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
 
 a {
   text-decoration: none;

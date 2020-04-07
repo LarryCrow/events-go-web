@@ -24,7 +24,7 @@ export class LoginPageComponent {
   /**
    * Error message.
    */
-  public apiError$ = new BehaviorSubject<string>('');
+  public apiError$ = new BehaviorSubject<string>(null);
 
   /**
    * Run the animation.
