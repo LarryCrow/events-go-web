@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { tap, catchError, map, mapTo, first } from 'rxjs/operators';
 
-import { RegistrationData } from '../models/registration-data';
+import { HostRegistrationData, ClientRegistrationData } from '../models/registration-data';
 import { Role } from '../models/role.enum';
 import { User } from '../models/user';
 
@@ -86,12 +86,8 @@ export class AuthService {
    *
    * @param data Data for registration.
    */
-  public registerHost(data: RegistrationData): Observable<void> {
-    const formData = new FormData();
-    formData.append('email', data.email);
-    formData.append('password', data.pass);
-    formData.append('name', data.name);
-    formData.append('avatar', data.avatar);
+  public registerHost(data: HostRegistrationData): Observable<void> {
+    const formData = this.generateFormDataForHostRegistration(data);
     return this.http.post<LoginDto>(this.REGISTER_HOST_URL, formData)
       .pipe(
         tap((res) => {
@@ -113,7 +109,7 @@ export class AuthService {
    *
    * @param data Data for registration.
    */
-  public registerClient(data: RegistrationData): Observable<void> {
+  public registerClient(data: ClientRegistrationData): Observable<void> {
     const body = {
       email: data.email,
       password: data.pass,
@@ -192,5 +188,21 @@ export class AuthService {
 
   private clearStorage(): void {
     localStorage.setItem(StorageKeys.token, '');
+  }
+
+  private generateFormDataForHostRegistration(data: HostRegistrationData): FormData {
+    const fd = new FormData();
+    fd.append('email', data.email);
+    fd.append('password', data.pass);
+    fd.append('name', data.name);
+    fd.append('avatar', data.avatar);
+    fd.append('about', data.about);
+    fd.append('phone', data.phone);
+    fd.append('work_email', data.workEmail);
+    fd.append('instagram', data.instagram);
+    fd.append('twitter', data.twitter);
+    fd.append('vk', data.vk);
+    fd.append('telegram', data.telegram);
+    return fd;
   }
 }

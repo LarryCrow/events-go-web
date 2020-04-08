@@ -1,5 +1,5 @@
 :host {
-  --space: 40px;
+  --space: 10px;
 }
 
 form {
@@ -8,54 +8,12 @@ form {
   flex-direction: column;
 
   & > * {
-    margin: calc(var(--space) / 4) 0;
+    margin-bottom: var(--space);
   }
 
   .submit-btn {
-    padding: 10px 15px;
-    margin-top: 30px;
-  }
-}
-
-.select-image {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  .fake-load-btn {
-    padding: 10px;
-  }
-
-  .avatar-error {
-    margin: 0 0 0 10px;
-  }
-}
-
-.selected-image {
-  display: flex;
-
-  span {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-left: 10px;
-    max-width: 380px;
-  }
-
-  .remove-image {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    background: transparent;
-    vertical-align: sub;
-    padding: 0;
-    margin: 0 0 0 15px;
-
-    img {
-      height: 100%;
-      width: 100%;
-    }
+    padding: calc(var(--space) * 1.5) calc(var(--space) * 3);
+    margin-top: calc(var(--space) * 3);
   }
 }
 
@@ -69,3 +27,17 @@ form {
   }
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  & > * {
+    display: block;
+    flex: 1;
+  }
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--space) * 4);
+  }
+}

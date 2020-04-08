@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { RegistrationData } from '../../../../core/models/registration-data';
+import { ClientRegistrationData } from '../../../../core/models/registration-data';
 import { AuthService } from '../../../../core/services/auth.service';
 
 /**
@@ -44,7 +44,7 @@ export class ClientRegistrationFormComponent {
     if (this.form.invalid) {
       return;
     }
-    const data: RegistrationData = {
+    const data: ClientRegistrationData = {
       email: this.form.value.email as string,
       pass: this.form.value.pass as string,
     };

@@ -3,13 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { RegistrationData } from '../../../../core/models/registration-data';
+import { HostRegistrationData } from '../../../../core/models/registration-data';
 import { AuthService } from '../../../../core/services/auth.service';
-
-const AVATAR_ERROR = {
-  amount: 'Пожалуйста, выберете ровно 1 файл',
-  type: 'Неверный формат. Допустимые форматы: png, jpg, jpeg',
-};
 
 /**
  * Host form for registration.
@@ -58,12 +53,7 @@ export class HostRegistrationFormComponent {
     if (this.form.invalid) {
       return;
     }
-    const data: RegistrationData = {
-      email: this.form.value.email as string,
-      pass: this.form.value.pass as string,
-      name: this.form.value.name as string,
-      avatar: this.form.value.avatar,
-    };
+    const data = this.gatherDataFromForm(this.form);
     this.authService.registerHost(data)
       .pipe(
         first(),
@@ -82,52 +72,36 @@ export class HostRegistrationFormComponent {
       );
   }
 
-  /**
-   * Handle file input.
-   * @param event - Event.
-   */
-  public handleFileInput(event: Event): void {
-    this.avatarError = '';
-    const available_types = [
-      'image/png',
-      'image/jpeg',
-    ];
-    // Use casting because TS can't recognize the right type of event.target.
-    const target = event.target as HTMLInputElement;
-
-    if (target.files && target.files.length) {
-      if (target.files.length > 1) {
-        this.avatarError = AVATAR_ERROR.amount;
-        return;
-      }
-      const file = target.files[0];
-      if (!available_types.includes(file.type)) {
-        this.avatarError = AVATAR_ERROR.type;
-        return;
-      }
-      this.form.patchValue({
-        avatar: file,
-      });
-      this.selectedFile = file.name;
-    }
-  }
-
-  /**
-   * Remove selected image.
-   */
-  public removeImage(): void {
-    this.form.patchValue({
-      avatar: '',
-    });
-    this.selectedFile = '';
-  }
-
   private initHostForm(): FormGroup {
     return this.fb.group({
       email: [null, [Validators.email, Validators.required]],
       pass: [null, [Validators.required, Validators.minLength(5)]],
-      name: [null, [Validators.required]],
-      avatar: [null, [Validators.required]],
+      name: [null, Validators.required],
+      avatar: [null, Validators.required],
+      about: [null, Validators.required],
+      phone: '',
+      workEmail: '',
+      instagram: '',
+      twitter: '',
+      telegram: '',
+      vk: '',
     });
+  }
+
+  private gatherDataFromForm(form: FormGroup): HostRegistrationData {
+    const data: HostRegistrationData = {
+      email: form.value.email as string,
+      pass: form.value.pass as string,
+      name: form.value.name as string,
+      avatar: form.value.avatar as File,
+      about: form.value.about,
+      phone: form.value.phone,
+      instagram: form.value.instagram,
+      telegram: form.value.telegram,
+      twitter: form.value.twitter,
+      vk: form.value.vk,
+      workEmail: form.value.workEmail,
+    };
+    return data;
   }
 }

@@ -4,6 +4,7 @@ input[type="password"],
 input[type="search"],
 input[type="number"],
 input[type="date"],
+input[type="url"],
 input:not([type]) {
   padding: 7.5px 16px;
   border: 1px solid var(--primary-border-color);
@@ -47,7 +48,6 @@ label > span {
   width: fit-content;
   margin-bottom: 8px;
 }
-
 
 label > input,
 label > select,

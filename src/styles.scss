@@ -34,3 +34,9 @@ body {
 a {
   text-decoration: none;
 }
+
+.note {
+  color: var(--placeholder-color);
+  font-size: 0.86rem;
+  font-style: italic;
+}
