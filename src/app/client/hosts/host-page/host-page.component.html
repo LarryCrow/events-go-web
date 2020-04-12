@@ -4,42 +4,58 @@
       <img [src]="host.avatar" />
     </div>
     <h1>{{ host.name }}</h1>
-    <p>Социальные сети:</p>
-    <ul class="social-media">
+    <p>Контакты:</p>
+    <ul class="contacts">
+      <li *ngIf="host.phone">
+        <p>Телефон: <a [href]="'+7' + host.phone"></a>+7{{ host.phone }}</p>
+      </li>
+      <li *ngIf="host.workEmail">
+        <p>
+          Почта: <a [href]="'mailto:' + host.workEmail">{{ host.workEmail }}</a>
+        </p>
+      </li>
       <li *ngIf="host.social.instagram">
-        <a [href]="host.social.instagram">
+        <a class="icon-link" [href]="host.social.instagram">
           <img src="/assets/icon/instagram.svg" />
           Instagram
         </a>
       </li>
       <li *ngIf="host.social.vk">
-        <a [href]="host.social.vk"><img src="assets/icon/vk.svg" />VK</a>
+        <a class="icon-link" [href]="host.social.vk"
+          ><img src="assets/icon/vk.svg" />VK</a
+        >
       </li>
       <li *ngIf="host.social.twitter">
-        <a [href]="host.social.twitter"
+        <a class="icon-link" [href]="host.social.twitter"
           ><img src="assets/icon/twitter.svg" />Twitter</a
         >
       </li>
       <li *ngIf="host.social.telegram">
-        <a [href]="host.social.telegram"
+        <a class="icon-link" [href]="host.social.telegram"
           ><img src="assets/icon/telegram.svg" />Telegram</a
         >
       </li>
     </ul>
   </div>
-  <div class="events" *ngIf="events$ | async as events">
-    <header *ngIf="(listMode$ | async) === modes.Upcoming; else allEvents">
-      <h2>Предстоящие события:</h2>
-      <button
-        class="clear"
-        type="button"
-        name="Показать все события"
-        (click)="toggleListMode(modes.All)"
-      >
-        Показать все
-      </button>
-    </header>
-    <ego-events-list [events]="events"></ego-events-list>
+  <div class="content">
+    <div class="about">
+      <h2>Об организаторе:</h2>
+      <p>{{ host.about }}</p>
+    </div>
+    <div class="events" *ngIf="events$ | async as events">
+      <header *ngIf="(listMode$ | async) === modes.Upcoming; else allEvents">
+        <h2>Предстоящие события:</h2>
+        <button
+          class="clear"
+          type="button"
+          name="Показать все события"
+          (click)="toggleListMode(modes.All)"
+        >
+          Показать все
+        </button>
+      </header>
+      <ego-events-list [events]="events"></ego-events-list>
+    </div>
   </div>
 </ng-container>
 

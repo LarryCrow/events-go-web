@@ -12,6 +12,12 @@ export class Host {
   public avatar: string;
   /** Social media links */
   public social: SocialMedia;
+  /** Information about a host. */
+  public about: string;
+  /** Working email. */
+  public workEmail: string;
+  /** Contact phone */
+  public phone: string;
 
   public constructor(data: Partial<Host>) {
     this.id = data.id;
@@ -19,5 +25,8 @@ export class Host {
     this.isActivated = data.isActivated;
     this.avatar = data.avatar;
     this.social = data.social;
+    this.about = data.about;
+    this.phone = data.phone;
+    this.workEmail = data.workEmail;
   }
 }

@@ -14,7 +14,6 @@ import {
 import { MapComponent } from './components/map/map.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
-
 /**
  * Shared module.
  */

@@ -11,7 +11,7 @@
     <p>{{ event.description }}</p>
   </div>
   <div class="date">
-    <p>{{ event.date | date }}</p>
+    <p>{{ event.start | date }}</p>
     <p *ngIf="event.price !== 0; else freeEntry">Цена: {{ event.price }}</p>
     <ng-template #freeEntry>
       <p>Бесплатно</p>

@@ -38,12 +38,12 @@ img {
   padding: var(--space);
 }
 
-.social-media {
+.contacts {
   li {
     margin-bottom: calc(var(--space) * 1.5);
   }
 
-  a {
+  .icon-link {
     display: flex;
     align-items: center;
   }
@@ -55,7 +55,7 @@ img {
   }
 }
 
-.events {
+.content {
   flex-basis: 700px;
   padding-left: calc(var(--space) * 2);
 }

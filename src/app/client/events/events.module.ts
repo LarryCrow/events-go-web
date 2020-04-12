@@ -6,6 +6,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Routes, RouterModule } from '@angular/router';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { IsHostGuard } from 'src/app/core/guards/is-host.guard';
 
 import { SharedModule } from '../../shared/shared.module';
@@ -66,6 +67,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
 })
 export class EventsModule { }

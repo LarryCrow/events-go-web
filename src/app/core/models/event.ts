@@ -13,8 +13,10 @@ export class Event {
   public description: string;
   /** Place. */
   public place: [number, number];
-  /** Date. */
-  public date: Date;
+  /** Start time of an event. */
+  public start: Date;
+  /** End time of an event. */
+  public end: Date;
   /** Price. */
   public price: number;
   /** Host. */
@@ -35,7 +37,8 @@ export class Event {
     this.title = data.title;
     this.description = data.description;
     this.place = data.place;
-    this.date = data.date;
+    this.start = data.start;
+    this.end = data.end;
     this.price = data.price;
     this.host = data.host;
     this.participations = data.participations;

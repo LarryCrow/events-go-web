@@ -13,8 +13,10 @@ export interface EventDto {
   description: string;
   /** Place. */
   place: string;
-  /** Date. */
-  date: string;
+  /** Start date. */
+  start: string;
+  /** End date. */
+  end: string;
   /** Price. */
   price: number;
   /** Host. */

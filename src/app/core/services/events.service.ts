@@ -12,6 +12,7 @@ import { SaveEventModel } from '../models/save-event';
 import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
 import { SubscriptionDto } from './dto/subscription-dto';
+import { Pagination } from './dto/pagination';
 
 /**
  * Events service.
@@ -40,9 +41,9 @@ export class EventsService {
    */
   public getEvents(filters?: EventSearchFilters): Observable<Event[]> {
     const params = createHttpParams(filters);
-    return this.http.get<EventDto[]>(this.EVENTS_URL, { params })
+    return this.http.get<Pagination<EventDto>>(this.EVENTS_URL, { params })
       .pipe(
-        map((events) => events.map(event => this.eventMapper.fromDto(event))),
+        map((obj) => obj.results.map(event => this.eventMapper.fromDto(event))),
       );
   }
 
@@ -116,7 +117,8 @@ export class EventsService {
     formData.append('price', data.price.toString());
     formData.append('description', data.description);
     formData.append('place', data.place);
-    formData.append('date', data.date);
+    formData.append('start', data.start);
+    formData.append('end', data.end);
     formData.append('avatar', data.avatar);
     formData.append('type_id', data.type_id.toString());
     return this.http.post<EventDto>(`${this.EVENTS_URL}/`, formData)
@@ -134,7 +136,8 @@ export class EventsService {
     formData.append('price', data.price.toString());
     formData.append('description', data.description);
     formData.append('place', data.place);
-    formData.append('date', data.date);
+    formData.append('start', data.start);
+    formData.append('end', data.end);
     if (data.avatar) {
       formData.append('avatar', data.avatar);
     }

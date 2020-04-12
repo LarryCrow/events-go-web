@@ -8,6 +8,7 @@ import { EventType } from '../models/event-type';
 
 import { AppConfig } from './app-config.service';
 import { EventTypeDto } from './dto/event-type-dto';
+import { Pagination } from './dto/pagination';
 
 /**
  * Event types service.
@@ -43,9 +44,9 @@ export class EventTypesService {
   }
 
   private obtainEventTypes(): Observable<EventType[]> {
-    return this.http.get<EventTypeDto[]>(`${this.BASE_URL}eventtypes`)
+    return this.http.get<Pagination<EventTypeDto>>(`${this.BASE_URL}eventtypes`)
       .pipe(
-        map((types) => types.map(t => this.eventTypeMapper.fromDto(t))),
+        map((pag) => pag.results.map(t => this.eventTypeMapper.fromDto(t))),
       );
   }
 }

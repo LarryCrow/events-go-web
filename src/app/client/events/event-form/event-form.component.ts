@@ -81,16 +81,17 @@ export class EventFormComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    const eventToSave = {
+    const eventToSave: SaveEventModel = {
       id: this.event ? this.event.id : undefined,
       title: form.value.title,
-      date: form.value.date.toISOString(),
+      start: form.value.start.toISOString(),
+      end: form.value.end.toISOString(),
       description: form.value.description,
       price: form.value.price,
       place: this.selectedAddressCoords.getStringCoords(),
       avatar: form.value.avatar instanceof File ? form.value.avatar : null,
       type_id: form.value.type,
-    } as SaveEventModel;
+    };
 
     this.save.emit(eventToSave);
   }
@@ -123,7 +124,8 @@ export class EventFormComponent implements OnInit {
     return this.fb.group({
       title: [null, [Validators.required, Validators.maxLength(50)]],
       price: [null, [Validators.required, Validators.min(0)]],
-      date: [null, [Validators.required]],
+      start: [null, [Validators.required]],
+      end: [null, [Validators.required]],
       description: [null, [Validators.required]],
       avatar: [null, [Validators.required]],
       address: [null, [Validators.required]],
@@ -138,8 +140,9 @@ export class EventFormComponent implements OnInit {
         form.patchValue({
           title: this.event.title,
           price: this.event.price,
-          date: this.event.date,
           description: this.event.description,
+          start: this.event.start,
+          end: this.event.end,
           address: address,
           avatar: this.event.avatar,
           type: this.event.type.id,

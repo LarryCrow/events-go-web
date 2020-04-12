@@ -10,8 +10,10 @@ export interface SaveEventModel {
   price: number;
   /** Description */
   description: string;
-  /** Date */
-  date: string;
+  /** Start date */
+  start: string;
+  /** End date */
+  end: string;
   /** Place */
   place: string;
   /** File */

@@ -15,9 +15,12 @@
       </p>
       <p>Тип мероприятия: {{ event.type.value }}</p>
       <p>
-        Дата проведения: <span>{{ event.date | date: "dd/MM/yyyy" }}</span>
+        Начало: <span>{{ event.start | date: "dd/MM/yyyy, H:mm" }}</span>
       </p>
-      <p>Стоимость: {{ event.price }}</p>
+      <p>
+        Окончание: <span>{{ event.end | date: "dd/MM/yyyy, H:mm" }}</span>
+      </p>
+      <p>Стоимость: {{ event.price | currency: "RUB" }}</p>
       <p>Адрес: {{ readbleName$ | async }}</p>
       <!-- TODO: Think how to update it more convinient -->
       <!-- <p>Количество участников: {{ event.participations.length }}</p> -->

@@ -24,6 +24,9 @@ export class HostMapper {
       isActivated: dto.is_activated,
       name: dto.name,
       social: this.socialMediaMapper.fromDto(dto.social),
+      about: dto.about,
+      phone: dto.phone,
+      workEmail: dto.work_email,
     });
   }
 }
