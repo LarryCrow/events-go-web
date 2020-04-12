@@ -28,7 +28,7 @@ export class EventMapper {
       end: new Date(dto.end),
       isCanceled: dto.is_canceled,
       isComplete: dto.is_complete,
-      participations: dto.participations,
+      participantsNumber: dto.participants_number,
       place: this.getCoordinates(dto.place),
       price: dto.price,
       title: dto.title,

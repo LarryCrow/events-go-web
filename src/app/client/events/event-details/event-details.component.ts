@@ -39,6 +39,10 @@ export class EventDetailsComponent {
    */
   public readonly mapOptions$: Observable<MapOptions>;
   /**
+   * Is 'Я пойду' button should be displayed.
+   */
+  public readonly isSubscribeShown$: Observable<boolean>;
+  /**
    * Is a user a host of an event.
    */
   public readonly isUserHost$: Observable<boolean>;

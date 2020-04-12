@@ -21,8 +21,8 @@ export interface EventDto {
   price: number;
   /** Host. */
   host: HostDto;
-  /** Participations. */
-  participations: number[];
+  /** Participants number. */
+  participants_number: number;
   /** Is canceled. */
   is_canceled: boolean;
   /** Is complete. */

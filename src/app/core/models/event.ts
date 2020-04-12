@@ -21,8 +21,6 @@ export class Event {
   public price: number;
   /** Host. */
   public host: Host;
-  /** ID list of participations. */
-  public participations: number[];
   /** Is canceled. */
   public isCanceled: boolean;
   /** Is complete. */
@@ -31,6 +29,8 @@ export class Event {
   public avatar: string;
   /** Type */
   public type: EventType;
+  /** Number of subscribed users. */
+  public participantsNumber: number;
 
   public constructor(data: Partial<Event>) {
     this.id = data.id;
@@ -41,10 +41,10 @@ export class Event {
     this.end = data.end;
     this.price = data.price;
     this.host = data.host;
-    this.participations = data.participations;
     this.isCanceled = data.isCanceled;
     this.isComplete = data.isComplete;
     this.avatar = data.avatar;
     this.type = data.type;
+    this.participantsNumber = data.participantsNumber;
   }
 }

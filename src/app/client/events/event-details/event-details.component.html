@@ -22,8 +22,7 @@
       </p>
       <p>Стоимость: {{ event.price | currency: "RUB" }}</p>
       <p>Адрес: {{ readbleName$ | async }}</p>
-      <!-- TODO: Think how to update it more convinient -->
-      <!-- <p>Количество участников: {{ event.participations.length }}</p> -->
+      <p>Количество участников: {{ event.participantsNumber }}</p>
       <div class="action-buttons">
         <ng-container
           *ngIf="{ value: isUserSubscribed$ | async } as subscription"
