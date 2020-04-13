@@ -14,6 +14,7 @@ import {
 import { MapComponent } from './components/map/map.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
+import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
 /**
  * Shared module.
  */
@@ -26,6 +27,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     UploaderComponent,
     EventsListComponent,
     EventListItemComponent,
+    HeaderMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     UploaderComponent,
     EventsListComponent,
     EventListItemComponent,
+    HeaderMenuComponent,
   ],
   entryComponents: [
     DialogInfoComponent,

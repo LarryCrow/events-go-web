@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 import { LoginPageComponent } from './login-page/login-page.component';
+import { LogoutPageComponent } from './logout-page/logout-page.component';
 import {
   ClientRegistrationFormComponent,
 } from './registration-page/components/client-registration-form/client-registration-form.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
     path: 'register',
     component: RegistrationPageComponent,
   },
+  {
+    path: 'logut',
+    component: LogoutPageComponent,
+  },
 ];
 
 /**
@@ -40,6 +45,7 @@ const routes: Routes = [
     RegistrationPageComponent,
     HostRegistrationFormComponent,
     ClientRegistrationFormComponent,
+    LogoutPageComponent,
   ],
   imports: [
     CommonModule,

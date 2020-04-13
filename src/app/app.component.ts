@@ -3,27 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { MenuLink } from './core/models/menu-link';
 import { Role } from './core/models/role.enum';
 import { AuthService } from './core/services/auth.service';
 import { UserService } from './core/services/user.service';
-
-/**
- * Model for menu link.
- */
-interface MenuLink {
-  /**
-   * Title.
-   */
-  title: string;
-  /**
-   * URL.
-   */
-  value?: string;
-  /**
-   * Handling function.
-   */
-  func?: Function;
-}
 
 /**
  * Main application component.
@@ -43,27 +26,42 @@ export class AppComponent {
    * Control if menu should be displayed or not
    */
   public readonly isMenuDisplayed$: Observable<boolean>;
+  /**
+   * Menu Links
+   */
+  public readonly links: MenuLink[] = [
+    {
+      url: '/',
+      title: 'Редактировать',
+    },
+    {
+      url: '/',
+      title: 'Выйти',
+    },
+  ];
 
   private pagesToHideMenu = [
     '/auth/login',
     '/auth/register',
   ];
 
-  private readonly allEvents: MenuLink = { title: 'Все события', value: '/events' };
-  private readonly myEvents: MenuLink = { title: 'Мои события', value: '/events/my' };
-  private readonly createEvent: MenuLink = { title: 'Создать событие', value: '/events/create' };
-  private readonly login: MenuLink = { title: 'Войти', value: '/auth/login' };
-  private readonly logout: MenuLink = { title: 'Выйти', func: () => this.onLogoutClick() };
+  private readonly allEvents: MenuLink = { title: 'Все события', url: '/events' };
+  private readonly myEvents: MenuLink = { title: 'Мои события', url: '/events/my' };
+  private readonly createEvent: MenuLink = { title: 'Создать событие', url: '/events/create' };
+  private readonly login: MenuLink = { title: 'Войти', url: '/auth/login' };
+  private readonly logout: MenuLink = { title: 'Выйти', url: '/auth/login' };
 
   /**
    * @constructor
    *
+   * @param router Router.
    * @param authService Auth service.
+   * @param userService User service.
    */
   public constructor(
+    private readonly router: Router,
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly router: Router,
   ) {
     this.authService.getCurrentUser();
     this.menuLinks$ = this.initMenuLinks();
@@ -72,6 +70,14 @@ export class AppComponent {
         filter((event) => event instanceof NavigationEnd),
         map((event: NavigationEnd) => this.pagesToHideMenu.every((link) => (link !== event.urlAfterRedirects))),
       );
+  }
+
+  public onOpenMenuClicked(): void {
+
+  }
+
+  public onMenuClosed(): void {
+
   }
 
   private initMenuLinks(): Observable<MenuLink[]> {
@@ -87,10 +93,5 @@ export class AppComponent {
           return [this.allEvents, this.myEvents, this.logout];
         }),
       );
-  }
-
-  private onLogoutClick(): void {
-    this.authService.logout();
-    this.router.navigate(['/auth/login']);
   }
 }

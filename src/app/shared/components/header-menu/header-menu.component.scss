@@ -1,0 +1,14 @@
+:host {
+  --space: 15px;
+}
+
+a {
+  display: block;
+  padding: var(--space);
+  transition-duration: 0.1s;
+
+  &:hover {
+    color: var(--burger-menu-link-hover);
+    background-color: var(--burder-menu-link-background-hover);
+  }
+}

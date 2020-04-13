@@ -41,3 +41,8 @@ a {
   font-size: 0.86rem;
   font-style: italic;
 }
+
+/***** MATERIAL CUSTOMIZATION *****/
+.mat-menu-panel .mat-menu-content:not(:empty) {
+  padding: 0;
+}
