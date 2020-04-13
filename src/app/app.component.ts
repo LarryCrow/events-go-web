@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, mapTo } from 'rxjs/operators';
 
 import { MenuLink } from './core/models/menu-link';
 import { Role } from './core/models/role.enum';
@@ -66,8 +66,9 @@ export class AppComponent {
     this.menuLinks$ = this.initMenuLinks();
     this.isMenuDisplayed$ = this.router.events
       .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        map((event: NavigationEnd) => this.pagesToHideMenu.every((link) => (link !== event.urlAfterRedirects))),
+        mapTo(true),
+        // filter((event) => event instanceof NavigationEnd),
+        // map((event: NavigationEnd) => this.pagesToHideMenu.every((link) => (link !== event.urlAfterRedirects))),
       );
   }
 

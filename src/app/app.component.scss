@@ -39,11 +39,11 @@ nav {
     text-align: center;
     border-radius: 5px;
     transition-duration: 0.15s;
-    color: var(--primary-font-color);
+    color: var(--primary-contrast-color);
   }
 
   svg {
-    fill: var(--primary-font-color);
+    fill: var(--primary-contrast-color);
   }
 
   a:hover {

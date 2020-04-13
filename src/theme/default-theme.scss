@@ -1,17 +1,3 @@
-/*==== REMOVE ARROWS FROM INPUT[TYPE=NUMBER] ==== */
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
 button.primary {
   background: transparent;
   box-shadow: inset 0 0 0 2px var(--primary-font-color);
@@ -32,7 +18,7 @@ button.primary {
 }
 
 button.secondary {
-  background: var(--primary-color);
+  background: var(--primary-background-contrast);
   color: var(--primary-contrast-color);
 }
 
