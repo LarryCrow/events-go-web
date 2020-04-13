@@ -7,8 +7,11 @@ a {
   padding: var(--space);
   transition-duration: 0.1s;
 
+  &:not(:last-child) {
+    border-bottom: 1px solid black;
+  }
+
   &:hover {
-    color: var(--burger-menu-link-hover);
-    background-color: var(--burder-menu-link-background-hover);
+    background-color: var(--yellow);
   }
 }

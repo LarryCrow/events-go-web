@@ -28,6 +28,10 @@ html,
 body {
   height: 100%;
 }
+
+html {
+  background: var(--primary-background-color);
+}
 body {
   margin: 0;
 }

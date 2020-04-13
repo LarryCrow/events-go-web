@@ -1,21 +1,25 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { Host } from 'src/app/core/models/host';
 
-import { HostRegistrationData } from '../../../../core/models/registration-data';
-import { AuthService } from '../../../../core/services/auth.service';
+import { HostRegistrationData } from '../../../core/models/registration-data';
+import { AuthService } from '../../../core/services/auth.service';
 
 /**
- * Host form for registration.
+ * Host form for creation/edit.
  */
 @Component({
-  selector: 'ego-host-registration-form',
-  templateUrl: './host-registration-form.component.html',
-  styleUrls: ['./host-registration-form.component.scss'],
+  selector: 'ego-host-edit-form',
+  templateUrl: './host-edit-form.component.html',
+  styleUrls: ['./host-edit-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HostRegistrationFormComponent {
+export class HostEditFormComponent {
+  /** Host data. */
+  @Input()
+  public host: Host;
   /**
    * Host form.
    */

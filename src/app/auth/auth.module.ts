@@ -10,7 +10,6 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
 import {
   ClientRegistrationFormComponent,
 } from './registration-page/components/client-registration-form/client-registration-form.component';
-import { HostRegistrationFormComponent } from './registration-page/components/host-registration-form/host-registration-form.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 /**
@@ -31,7 +30,7 @@ const routes: Routes = [
     component: RegistrationPageComponent,
   },
   {
-    path: 'logut',
+    path: 'logout',
     component: LogoutPageComponent,
   },
 ];
@@ -43,7 +42,6 @@ const routes: Routes = [
   declarations: [
     LoginPageComponent,
     RegistrationPageComponent,
-    HostRegistrationFormComponent,
     ClientRegistrationFormComponent,
     LogoutPageComponent,
   ],

@@ -31,11 +31,11 @@ export class AppComponent {
    */
   public readonly links: MenuLink[] = [
     {
-      url: '/',
+      url: '/hosts/edit',
       title: 'Редактировать',
     },
     {
-      url: '/',
+      url: '/auth/logout',
       title: 'Выйти',
     },
   ];
@@ -49,7 +49,6 @@ export class AppComponent {
   private readonly myEvents: MenuLink = { title: 'Мои события', url: '/events/my' };
   private readonly createEvent: MenuLink = { title: 'Создать событие', url: '/events/create' };
   private readonly login: MenuLink = { title: 'Войти', url: '/auth/login' };
-  private readonly logout: MenuLink = { title: 'Выйти', url: '/auth/login' };
 
   /**
    * @constructor
@@ -72,14 +71,6 @@ export class AppComponent {
       );
   }
 
-  public onOpenMenuClicked(): void {
-
-  }
-
-  public onMenuClosed(): void {
-
-  }
-
   private initMenuLinks(): Observable<MenuLink[]> {
     return this.userService.currentUser$
       .pipe(
@@ -88,9 +79,9 @@ export class AppComponent {
             return [this.allEvents, this.login];
           }
           if (user.role === Role.Host) {
-            return [this.allEvents, this.myEvents, this.createEvent, this.logout];
+            return [this.allEvents, this.myEvents, this.createEvent];
           }
-          return [this.allEvents, this.myEvents, this.logout];
+          return [this.allEvents, this.myEvents];
         }),
       );
   }

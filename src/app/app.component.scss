@@ -7,28 +7,31 @@ nav {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background: var(--primary-color);
+  background: var(--primary-background-contrast);
   font-size: var(--font-size);
   align-items: center;
-  padding: calc(var(--item-size) / 2);
+  padding: calc(var(--item-size) / 2) var(--item-size);
 }
 
 .app-logo {
-  text-transform: uppercase;
-  transition-duration: 0.15s;
+  height: 3rem;
 
-  &:hover {
-    color: var(--primary-contrast-color);
+  img {
+    height: 100%;
   }
 }
 
-ul {
+.links {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-li {
+.links {
+  & > * {
+    margin-left: var(--item-size);
+    cursor: pointer;
+  }
   a {
     display: block;
     cursor: pointer;
@@ -36,14 +39,24 @@ li {
     text-align: center;
     border-radius: 5px;
     transition-duration: 0.15s;
+    color: var(--primary-font-color);
+  }
+
+  svg {
+    fill: var(--primary-font-color);
   }
 
   a:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 127, 79, 0.5);
+    color: #fbaf08;
+  }
+
+  svg:hover {
+    fill: #fbaf08;
   }
 }
 
 .menu-icon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }

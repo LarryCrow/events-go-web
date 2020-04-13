@@ -11,18 +11,22 @@
           Я участник
         </button>
       </header>
-      <ego-host-registration-form></ego-host-registration-form>
+      <ego-host-edit-form></ego-host-edit-form>
     </ng-container>
   </div>
 </section>
 
-<section class="banner">
-</section>
+<section class="banner"></section>
 
 <ng-template #clientForm>
   <header class="margin form-header">
     <h1>Регистрация</h1>
-    <button class="link" type="button" title="Я участник" (click)="changeForm()">
+    <button
+      class="link"
+      type="button"
+      title="Я участник"
+      (click)="changeForm()"
+    >
       Я организатор
     </button>
   </header>

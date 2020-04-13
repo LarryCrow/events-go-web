@@ -4,7 +4,11 @@
 
 .greetings {
   text-align: center;
-  margin-top: 30vh;
+  background: #101357;
+  width: 70%;
+  min-width: 1250px;
+  margin: 25vh auto 0 auto;
+  padding: calc(var(--space) * 2) 0;
 }
 
 h1 {

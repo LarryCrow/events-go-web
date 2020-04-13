@@ -1,41 +1,28 @@
 <nav *ngIf="isMenuDisplayed$ | async">
-  <a class="app-logo" routerLink="/">Events go</a>
-  <ul *ngIf="menuLinks$ | async as items">
-    <li *ngFor="let item of items">
-      <a
-        *ngIf="item.value; else logoutItem"
-        [routerLink]="item.value"
-        routerLinkActive="active-link"
-      >
-        {{ item.title }}
-      </a>
-      <ng-template #logoutItem>
-        <a (click)="item.func()">{{ item.title }}</a>
-      </ng-template>
-    </li>
-  </ul>
-  <div class="menu">
-    <div
-      class="menu-icon"
-      [matMenuTriggerFor]="headerMenu"
-      (click)="onOpenMenuClicked()"
+  <a class="app-logo" routerLink="/"><img src="assets/logocropped.png" /></a>
+  <div class="links" *ngIf="menuLinks$ | async as items">
+    <a
+      *ngFor="let item of items"
+      [routerLink]="item.url"
+      routerLinkActive="active-link"
     >
-      <!-- Burger menu icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path
-          d="M432 176H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 272H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 368H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16z"
-        ></path>
-      </svg>
+      {{ item.title }}
+    </a>
+    <div class="menu">
+      <div class="menu-icon" [matMenuTriggerFor]="headerMenu">
+        <!-- Burger menu icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            d="M432 176H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 272H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16zM432 368H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h352c8.8 0 16 7.2 16 16s-7.2 16-16 16z"
+          ></path>
+        </svg>
 
-      <!-- <div class="badge" *ngIf="notifications$ | async as notificationsCount">{{ notificationsCount }}</div> -->
+        <!-- <div class="badge" *ngIf="notifications$ | async as notificationsCount">{{ notificationsCount }}</div> -->
+      </div>
+      <mat-menu #headerMenu="matMenu" class="header-menu">
+        <ego-header-menu [links]="links"></ego-header-menu>
+      </mat-menu>
     </div>
-    <mat-menu
-      #headerMenu="matMenu"
-      (closed)="onMenuClosed()"
-      class="header-menu"
-    >
-      <ego-header-menu [links]="links"></ego-header-menu>
-    </mat-menu>
   </div>
 </nav>
 
