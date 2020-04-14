@@ -1,8 +1,4 @@
 <section class="functionality">
-  <header class="links">
-    <a routerLink="/events">На главную</a>
-    <a routerLink="/auth/login">Войти</a>
-  </header>
   <div class="form">
     <ng-container *ngIf="roleFormShown; else clientForm">
       <header class="margin form-header">
@@ -11,7 +7,9 @@
           Я участник
         </button>
       </header>
-      <ego-host-edit-form></ego-host-edit-form>
+      <div class="registration-form">
+        <ego-host-edit-form></ego-host-edit-form>
+      </div>
     </ng-container>
   </div>
 </section>
@@ -31,5 +29,7 @@
     </button>
   </header>
 
-  <ego-client-registration-form></ego-client-registration-form>
+  <div class="registration-form">
+    <ego-client-registration-form></ego-client-registration-form>
+  </div>
 </ng-template>

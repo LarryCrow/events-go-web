@@ -17,7 +17,7 @@
   margin-top: calc(var(--space) / 2);
 
   a {
-    color: var(--primary-color);
+    color: var(--primary-background-contrast);
   }
 }
 
@@ -39,7 +39,8 @@
 }
 
 .banner {
-  background-image: url("src/assets/preview.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5) 100%),
+    url("src/assets/preview.jpg");
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -48,6 +49,11 @@
 }
 
 .form {
-  width: 600px;
-  margin: 5vh auto 0 auto;
+  width: 650px;
+  margin: 5vh auto 5vh auto;
+}
+
+.registration-form {
+  background: var(--primary-contrast-color);
+  padding: 40px;
 }
