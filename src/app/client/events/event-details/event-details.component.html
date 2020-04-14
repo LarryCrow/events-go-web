@@ -8,7 +8,7 @@
     </div>
     <div class="base-information">
       <h1>{{ event.title }}</h1>
-      <h2 class="canceled" *ngIf="event.isCanceled">Мероприятие отменено</h2>
+      <ng-container *ngIf="isCancenled$ | async; then canceled"> </ng-container>
       <p>
         Организатор:
         <a [routerLink]="['/hosts', event.host.id]">{{ event.host.name }}</a>
@@ -29,6 +29,7 @@
         >
           <button
             *ngIf="!subscription.value; else unsubscribeBtn"
+            class="primary"
             type="button"
             (click)="onSubscribeBtnClick(event.id)"
           >
@@ -56,3 +57,12 @@
     <ego-map [options]="options"></ego-map>
   </div>
 </div>
+
+<ng-template #canceled>
+  <div class="canceled-block">
+    <p>
+      К сожалению, мероприятие было отменено организатором. Подпишись, чтобы не
+      пропустить новости.
+    </p>
+  </div>
+</ng-template>

@@ -11,8 +11,6 @@ import { DialogService } from '../../../core/services/dialog.service';
 import { EventsService } from '../../../core/services/events.service';
 import { UserService } from '../../../core/services/user.service';
 
-const EVENT_CANCELED_MESSAGE = 'Простите, на данный момент мероприятие отменено. Подпишитесь, чтобы не пропустить новости';
-
 const UNAUTHORIZED_SUBSCRIBE = 'Для того, чтобы подписаться на событие, вам необходимо авторизоватьcя.';
 const INCORRECT_ROLE = 'Организатор не может подписываться на события.';
 
@@ -46,6 +44,10 @@ export class EventDetailsComponent {
    * Is a user a host of an event.
    */
   public readonly isUserHost$: Observable<boolean>;
+  /**
+   * Is event canceled.
+   */
+  public readonly isCancenled$: Observable<boolean>;
   /**
    * Name to display event address.
    */
@@ -81,7 +83,7 @@ export class EventDetailsComponent {
     this.isUserSubscribed$ = this.initIsUserSubscribedStream();
     this.mapOptions$ = this.initMapOptionsStream(this.event$);
     this.isUserHost$ = this.initEventHostStream(this.event$);
-    this.isEventCanceled(this.event$);
+    this.isCancenled$ = this.isEventCanceled(this.event$);
   }
 
   /**
@@ -146,12 +148,11 @@ export class EventDetailsComponent {
       );
   }
 
-  private isEventCanceled(event$: Observable<Event>): void {
-    event$.pipe(
+  private isEventCanceled(event$: Observable<Event>): Observable<boolean> {
+    return event$.pipe(
       first(),
-      filter(event => event.isCanceled),
-      switchMap(_ => this.dialogService.openInformationDialog(EVENT_CANCELED_MESSAGE)),
-    ).subscribe();
+      map(event => event.isCanceled),
+    );
   }
 
   private initEventHostStream(event$: Observable<Event>): Observable<boolean> {

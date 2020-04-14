@@ -5,6 +5,7 @@
       *ngFor="let item of items"
       [routerLink]="item.url"
       routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
     >
       {{ item.title }}
     </a>

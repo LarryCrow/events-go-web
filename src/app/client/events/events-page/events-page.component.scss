@@ -10,15 +10,20 @@
 
 .search-block {
   width: 100%;
-  margin-top: 20px;
+  max-width: 700px;
+  margin: 20px auto 0 auto;
   position: sticky;
+  top: 0;
+  z-index: 1;
   border: 1px solid var(--primary-border-color);
 
   input {
     border: none;
     height: var(--search-block-size);
     padding: 0 calc(var(--search-block-size) + 5px);
+    background: rgba(0, 0, 0, 0.5);
     width: 100%;
+    color: var(--primary-contrast-color);
   }
 
   .search-btn {
