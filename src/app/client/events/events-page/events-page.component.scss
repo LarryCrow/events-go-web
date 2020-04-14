@@ -1,9 +1,10 @@
 :host {
   --search-block-size: 35px;
+  --card-space: 20px;
 }
 
 .container {
-  width: 800px;
+  width: 1200px;
   margin: 0 auto;
 }
 
@@ -33,5 +34,21 @@
 
   .search-btn.search {
     right: 0;
+  }
+}
+
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+
+  .card {
+    width: calc(33%);
+    padding: var(--card-space);
+
+    ego-event-card {
+      display: block;
+      box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+    }
   }
 }

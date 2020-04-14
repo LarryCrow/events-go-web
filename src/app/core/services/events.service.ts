@@ -36,6 +36,9 @@ export class EventsService {
     private readonly eventMapper: EventMapper,
   ) { }
 
+  /** Debug flag. */
+  public mockData = true;
+
   /**
    * Gets list of events.
    */
@@ -44,6 +47,12 @@ export class EventsService {
     return this.http.get<Pagination<EventDto>>(this.EVENTS_URL, { params })
       .pipe(
         map((obj) => obj.results.map(event => this.eventMapper.fromDto(event))),
+        map((events) => {
+          if (this.mockData) {
+            return [...events, ...events, ...events, ...events];
+          }
+          return events;
+        }),
       );
   }
 

@@ -8,6 +8,11 @@
     <button class="search-btn search" (click)="searchValue()">П</button>
   </div>
   <ng-container *ngIf="events$ | async as events">
-    <ego-events-list [events]="events"></ego-events-list>
+    <div class="events">
+      <div class="card" *ngFor="let event of events">
+        <ego-event-card [event]="event"></ego-event-card>
+      </div>
+    </div>
+    <!-- <ego-events-list [events]="events"></ego-events-list> -->
   </ng-container>
 </div>

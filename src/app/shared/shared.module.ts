@@ -16,6 +16,7 @@ import { HostEditFormComponent } from './components/host-edit-form/host-edit-for
 import { MapComponent } from './components/map/map.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
+import { EventCardComponent } from './components/event-card/event-card.component';
 
 /**
  * Shared module.
@@ -31,6 +32,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     EventListItemComponent,
     HeaderMenuComponent,
     HostEditFormComponent,
+    EventCardComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     EventListItemComponent,
     HeaderMenuComponent,
     HostEditFormComponent,
+    EventCardComponent,
   ],
   entryComponents: [
     DialogInfoComponent,
