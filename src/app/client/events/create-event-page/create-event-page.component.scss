@@ -1,5 +1,14 @@
 .container {
+  --space: 20px;
   width: 800px;
   margin: 0 auto;
-  padding: 10vh 0;
+  padding: 5vh 0;
+}
+
+.title {
+  background: var(--primary-background-color);
+  color: var(--primary-contrast-color);
+  padding: var(--space);
+  margin-bottom: var(--space);
+  font-weight: 300;
 }

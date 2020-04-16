@@ -1,10 +1,9 @@
 :host {
-  --space: 20px
+  --space: 20px;
 }
 
-
 form {
-  background: var(--card-background);
+  background: var(--card-color);
   box-shadow: 0 0 10px 0 var(--primary-border-color);
   padding: calc(var(--space) * 2);
 
@@ -16,7 +15,6 @@ form {
     display: block;
   }
 }
-
 
 .row {
   display: flex;

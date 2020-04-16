@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
+import { EventCardComponent } from './components/event-card/event-card.component';
 import { EventListItemComponent } from './components/event-list-item/event-list-item.component';
 import { EventsListComponent } from './components/events-list/events-list.component';
 import {
@@ -16,7 +17,6 @@ import { HostEditFormComponent } from './components/host-edit-form/host-edit-for
 import { MapComponent } from './components/map/map.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
-import { EventCardComponent } from './components/event-card/event-card.component';
 
 /**
  * Shared module.

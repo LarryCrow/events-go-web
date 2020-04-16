@@ -32,7 +32,7 @@
 .base-information {
   padding: var(--grid-space);
   margin-left: var(--grid-space);
-  background: var(--primary-background-contrast);
+  background: var(--primary-background-color);
   position: relative;
   flex: 1;
   h1 {
@@ -67,7 +67,7 @@
 
 .description {
   padding: var(--grid-space);
-  background: var(--primary-background-contrast);
+  background: var(--primary-background-color);
 }
 
 .action-buttons > *:not(:first-child) {

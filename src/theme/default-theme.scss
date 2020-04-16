@@ -6,7 +6,7 @@ button.primary {
   transition: all 0.3s ease-in-out;
   background: linear-gradient(
     to right,
-    var(--primary-background-color) 50%,
+    var(--page-background-color) 50%,
     transparent 50%
   );
   background-size: 200% 100%;
@@ -18,7 +18,7 @@ button.primary {
 }
 
 button.secondary {
-  background: var(--primary-background-contrast);
+  background: var(--primary-background-color);
   color: var(--primary-contrast-color);
 }
 

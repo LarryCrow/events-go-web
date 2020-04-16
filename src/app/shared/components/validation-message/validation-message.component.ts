@@ -64,7 +64,7 @@ export class ValidationMessageComponent {
     const factory = ValidationErrorMessageFactories[errorCode];
     if (factory == null) {
       console.warn(`Can not find validation message factory for error: ${errorCode}`);
-      return 'Value is not valid';
+      return 'Некорректное значение';
     }
     return factory(errorData);
   }

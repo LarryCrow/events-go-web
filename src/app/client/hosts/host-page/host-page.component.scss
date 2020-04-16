@@ -1,11 +1,11 @@
 :host {
-  --space: 10px;
+  --space: 12.5px;
 
-  width: 1000px;
+  width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  padding: var(--space) 0;
+  padding: calc(var(--space) * 2) 0;
 }
 
 .unscrollable {
@@ -17,10 +17,19 @@
 
 .description {
   flex-basis: 300px;
-  padding-right: calc(var(--space) * 2);
 
-  & > * {
-    margin-bottom: calc(var(--space) * 1.5);
+  .body {
+    background-color: var(--primary-background-color);
+    padding: var(--space);
+    margin-top: calc(var(--space) * 2);
+
+    & > * {
+      color: var(--primary-color);
+    }
+
+    & > *:not(:last-child) {
+      margin-bottom: calc(var(--space) * 1.5);
+    }
   }
 }
 
@@ -38,15 +47,9 @@ img {
   padding: var(--space);
 }
 
-.contacts {
-  li {
-    margin-bottom: calc(var(--space) * 1.5);
-  }
-
-  .icon-link {
-    display: flex;
-    align-items: center;
-  }
+.icon-link {
+  display: flex;
+  align-items: center;
 
   img {
     width: 25px;
@@ -55,15 +58,34 @@ img {
   }
 }
 
+.about {
+  background: var(--primary-background-color);
+  padding: var(--space);
+
+  & > * {
+    color: var(--primary-color);
+  }
+
+  h2 {
+    margin-bottom: var(--space);
+  }
+}
+
 .content {
   flex-basis: 700px;
   padding-left: calc(var(--space) * 2);
 }
 
-.events header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: calc(var(--space) * 2);
+.events {
+  margin-top: calc(var(--space) * 2);
+  background: var(--card-color);
+  padding: var(--space);
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: calc(var(--space) * 2);
+  }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -11,8 +11,8 @@ import { SaveEventModel } from '../models/save-event';
 
 import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
-import { SubscriptionDto } from './dto/subscription-dto';
 import { Pagination } from './dto/pagination';
+import { SubscriptionDto } from './dto/subscription-dto';
 
 /**
  * Events service.
