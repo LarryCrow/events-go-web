@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { SaveEventModel } from 'src/app/core/models/save-event';
 import { EventsService } from 'src/app/core/services/events.service';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * Create event page.
@@ -15,6 +16,10 @@ import { EventsService } from 'src/app/core/services/events.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateEventPageComponent {
+  /**
+   * Loading controller.
+   */
+  public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
   /**
    * @constructor
@@ -35,10 +40,12 @@ export class CreateEventPageComponent {
    * @param eventToSave Event object.
    */
   public onFormSave(eventToSave: SaveEventModel): void {
+    this.isLoading$.next(true);
     this.eventService.create(eventToSave)
       .pipe(first())
       .subscribe(() => {
-        this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 3000 });
+        this.isLoading$.next(false);
+        this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 4000 });
         this.router.navigate(['/events']);
       });
   }

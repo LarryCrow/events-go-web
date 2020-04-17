@@ -2,3 +2,5 @@
   <h1 class="title">Создать новое событие</h1>
   <ego-event-form (save)="onFormSave($event)"></ego-event-form>
 </div>
+
+<ego-loading *ngIf="isLoading$ | async"></ego-loading>

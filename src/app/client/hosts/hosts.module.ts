@@ -3,14 +3,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { EditHostPageComponent } from './edit-host-page/edit-host-page.component';
 import { HostPageComponent } from './host-page/host-page.component';
 
 const routes: Routes = [
-  {
-    path: 'edit',
-    component: EditHostPageComponent,
-  },
   {
     path: ':id',
     component: HostPageComponent,
@@ -21,7 +16,7 @@ const routes: Routes = [
  * Hosts module.
  */
 @NgModule({
-  declarations: [HostPageComponent, EditHostPageComponent],
+  declarations: [HostPageComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

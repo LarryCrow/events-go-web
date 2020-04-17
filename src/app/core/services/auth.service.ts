@@ -23,6 +23,7 @@ enum StorageKeys {
 const API_ERRORS = {
   credentials: 'Invalid credentials',
   email: 'This field must be unique.',
+  unconfirmed: 'Host is still not confirmed',
 };
 
 /**
@@ -73,8 +74,12 @@ export class AuthService {
         }),
         map((data) => data.role),
         catchError((err) => {
-          if (err.error.error === API_ERRORS.credentials) {
+          const msg = err.error.error;
+          if (msg === API_ERRORS.credentials) {
             return throwError(new Error('Некорректный логин или пароль'));
+          }
+          if (msg === API_ERRORS.unconfirmed) {
+            return throwError(new Error('Ваш аккаунт ещё не потверждён'));
           }
           return throwError(err);
         }),

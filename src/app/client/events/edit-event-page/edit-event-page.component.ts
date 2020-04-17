@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Event } from 'src/app/core/models/event';
 import { SaveEventModel } from 'src/app/core/models/save-event';
@@ -21,6 +21,10 @@ export class EditEventPageComponent {
    * Event.
    */
   public readonly event$: Observable<Event>;
+  /**
+   * Loading controller.
+   */
+  public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
   /**
  * @constructor
@@ -45,10 +49,12 @@ export class EditEventPageComponent {
    * @param eventToSave Event object.
    */
   public onFormSave(eventToSave: SaveEventModel): void {
+    this.isLoading$.next(true);
     this.eventService.update(eventToSave)
       .pipe(first())
       .subscribe(() => {
-        this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 3000 });
+        this.isLoading$.next(false);
+        this.snackBar.open('Событие сохранено успешно', 'Закрыть', { duration: 4000 });
       });
   }
 }
