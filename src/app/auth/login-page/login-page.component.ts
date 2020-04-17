@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { first, finalize } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
-import { BehaviorSubject } from 'rxjs';
 
 /**
  * Login page.
@@ -20,11 +20,14 @@ export class LoginPageComponent {
    * Form group for login form.
    */
   public readonly form = this.initForm();
-
   /**
    * Error message.
    */
-  public apiError$ = new BehaviorSubject<string>(null);
+  public readonly apiError$ = new BehaviorSubject<string>(null);
+  /**
+   * Loading controller.
+   */
+  public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
   /**
    * Run the animation.
@@ -49,8 +52,12 @@ export class LoginPageComponent {
     // Fields are required and we are able to cast value to string.
     const email = form.value.email as string;
     const pass = form.value.pass as string;
+    this.isLoading$.next(true);
     this.authService.login(email, pass)
-      .pipe(first())
+      .pipe(
+        first(),
+        finalize(() => this.isLoading$.next(false)),
+      )
       .subscribe(
         () => {
           this.router.navigate(['/events']);

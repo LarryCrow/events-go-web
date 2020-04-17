@@ -25,10 +25,14 @@ export class DialogService {
    *
    * @param message - Message.
    */
-  public openInformationDialog(message: string): Observable<any> {
+  public openInformationDialog(message: string, header?: string): Observable<any> {
     const dialogRef = this.dialog.open(DialogInfoComponent, {
       maxWidth: '500px',
-      data: { message: message },
+      data: {
+        message,
+        header,
+      },
+      disableClose: true,
     });
 
     return dialogRef.afterClosed();

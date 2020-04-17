@@ -62,7 +62,6 @@ const routes: Routes = [
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,

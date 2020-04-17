@@ -14,6 +14,7 @@ import {
 } from './components/form-control-validation-message/form-control-validation-message.component';
 import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
 import { HostEditFormComponent } from './components/host-edit-form/host-edit-form.component';
+import { LoadingComponent } from './components/loading/loading.component';
 import { MapComponent } from './components/map/map.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
@@ -33,6 +34,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     HeaderMenuComponent,
     HostEditFormComponent,
     EventCardComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     HeaderMenuComponent,
     HostEditFormComponent,
     EventCardComponent,
+    LoadingComponent,
   ],
   entryComponents: [
     DialogInfoComponent,

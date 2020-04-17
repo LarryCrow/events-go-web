@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { HostPageComponent } from './host-page/host-page.component';
 import { EditHostPageComponent } from './edit-host-page/edit-host-page.component';
+import { HostPageComponent } from './host-page/host-page.component';
 
 const routes: Routes = [
   {

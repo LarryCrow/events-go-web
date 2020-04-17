@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -21,13 +21,14 @@ export class HostEditFormComponent {
   @Input()
   public host: Host;
   /**
+   * Emit data on form submit.
+   */
+  @Output()
+  public submit = new EventEmitter<HostRegistrationData>();
+  /**
    * Host form.
    */
   public readonly form = this.initHostForm();
-  /**
-   * API error message.
-   */
-  public error = '';
   /**
    * Error with avatar selection.
    */
@@ -44,9 +45,7 @@ export class HostEditFormComponent {
    * @param authService - Auth service.
    */
   public constructor(
-    private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router,
   ) { }
 
   /**
@@ -58,22 +57,7 @@ export class HostEditFormComponent {
       return;
     }
     const data = this.gatherDataFromForm(this.form);
-    this.authService.registerHost(data)
-      .pipe(
-        first(),
-      )
-      .subscribe(
-        () => {
-          this.router.navigate(['/events']);
-        },
-        (err) => {
-          if (err instanceof Error) {
-            this.error = err.message;
-          } else {
-            console.log(err);
-          }
-        },
-      );
+    this.submit.emit(data);
   }
 
   private initHostForm(): FormGroup {

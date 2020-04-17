@@ -10,6 +10,7 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
 import {
   ClientRegistrationFormComponent,
 } from './registration-page/components/client-registration-form/client-registration-form.component';
+import { HostRegistrationComponent } from './registration-page/components/host-registration/host-registration.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 /**
@@ -44,6 +45,7 @@ const routes: Routes = [
     RegistrationPageComponent,
     ClientRegistrationFormComponent,
     LogoutPageComponent,
+    HostRegistrationComponent,
   ],
   imports: [
     CommonModule,

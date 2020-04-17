@@ -90,10 +90,6 @@ export class AuthService {
     const formData = this.generateFormDataForHostRegistration(data);
     return this.http.post<LoginDto>(this.REGISTER_HOST_URL, formData)
       .pipe(
-        tap((res) => {
-          this.saveToken(res);
-          this.userChange$.next(this.createUser(res));
-        }),
         mapTo(null),
         catchError((err) => {
           if (err.error.email && err.error.email[0] === API_ERRORS.email) {

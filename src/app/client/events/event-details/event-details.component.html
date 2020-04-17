@@ -1,4 +1,4 @@
-<div class="container" *ngIf="event$ | async as event">
+<div class="container" *ngIf="event$ | async as event; else loading">
   <div class="row">
     <div class="image">
       <img
@@ -56,6 +56,10 @@
     <ego-map [options]="options"></ego-map>
   </div>
 </div>
+
+<ng-template #loading>
+  <ego-loading></ego-loading>
+</ng-template>
 
 <ng-template #canceled>
   <div class="canceled-block">
