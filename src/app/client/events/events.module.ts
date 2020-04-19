@@ -5,6 +5,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Routes, RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { IsHostGuard } from 'src/app/core/guards/is-host.guard';
@@ -68,6 +69,7 @@ const routes: Routes = [
     MatAutocompleteModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MatTooltipModule,
   ],
 })
 export class EventsModule { }

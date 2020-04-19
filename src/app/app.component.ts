@@ -35,6 +35,10 @@ export class AppComponent {
       title: 'Редактировать',
     },
     {
+      url: '/about',
+      title: 'О нас',
+    },
+    {
       url: '/auth/logout',
       title: 'Выйти',
     },

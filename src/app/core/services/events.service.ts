@@ -164,6 +164,12 @@ export class EventsService {
     return this.http.get<EventDto[]>(`${this.EVENTS_URL}/my`)
       .pipe(
         map((events) => events.map(event => this.eventMapper.fromDto(event))),
+        map((events) => {
+          if (this.mockData) {
+            return [...events, ...events];
+          }
+          return events;
+        }),
       );
   }
 }

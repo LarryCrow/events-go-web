@@ -22,6 +22,10 @@ const routes: Routes = [
     loadChildren: () => import('./client/hosts/hosts.module').then(m => m.HostsModule),
   },
   {
+    path: 'about',
+    loadChildren: () => import('./client/about/about.module').then(m => m.AboutModule),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

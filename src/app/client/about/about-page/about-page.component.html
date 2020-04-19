@@ -1,0 +1,29 @@
+<div class="info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales dui ut
+  elit pharetra, nec varius ex sodales. Aenean orci elit, pretium in venenatis
+  eu, varius suscipit odio. Ut non sem vitae sapien fringilla fringilla. Fusce
+  rhoncus luctus nulla nec efficitur. Vivamus eleifend, elit at euismod aliquet,
+  ex nunc faucibus velit, at placerat velit nunc non enim. Duis mattis sodales
+  arcu vel lobortis. Sed mattis felis eu molestie facilisis. Morbi tempus luctus
+  nulla, sed consectetur nisi ultrices at. Integer sapien odio, tempor sed mi
+  eu, eleifend pharetra felis. Sed sed scelerisque velit. Nullam eleifend, velit
+  et hendrerit vestibulum, neque velit blandit sapien, at rhoncus enim leo
+  tincidunt magna. Nullam vitae sapien sed metus feugiat porttitor id at felis.
+  Etiam non tempus ante. Praesent feugiat at libero nec imperdiet. Praesent
+  pretium ornare diam accumsan venenatis. Integer consequat, diam id
+  sollicitudin convallis, enim justo porta lacus, non vehicula risus dui non
+  quam.
+</div>
+<div class="feedback">
+  <h2>Есть вопросы? Напишите нам!</h2>
+  <form [formGroup]="form" (ngSubmit)="onFormSubmitted()">
+    <label>
+      <span>На какую почту придёт ответ?</span>
+      <input type="email" formControlName="email" />
+    </label>
+    <label>
+      <textarea formControlName="message"></textarea>
+    </label>
+    <button type="submit">Отправить</button>
+  </form>
+</div>

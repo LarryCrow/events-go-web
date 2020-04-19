@@ -1,0 +1,9 @@
+:host {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    flex-basis: calc(50% - 1px);
+  }
+}
