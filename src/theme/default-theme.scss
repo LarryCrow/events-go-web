@@ -18,6 +18,10 @@ button.primary {
 }
 
 button.secondary {
+  background: var(--primary-contrast-color);
+}
+
+button.dark {
   background: var(--primary-background-color);
   color: var(--primary-contrast-color);
 }

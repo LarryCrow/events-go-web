@@ -37,12 +37,20 @@
         </ng-container>
 
         <ng-container *ngIf="{ value: isUserHost$ | async } as context">
-          <button *ngIf="context.value" (click)="onEditButtonClick()">
+          <button
+            class="secondary"
+            *ngIf="context.value"
+            (click)="onEditButtonClick()"
+          >
             Редактировать
           </button>
         </ng-container>
         <ng-template #unsubscribeBtn>
-          <button type="button" (click)="onUnsubscribeBtnClick(event.id)">
+          <button
+            type="button"
+            class="secondary"
+            (click)="onUnsubscribeBtnClick(event.id)"
+          >
             Не пойду
           </button>
         </ng-template>

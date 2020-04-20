@@ -19,11 +19,17 @@
   <form [formGroup]="form" (ngSubmit)="onFormSubmitted()">
     <label>
       <span>На какую почту придёт ответ?</span>
-      <input type="email" formControlName="email" />
+      <input type="email" placeholder="Email" formControlName="email" />
+      <ego-form-control-validation-message
+        controlName="email"
+      ></ego-form-control-validation-message>
     </label>
     <label>
-      <textarea formControlName="message"></textarea>
+      <textarea formControlName="message" placeholder="Сообщение"></textarea>
+      <ego-form-control-validation-message
+        controlName="message"
+      ></ego-form-control-validation-message>
     </label>
-    <button type="submit">Отправить</button>
+    <button class="dark" type="submit">Отправить</button>
   </form>
 </div>
