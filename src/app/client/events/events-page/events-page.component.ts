@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, debounceTime, mapTo, startWith, distinctUntilChanged } from 'rxjs/operators';
 
 import { Event } from '../../../core/models/event';
 import { EventSearchFilters } from '../../../core/models/event-search-filters';
@@ -42,12 +42,7 @@ export class EventsPageComponent {
   public constructor(
     private readonly eventsService: EventsService,
   ) {
-    this.isLoading$.next(true);
-    this.events$ = this.searchValue$
-      .pipe(
-        switchMap((filters) => this.eventsService.getEvents(filters)),
-        tap(() => this.isLoading$.next(false)),
-      );
+    this.events$ = this.initEventsStream();
   }
 
   /**
@@ -56,8 +51,29 @@ export class EventsPageComponent {
   public searchValue(): void {
     const filters = new EventSearchFilters({
       title: this.inputControl.value,
-      host: this.inputControl.value,
     });
     this.searchValue$.next(filters);
+  }
+
+  private initEventsStream(): Observable<Event[]> {
+    const filters = new EventSearchFilters({});
+
+    const inputChange$: Observable<string> = this.inputControl.valueChanges
+      .pipe(
+        debounceTime(700),
+        distinctUntilChanged(),
+      );
+
+    const filters$ = inputChange$
+      .pipe(
+        tap((title) => filters.title = title),
+        mapTo(filters),
+        startWith(filters),
+      );
+
+    return filters$
+      .pipe(
+        switchMap((f) => this.eventsService.getEvents(f)),
+      );
   }
 }
