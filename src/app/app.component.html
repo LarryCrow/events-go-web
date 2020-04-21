@@ -1,4 +1,4 @@
-<nav *ngIf="isMenuDisplayed$ | async">
+<nav>
   <a class="app-logo" routerLink="/"><img src="assets/logocropped.png" /></a>
   <div class="links" *ngIf="menuLinks$ | async as items">
     <a
@@ -9,7 +9,7 @@
     >
       {{ item.title }}
     </a>
-    <div class="menu">
+    <div class="menu" *ngIf="extraMenuLinks$ | async as links">
       <div class="menu-icon" [matMenuTriggerFor]="headerMenu">
         <!-- Burger menu icon -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

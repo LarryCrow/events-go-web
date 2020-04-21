@@ -23,57 +23,30 @@ export class AppComponent {
    */
   public readonly menuLinks$: Observable<MenuLink[]>;
   /**
-   * Control if menu should be displayed or not
-   */
-  public readonly isMenuDisplayed$: Observable<boolean>;
-  /**
    * Menu Links
    */
-  public readonly links: MenuLink[] = [
-    {
-      url: '/hosts/edit',
-      title: 'Редактировать',
-    },
-    {
-      url: '/about',
-      title: 'О нас',
-    },
-    {
-      url: '/auth/logout',
-      title: 'Выйти',
-    },
-  ];
-
-  private pagesToHideMenu = [
-    '/auth/login',
-    '/auth/register',
-  ];
+  public readonly extraMenuLinks$: Observable<MenuLink[]>;
 
   private readonly allEvents: MenuLink = { title: 'Все события', url: '/events' };
   private readonly myEvents: MenuLink = { title: 'Мои события', url: '/events/my' };
   private readonly createEvent: MenuLink = { title: 'Создать событие', url: '/events/create' };
   private readonly login: MenuLink = { title: 'Войти', url: '/auth/login' };
+  private readonly about: MenuLink = { title: 'О нас', url: '/about' };
+  private readonly logout: MenuLink = { title: 'Выйти', url: '/auth/logout' };
 
   /**
    * @constructor
    *
-   * @param router Router.
    * @param authService Auth service.
    * @param userService User service.
    */
   public constructor(
-    private readonly router: Router,
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {
     this.authService.getCurrentUser();
     this.menuLinks$ = this.initMenuLinks();
-    this.isMenuDisplayed$ = this.router.events
-      .pipe(
-        mapTo(true),
-        // filter((event) => event instanceof NavigationEnd),
-        // map((event: NavigationEnd) => this.pagesToHideMenu.every((link) => (link !== event.urlAfterRedirects))),
-      );
+    this.extraMenuLinks$ = this.initExtraMenuLinksStream();
   }
 
   private initMenuLinks(): Observable<MenuLink[]> {
@@ -87,6 +60,18 @@ export class AppComponent {
             return [this.allEvents, this.myEvents, this.createEvent];
           }
           return [this.allEvents, this.myEvents];
+        }),
+      );
+  }
+
+  private initExtraMenuLinksStream(): Observable<MenuLink[]> {
+    return this.userService.currentUser$
+      .pipe(
+        map(user => {
+          if (!user) {
+            return [this.about];
+          }
+          return [this.about, this.logout];
         }),
       );
   }
