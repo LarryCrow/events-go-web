@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Routes, RouterModule } from '@angular/router';
@@ -18,6 +19,7 @@ import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventsPageComponent } from './events-page/events-page.component';
 import { MyEventsPageComponent } from './my-events-page/my-events-page.component';
+import { SearchFiltersComponent } from './search-filters/search-filters.component';
 
 const routes: Routes = [
   {
@@ -56,6 +58,7 @@ const routes: Routes = [
     EventFormComponent,
     EditEventPageComponent,
     MyEventsPageComponent,
+    SearchFiltersComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +73,7 @@ const routes: Routes = [
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatTooltipModule,
+    MatSelectModule,
   ],
 })
 export class EventsModule { }

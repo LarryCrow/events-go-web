@@ -1,3 +1,7 @@
+:root {
+  --checkbox-size: 24px;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -61,6 +65,74 @@ label > span + textarea {
 ::placeholder {
   color: var(--placeholder-color);
   font-style: italic;
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > input {
+    position: relative;
+    -webkit-appearance: none;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    padding: 0;
+  }
+
+  & > span {
+    display: inline-block;
+    margin: 0 0 0 calc(var(--checkbox-size) / 2);
+  }
+}
+
+[type="checkbox"][disabled] {
+  --checkbox-button-color: var(--medium-color);
+}
+
+[type="checkbox"] {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 100%;
+  }
+}
+
+/* Render custom checkbox */
+[type="checkbox"]::before {
+  left: 0;
+  top: 0;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border: 2px solid var(--primary-background-color);
+  background: white;
+}
+
+/* Render custom "checked" mark */
+[type="checkbox"]:checked::after,
+[type="checkbox"]:not(:checked)::after {
+  --size: calc(var(--checkbox-size) - 10px);
+
+  width: var(--size);
+  height: var(--size);
+  top: calc((var(--checkbox-size) - var(--size)) / 2);
+  left: calc((var(--checkbox-size) - var(--size)) / 2);
+  transition: all 0.2s ease;
+  background: var(--primary-background-color);
+}
+
+/* Hide mark for unchecked */
+[type="checkbox"]:not(:checked)::after {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Show mark for unchecked */
+[type="checkbox"]:checked::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /*==== REMOVE ARROWS FROM INPUT[TYPE=NUMBER] ==== */

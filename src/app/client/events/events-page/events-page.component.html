@@ -4,7 +4,15 @@
       [formControl]="inputControl"
       placeholder="Введите название события"
     />
-    <!-- <button class="search-btn filters">Ф</button> -->
+    <button class="search-btn filters" (click)="toggleFilters()">
+      <img src="assets/icon/filter.svg" />
+    </button>
+    <div class="filters" *ngIf="areFiltersShown">
+      <ego-search-filters
+        [selectedFilters]="filters$ | async"
+        (select)="onFiltersSelect($event)"
+      ></ego-search-filters>
+    </div>
     <!-- <button class="search-btn search" (click)="searchValue()">П</button> -->
   </div>
   <ng-container *ngIf="events$ | async as events">

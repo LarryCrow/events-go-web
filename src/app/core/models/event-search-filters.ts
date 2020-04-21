@@ -15,9 +15,21 @@ export class EventSearchFilters {
    */
   public host_id?: number;
   /**
+   * Type ID.
+   */
+  public type_id?: number;
+  /**
+   * Start date.
+   */
+  public start?: string;
+  /**
+   * End date.
+   */
+  public end?: string;
+  /**
    * Only upcoming events.
    */
-  public upcoming = true;
+  public upcoming: boolean;
 
   /**
    * @constructor
@@ -28,6 +40,9 @@ export class EventSearchFilters {
     this.title = data.title;
     this.host = data.host;
     this.host_id = data.host_id;
+    this.type_id = data.type_id;
+    this.start = data.start;
+    this.end = data.end;
     this.upcoming = typeof data.upcoming === 'boolean' ? data.upcoming : true;
   }
 }

@@ -12,3 +12,12 @@ export function isDateGreaterThan(d: Date, days: number): boolean {
   date.setHours(0, 0, 0, 0);
   return compareDate < date;
 }
+
+/**
+ * Parse date to 'yyyy-dd-mm' format
+ *
+ * @param d Date
+ */
+export function parseDateToFilterString(d: Date): string {
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
