@@ -1,14 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { createHttpParams } from 'src/app/shared/utils/http-params';
 
 import { EventMapper } from '../mappers/event.mapper';
 import { Event } from '../models/event';
 import { EventSearchFilters } from '../models/event-search-filters';
+import { Pagination } from '../models/pagination';
+import { SaveEventModel } from '../models/save-event';
 
 import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
+import { PaginationDto } from './dto/pagination-dto';
 import { SubscriptionDto } from './dto/subscription-dto';
 
 /**
@@ -18,11 +22,14 @@ import { SubscriptionDto } from './dto/subscription-dto';
   providedIn: 'root',
 })
 export class EventsService {
-  private readonly EVENTS_URL = `${this.appConfig.baseUrl}events/`;
+  private readonly EVENTS_URL = `${this.appConfig.baseUrl}events`;
   private readonly SUBSCRIPTION_URL = `${this.appConfig.baseUrl}subscription/`;
+
+  private readonly EVENTS_PER_PAGE = 12;
 
   /**
    * @constructor
+   *
    * @param http - HTTP service.
    * @param appConfig - App configuration.
    * @param eventMapper - Event mapper.
@@ -36,13 +43,12 @@ export class EventsService {
   /**
    * Gets list of events.
    */
-  public getEvents(filters?: EventSearchFilters): Observable<Event[]> {
-    const url = new URL('', this.EVENTS_URL);
-    url.searchParams.set('title', filters.title || '');
-    return this.http.get<EventDto[]>(url.toString())
-      .pipe(
-        map((events) => events.map(event => this.eventMapper.fromDto(event))),
-      );
+  public getEvents(filters?: EventSearchFilters, page: number = 1): Observable<Pagination<Event>> {
+    const params = createHttpParams(filters)
+      .set('page', page.toString())
+      .set('limit', this.EVENTS_PER_PAGE.toString());
+    return this.http.get<PaginationDto<EventDto>>(`${this.EVENTS_URL}/`, { params })
+      .pipe(map(this.mapTopicPagination));
   }
 
   /**
@@ -50,9 +56,18 @@ export class EventsService {
    * @param id - Event id.
    */
   public getEvent(id: number | string): Observable<Event> {
-    return this.http.get<EventDto>(`${this.EVENTS_URL}${id}`)
+    return this.http.get<EventDto>(`${this.EVENTS_URL}/${id}`)
       .pipe(
         map((event) => this.eventMapper.fromDto(event)),
+        catchError((err) => {
+          let message = 'Что-то пошло не так';
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 404) {
+              message = 'Событие с таким номером не найдено.';
+            }
+          }
+          return throwError(new Error(message));
+        }),
       );
   }
 
@@ -89,9 +104,6 @@ export class EventsService {
    * @param eventId Event id.
    */
   public isUserSubscribed(eventId: number): Observable<boolean> {
-    const body = {
-      event_id: eventId,
-    };
     return this.http.get(`${this.SUBSCRIPTION_URL}${eventId}`)
       .pipe(
         map((res) => res['is_subscribed']),
@@ -99,9 +111,65 @@ export class EventsService {
   }
 
   /**
+   * Creates an event.
+   *
+   * @param data Data to create an event.
+   */
+  public create(data: SaveEventModel): Observable<Event> {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('price', data.price.toString());
+    formData.append('description', data.description);
+    formData.append('place', data.place);
+    formData.append('start', data.start);
+    formData.append('end', data.end);
+    formData.append('avatar', data.avatar);
+    formData.append('type_id', data.type_id.toString());
+    return this.http.post<EventDto>(`${this.EVENTS_URL}/`, formData)
+      .pipe(
+        map((res) => this.eventMapper.fromDto(res)),
+      );
+  }
+
+  /**
    * Update event.
    */
-  public update(): Observable<any> {
-    return null;
+  public update(data: SaveEventModel): Observable<any> {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('price', data.price.toString());
+    formData.append('description', data.description);
+    formData.append('place', data.place);
+    formData.append('start', data.start);
+    formData.append('end', data.end);
+    if (data.avatar) {
+      formData.append('avatar', data.avatar);
+    }
+    formData.append('type_id', data.type_id.toString());
+    return this.http.patch<EventDto>(`${this.EVENTS_URL}/${data.id}/`, formData)
+      .pipe(
+        map((res) => this.eventMapper.fromDto(res)),
+      );
   }
+
+  /**
+   * Get a user events.
+   */
+  public getMyEvents(): Observable<Event[]> {
+    return this.http.get<EventDto[]>(`${this.EVENTS_URL}/my`)
+      .pipe(
+        map((events) => events.map(event => this.eventMapper.fromDto(event))),
+      );
+  }
+
+  private mapTopicPagination = pagination => {
+    return {
+      items: pagination.results.map((event: EventDto) =>
+        this.eventMapper.fromDto(event),
+      ),
+      pagesCount: Math.ceil(pagination.count / this.EVENTS_PER_PAGE),
+      itemsCount: pagination.count,
+    };
+  }
+
 }

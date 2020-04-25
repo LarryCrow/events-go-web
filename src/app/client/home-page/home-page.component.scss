@@ -1,0 +1,31 @@
+:host {
+  --space: 30px;
+  --primary-font-color: var(--primary-contrast-color);
+}
+
+.greetings {
+  text-align: center;
+  background: #101357;
+  width: 70%;
+  min-width: 1250px;
+  margin: 25vh auto 0 auto;
+  padding: calc(var(--space) * 2) 0;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: normal;
+  margin-bottom: var(--space);
+}
+
+p {
+  font-size: 30px;
+  margin-bottom: var(--space);
+  font-weight: 300;
+}
+
+button {
+  padding: 10px 50px;
+  font-size: 20px;
+  font-weight: 300;
+}

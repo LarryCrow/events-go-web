@@ -16,6 +16,8 @@ const NO_TOKEN_URLS = [
   'user/login',
 ];
 
+const DADATA_BASE_URL = 'suggestions.dadata.ru';
+
 /** Interceptor to provide auth information to request headers */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -31,7 +33,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const shouldSetToken = !this.isAuthRequest(req.url);
 
-    if (authToken && shouldSetToken) {
+    if (this.isDadataRequest(req.url)) {
+      const dadataReq = req.clone({
+        headers: req.headers.set('Authorization', 'Token fab8a2193c0ffc01a0bb41075b96f3e74cceddca'),
+      });
+
+      return next.handle(dadataReq);
+    } else if (authToken && shouldSetToken) {
       const authReq = req.clone({
         headers: req.headers.set('Authorization', `Token ${authToken}`),
       });
@@ -48,8 +56,11 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   private isAuthRequest(url: string): boolean {
     return NO_TOKEN_URLS
-      .map(x => `${this.appConfig.baseUrl}${x}`)
-      .some(x => x === url);
+      .some(x => url.includes(x));
+  }
+
+  private isDadataRequest(url: string): boolean {
+    return url.includes(DADATA_BASE_URL);
   }
 
 }

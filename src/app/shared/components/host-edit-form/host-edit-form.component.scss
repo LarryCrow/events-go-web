@@ -1,0 +1,43 @@
+:host {
+  --space: 10px;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: var(--space);
+  }
+
+  .submit-btn {
+    padding: calc(var(--space) * 1.5) calc(var(--space) * 3);
+    margin-top: calc(var(--space) * 3);
+  }
+}
+
+.errors {
+  height: 20px;
+
+  .error-msg {
+    margin: 0;
+    text-align: center;
+    color: var(--error-message);
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  & > * {
+    display: block;
+    flex: 1;
+  }
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--space) * 4);
+  }
+}

@@ -1,16 +1,25 @@
-<form *ngIf="form" [formGroup]="form" (ngSubmit)="onFormSubmit()" class="margin">
+<form
+  *ngIf="form"
+  [formGroup]="form"
+  (ngSubmit)="onFormSubmit()"
+  class="margin"
+>
   <label>
-    <p>Email</p>
+    <span>Email*</span>
     <input type="text" type="email" formControlName="email" />
-    <ego-form-control-validation-message controlName="email"></ego-form-control-validation-message>
+    <ego-form-control-validation-message
+      controlName="email"
+    ></ego-form-control-validation-message>
   </label>
   <label>
-    <p>Пароль</p>
+    <span>Пароль*</span>
     <input type="text" type="password" formControlName="pass" />
-    <ego-form-control-validation-message controlName="pass"></ego-form-control-validation-message>
+    <ego-form-control-validation-message
+      controlName="pass"
+    ></ego-form-control-validation-message>
   </label>
-  <button class="submit-btn" type="submit">Вперёд</button>
+  <button class="primary submit-btn" type="submit">Вперёд</button>
   <div class="errors">
-    <p class="error-msg">{{error}}</p>
+    <p class="error-msg">{{ error }}</p>
   </div>
 </form>

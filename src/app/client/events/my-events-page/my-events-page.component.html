@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 class="title">
+    <span>Ближайшие события</span>
+    <span
+      class="info-icon"
+      matTooltip="В этом разделе вы можете увидеть события, которые начнутся уже в течение 5 дней"
+    ></span>
+  </h2>
+  <div class="list" *ngIf="upcomingEvents$ | async as events">
+    <ego-events-list [events]="events"></ego-events-list>
+  </div>
+  <h2 class="title">Остальные</h2>
+  <div class="list" *ngIf="otherEvents$ | async as events">
+    <ego-events-list [events]="events"></ego-events-list>
+  </div>
+</div>

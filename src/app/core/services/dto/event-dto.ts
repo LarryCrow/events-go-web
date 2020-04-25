@@ -1,3 +1,4 @@
+import { EventTypeDto } from './event-type-dto';
 import { HostDto } from './host-dto';
 
 /**
@@ -12,16 +13,22 @@ export interface EventDto {
   description: string;
   /** Place. */
   place: string;
-  /** Date. */
-  date: string;
+  /** Start date. */
+  start: string;
+  /** End date. */
+  end: string;
   /** Price. */
   price: number;
   /** Host. */
   host: HostDto;
-  /** Participations. */
-  participations: number[];
+  /** Participants number. */
+  participants_number: number;
   /** Is canceled. */
   is_canceled: boolean;
   /** Is complete. */
   is_complete: boolean;
+  /** Avatar. */
+  avatar: string;
+  /** Type */
+  type: EventTypeDto;
 }

@@ -1,6 +1,10 @@
 {
-  "name": "web",
-  "version": "0.0.0",
+  "name": "events",
+  "version": "1.0.0",
+  "author": "Dmitri Bitkovski",
+  "maintainers": [
+    "Viktor Chernodub"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,6 +27,7 @@
     "@angular/router": "~8.2.13",
     "angular8-yandex-maps": "^1.11.0",
     "hammerjs": "^2.0.8",
+    "ng-pick-datetime": "^7.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

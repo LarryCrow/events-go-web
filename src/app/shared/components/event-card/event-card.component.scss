@@ -1,0 +1,55 @@
+:host {
+  --space: 15px;
+  --transition-duration: 0.25s;
+
+  &:hover {
+    .card-img img {
+      filter: contrast(100%);
+    }
+
+    .title {
+      color: var(--yellow);
+      text-decoration: underline;
+    }
+  }
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter var(--transition-duration)
+      cubic-bezier(0.43, 0.41, 0.22, 0.91);
+    filter: contrast(70%);
+  }
+}
+
+.card-body {
+  padding: var(--space);
+  background: var(--card-color);
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+  transition: var(--transition-duration) cubic-bezier(0.43, 0.41, 0.22, 0.91);
+}
+
+.date {
+  color: var(--additional-text-color);
+  font-size: 0.86rem;
+}
+
+.description {
+  margin-top: 15px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}

@@ -1,0 +1,150 @@
+:root {
+  --checkbox-size: 24px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+input[type="url"],
+input:not([type]) {
+  padding: 7.5px 16px;
+  border: 1px solid var(--primary-border-color);
+  border-radius: var(--input-border-radius);
+}
+
+select {
+  padding: 6.5px 16px;
+  border: 1px solid var(--primary-border-color);
+  background: transparent;
+  border-radius: var(--input-border-radius);
+}
+
+input,
+select,
+textarea {
+  background-color: var(--primary-contrast-color);
+}
+
+button {
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+button.link {
+  background: transparent;
+}
+
+textarea {
+  padding: 6.5px 16px;
+  border: 1px solid var(--primary-border-color);
+  resize: vertical;
+  min-height: 4.5rem;
+  border-radius: var(--input-border-radius);
+}
+
+label > span {
+  color: var(--label-font-color);
+  display: block;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+label > input,
+label > select,
+label > textarea,
+label > span + input,
+label > span + select,
+label > span + textarea {
+  width: 100%;
+}
+
+::placeholder {
+  color: var(--placeholder-color);
+  font-style: italic;
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > input {
+    position: relative;
+    -webkit-appearance: none;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    padding: 0;
+  }
+
+  & > span {
+    display: inline-block;
+    margin: 0 0 0 calc(var(--checkbox-size) / 2);
+  }
+}
+
+[type="checkbox"][disabled] {
+  --checkbox-button-color: var(--medium-color);
+}
+
+[type="checkbox"] {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 100%;
+  }
+}
+
+/* Render custom checkbox */
+[type="checkbox"]::before {
+  left: 0;
+  top: 0;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border: 2px solid var(--primary-background-color);
+  background: white;
+}
+
+/* Render custom "checked" mark */
+[type="checkbox"]:checked::after,
+[type="checkbox"]:not(:checked)::after {
+  --size: calc(var(--checkbox-size) - 10px);
+
+  width: var(--size);
+  height: var(--size);
+  top: calc((var(--checkbox-size) - var(--size)) / 2);
+  left: calc((var(--checkbox-size) - var(--size)) / 2);
+  transition: all 0.2s ease;
+  background: var(--primary-background-color);
+}
+
+/* Hide mark for unchecked */
+[type="checkbox"]:not(:checked)::after {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Show mark for unchecked */
+[type="checkbox"]:checked::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/*==== REMOVE ARROWS FROM INPUT[TYPE=NUMBER] ==== */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

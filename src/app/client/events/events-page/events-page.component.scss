@@ -1,0 +1,79 @@
+:host {
+  --search-block-size: 35px;
+  --card-space: 20px;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.search-block {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border: 1px solid var(--primary-border-color);
+
+  input {
+    border: none;
+    height: var(--search-block-size);
+    padding: 0 calc(var(--search-block-size) + 5px);
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    color: var(--primary-contrast-color);
+  }
+
+  .search-btn {
+    position: absolute;
+    top: 0;
+    height: var(--search-block-size);
+    width: var(--search-block-size);
+  }
+
+  .search-btn.filters {
+    left: 0;
+    padding: calc(var(--search-block-size) / 5);
+    background: var(--primary-color);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .search-btn.search {
+    right: 0;
+  }
+
+  .filters-block {
+    transition: max-height 0.3s ease-out;
+    height: auto;
+  }
+}
+
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+
+  .card {
+    width: calc(33%);
+    padding: var(--card-space);
+
+    ego-event-card {
+      display: block;
+      box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .more-btn {
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    padding: 15px 20px;
+  }
+}

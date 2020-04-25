@@ -1,0 +1,17 @@
+:host {
+  --space: 15px;
+}
+
+a {
+  display: block;
+  padding: var(--space);
+  transition-duration: 0.1s;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid black;
+  }
+
+  &:hover {
+    background-color: var(--yellow);
+  }
+}

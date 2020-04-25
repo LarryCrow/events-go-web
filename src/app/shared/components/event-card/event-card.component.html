@@ -1,0 +1,16 @@
+<div class="event-card">
+  <div class="card-img">
+    <img [src]="event.avatar || '/assets/default-image.jpg'" />
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <h2 class="title">
+        <a [routerLink]="['/events', event.id]" routerLinkAbsolute="true">
+          {{ event.title }}
+        </a>
+      </h2>
+      <p class="date">{{ event.start | date }}</p>
+    </div>
+    <p class="description">{{ event.description }}</p>
+  </div>
+</div>

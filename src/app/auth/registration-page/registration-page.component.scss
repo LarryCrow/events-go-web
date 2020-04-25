@@ -1,17 +1,13 @@
 :host {
   --space: 40px;
 
-
-  height: 100%;
   display: flex;
   flex-direction: row;
 
   > * {
     flex: 1 1 0px;
-
   }
 }
-
 
 .links {
   width: 100%;
@@ -19,6 +15,10 @@
   display: flex;
   justify-content: space-between;
   margin-top: calc(var(--space) / 2);
+
+  a {
+    color: var(--primary-background-color);
+  }
 }
 
 .functionality .form-header {
@@ -33,19 +33,27 @@
     margin: 0;
   }
 
-  button {
-    background: none;
+  button.link {
     text-decoration: underline;
   }
 }
 
 .banner {
-  background-image: url("src/assets/preview.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5) 100%),
+    url("src/assets/preview.jpg");
   background-size: cover;
   background-position: center;
+  height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
 .form {
-  width: 600px;
-  margin: 15vh auto 0 auto;
+  width: 650px;
+  margin: 5vh auto 5vh auto;
+}
+
+.registration-form {
+  background: var(--primary-contrast-color);
+  padding: 40px;
 }

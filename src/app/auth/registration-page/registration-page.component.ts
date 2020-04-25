@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * Registration page.
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   selector: 'ego-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPageComponent {
   /**

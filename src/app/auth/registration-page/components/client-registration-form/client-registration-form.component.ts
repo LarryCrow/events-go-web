@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { RegistrationData } from '../../../../core/models/registration-data';
+import { ClientRegistrationData } from '../../../../core/models/registration-data';
 import { AuthService } from '../../../../core/services/auth.service';
 
 /**
@@ -13,6 +13,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   selector: 'ego-client-registration-form',
   templateUrl: './client-registration-form.component.html',
   styleUrls: ['./client-registration-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientRegistrationFormComponent {
   /**
@@ -26,13 +27,15 @@ export class ClientRegistrationFormComponent {
 
   /**
    * @constructor
-   * @param fb - Form builder.
-   * @param authService - Auth service.
+   *
+   * @param router Router
+   * @param fb Form builder.
+   * @param authService Auth service.
    */
   public constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private router: Router,
+    private readonly router: Router,
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
   ) { }
 
   /**
@@ -43,7 +46,7 @@ export class ClientRegistrationFormComponent {
     if (this.form.invalid) {
       return;
     }
-    const data: RegistrationData = {
+    const data: ClientRegistrationData = {
       email: this.form.value.email as string,
       pass: this.form.value.pass as string,
     };

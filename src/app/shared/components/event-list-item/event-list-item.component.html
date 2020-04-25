@@ -1,0 +1,20 @@
+<div class="event">
+  <div class="avatar">
+    <img [src]="event.avatar || '/assets/default-image.jpg'" />
+  </div>
+  <div class="body">
+    <h2 class="title">
+      <a [routerLink]="['/events', event.id]" routerLinkAbsolute="true">{{
+        event.title
+      }}</a>
+    </h2>
+    <p>{{ event.description }}</p>
+  </div>
+  <div class="date">
+    <p>{{ event.start | date }}</p>
+    <p *ngIf="event.price !== 0; else freeEntry">Цена: {{ event.price }}</p>
+    <ng-template #freeEntry>
+      <p>Бесплатно</p>
+    </ng-template>
+  </div>
+</div>

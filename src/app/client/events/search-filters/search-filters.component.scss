@@ -1,0 +1,40 @@
+:host {
+  --space: 20px;
+}
+
+.container {
+  background: var(--primary-color);
+  padding: var(--space);
+}
+
+form {
+  label {
+    display: block;
+  }
+
+  & > *:not(:last-child) {
+    margin-bottom: var(--space);
+  }
+}
+
+.action-btn {
+  button {
+    padding: calc(var(--space) / 2) var(--space);
+  }
+
+  button:not(:last-child) {
+    margin-right: var(--space);
+  }
+}
+
+.row {
+  display: flex;
+
+  & > * {
+    flex: 1;
+  }
+
+  & > *:not(:last-child) {
+    margin-right: var(--space);
+  }
+}

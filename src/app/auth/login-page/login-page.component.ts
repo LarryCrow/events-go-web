@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { first, finalize } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -12,24 +13,30 @@ import { AuthService } from '../../core/services/auth.service';
   selector: 'ego-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent {
   /**
    * Form group for login form.
    */
   public readonly form = this.initForm();
-
   /**
    * Error message.
    */
-  public error = '';
+  public readonly apiError$ = new BehaviorSubject<string>(null);
+  /**
+   * Loading controller.
+   */
+  public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * Run the animation.
+   * @constructor
+   *
+   * @param fb Form builder.
+   * @param authService Auth service.
+   * @param router Router.
    */
-  public loginFinished = false;
-
-  constructor(
+  public constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
@@ -40,16 +47,18 @@ export class LoginPageComponent {
    */
   public onFormSubmit(form: FormGroup): void {
     this.form.markAllAsTouched();
-    if (form.invalid) {
+    if (form.invalid || this.isLoading$.value) {
       return;
     }
-    this.error = '';
+    this.apiError$.next('');
     // Fields are required and we are able to cast value to string.
-    const email = form.value.email as string;
-    const pass = form.value.pass as string;
+    const email = form.value.email;
+    const pass = form.value.pass;
+    this.isLoading$.next(true);
     this.authService.login(email, pass)
       .pipe(
         first(),
+        finalize(() => this.isLoading$.next(false)),
       )
       .subscribe(
         () => {
@@ -57,7 +66,7 @@ export class LoginPageComponent {
         },
         (err) => {
           if (err instanceof Error) {
-            this.error = err.message;
+            this.apiError$.next(err.message);
           } else {
             console.log(err);
           }
@@ -71,5 +80,4 @@ export class LoginPageComponent {
       pass: [null, [Validators.required, Validators.minLength(5)]],
     });
   }
-
 }

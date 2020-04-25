@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MapOptions } from 'src/app/core/models/map-options';
 
 /**
@@ -8,11 +8,10 @@ import { MapOptions } from 'src/app/core/models/map-options';
   selector: 'ego-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent {
   /** Component options */
   @Input()
   public options: MapOptions;
-
-  public constructor() { }
 }

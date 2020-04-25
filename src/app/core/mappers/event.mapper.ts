@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Event } from '../models/event';
 import { EventDto } from '../services/dto/event-dto';
 
+import { EventTypeMapper } from './event-type-mapper';
 import { HostMapper } from './host.mapper';
 
 /**
@@ -13,6 +14,7 @@ import { HostMapper } from './host.mapper';
 })
 export class EventMapper {
   private readonly hostMapper = new HostMapper();
+  private readonly eventTypeMapper = new EventTypeMapper();
   /**
    * Cast DTO to Event model.
    * @param dto - Event DTO.
@@ -22,13 +24,16 @@ export class EventMapper {
       id: dto.id,
       description: dto.description,
       host: this.hostMapper.fromDto(dto.host),
-      date: new Date(dto.date),
+      start: new Date(dto.start),
+      end: new Date(dto.end),
       isCanceled: dto.is_canceled,
       isComplete: dto.is_complete,
-      participations: dto.participations,
+      participantsNumber: dto.participants_number,
       place: this.getCoordinates(dto.place),
       price: dto.price,
       title: dto.title,
+      avatar: dto.avatar,
+      type: this.eventTypeMapper.fromDto(dto.type),
     });
   }
 

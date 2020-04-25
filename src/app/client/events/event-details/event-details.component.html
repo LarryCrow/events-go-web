@@ -1,35 +1,79 @@
-<div class="container" *ngIf="event$ | async as event">
+<div class="container" *ngIf="event$ | async as event; else loading">
   <div class="row">
-    <div class="images">
-      <img src="/assets/default-image.jpg" class="main-img" />
+    <div class="image">
+      <img
+        [src]="event.avatar || '/assets/default-image.jpg'"
+        class="main-img"
+      />
     </div>
     <div class="base-information">
       <h1>{{ event.title }}</h1>
-      <h2 class="canceled" *ngIf="event.isCanceled">Мероприятие отменено</h2>
+      <ng-container *ngIf="isCancenled$ | async; then canceled"> </ng-container>
       <p>
         Организатор:
-        <a [routerLink]="['/host', event.host.id]">{{ event.host.name }}</a>
+        <a [routerLink]="['/hosts', event.host.id]">{{ event.host.name }}</a>
+      </p>
+      <p>Тип мероприятия: {{ event.type.value }}</p>
+      <p>
+        Начало: <span>{{ event.start | date: "dd/MM/yyyy, H:mm" }}</span>
       </p>
       <p>
-        Дата проведения: {{event.date | date:'dd/MM/yyyy'}}
+        Окончание: <span>{{ event.end | date: "dd/MM/yyyy, H:mm" }}</span>
       </p>
-      <p>
-        Стоимость: {{event.price}}
-      </p>
-      <p>
-        Адрес: {{event.place}}
-      </p>
-      <button *ngIf="!isUserSubscribed; else unsubscribeBtn" type="button" (click)="onSubscribeBtnClick(event.id)"> Я
-        пойду! </button>
-      <ng-template #unsubscribeBtn>
-        <button type="button" (click)="onUnsubscribeBtnClick(event.id)"> Не пойду </button>
-      </ng-template>
+      <p>Стоимость: {{ event.price | currency: "RUB" }}</p>
+      <p>Адрес: {{ readbleName$ | async }}</p>
+      <div class="action-buttons">
+        <ng-container
+          *ngIf="{ value: isUserSubscribed$ | async } as subscription"
+        >
+          <button
+            *ngIf="!subscription.value; else unsubscribeBtn"
+            class="primary"
+            type="button"
+            (click)="onSubscribeBtnClick(event.id)"
+          >
+            Я пойду!
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="{ value: isUserHost$ | async } as context">
+          <button
+            class="secondary"
+            *ngIf="context.value"
+            (click)="onEditButtonClick()"
+          >
+            Редактировать
+          </button>
+        </ng-container>
+        <ng-template #unsubscribeBtn>
+          <button
+            type="button"
+            class="secondary"
+            (click)="onUnsubscribeBtnClick(event.id)"
+          >
+            Не пойду
+          </button>
+        </ng-template>
+      </div>
     </div>
   </div>
-  <div>
+  <div class="description">
     <p>{{ event.description }}</p>
-    <div class="map">
-      <ego-map [options]="mapOptions$ | async"></ego-map>
-    </div>
+  </div>
+  <div class="map" *ngIf="mapOptions$ | async as options">
+    <ego-map [options]="options"></ego-map>
   </div>
 </div>
+
+<ng-template #loading>
+  <ego-loading></ego-loading>
+</ng-template>
+
+<ng-template #canceled>
+  <div class="canceled-block">
+    <p>
+      К сожалению, мероприятие было отменено организатором. Подпишись, чтобы не
+      пропустить новости.
+    </p>
+  </div>
+</ng-template>

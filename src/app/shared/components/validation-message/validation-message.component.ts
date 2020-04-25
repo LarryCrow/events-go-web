@@ -24,6 +24,7 @@ const ValidationErrorMessageFactories = {
   [ValidationErrorCode.AppError]: ({ message }: AppErrorData) => message,
   [ValidationErrorCode.Min]: ({ actual, min }: MinValueErrorData) => `Минимальное значение ${min}`,
   [ValidationErrorCode.Max]: ({ actual, max }: MaxValueErrorData) => `Максимальное значение ${max}`,
+  [ValidationErrorCode.IncorrectAddress]: () => 'Некорректный адрес.',
 };
 
 /**
@@ -63,7 +64,7 @@ export class ValidationMessageComponent {
     const factory = ValidationErrorMessageFactories[errorCode];
     if (factory == null) {
       console.warn(`Can not find validation message factory for error: ${errorCode}`);
-      return 'Value is not valid';
+      return 'Некорректное значение';
     }
     return factory(errorData);
   }

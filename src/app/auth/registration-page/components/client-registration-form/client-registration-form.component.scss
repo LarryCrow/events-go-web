@@ -12,21 +12,8 @@ form {
   }
 
   .submit-btn {
-    background: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    align-self: center;
     padding: 10px 15px;
     margin-top: 30px;
     width: 110px;
-    transition: all .3s ease-in-out;
-    background: linear-gradient(to right, var(--primary-color) 50%, var(--base-contrast) 50%);
-    background-size: 200% 100%;
-    background-position: right bottom;
-
-    &:hover {
-      background-position: left bottom;
-      color: var(--base-contrast);
-    }
   }
 }

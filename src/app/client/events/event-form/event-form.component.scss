@@ -1,0 +1,53 @@
+:host {
+  --space: 20px;
+}
+
+form {
+  background: var(--card-color);
+  box-shadow: 0 0 10px 0 var(--primary-border-color);
+  padding: calc(var(--space) * 2);
+
+  & > *:not(:last-child) {
+    margin-bottom: var(--space);
+  }
+
+  label {
+    display: block;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & > * {
+    flex: 1;
+  }
+
+  & > :not(:first-child) {
+    margin-left: var(--space);
+  }
+}
+
+.date-field {
+  display: flex;
+  flex-direction: row;
+
+  input {
+    flex: 1;
+  }
+
+  mat-datepicker-toggle {
+    height: 36px;
+    width: 36px;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  padding: calc(var(--space) / 2) calc(var(--space) / 1.5);
+}
