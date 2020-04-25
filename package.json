@@ -1,6 +1,10 @@
 {
-  "name": "web",
-  "version": "0.0.0",
+  "name": "events",
+  "version": "1.0.0",
+  "author": "Dmitri Bitkovski",
+  "maintainers": [
+    "Viktor Chernodub"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
