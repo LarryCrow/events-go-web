@@ -20,6 +20,7 @@ export class EventCardComponent {
 
   /**
    * @constructor
+   *
    * @param router - Router.
    */
   public constructor(

@@ -25,10 +25,11 @@ export class EventsService {
   private readonly EVENTS_URL = `${this.appConfig.baseUrl}events`;
   private readonly SUBSCRIPTION_URL = `${this.appConfig.baseUrl}subscription/`;
 
-  private readonly TOPICS_PER_PAGE = 12;
+  private readonly EVENTS_PER_PAGE = 12;
 
   /**
    * @constructor
+   *
    * @param http - HTTP service.
    * @param appConfig - App configuration.
    * @param eventMapper - Event mapper.
@@ -43,7 +44,9 @@ export class EventsService {
    * Gets list of events.
    */
   public getEvents(filters?: EventSearchFilters, page: number = 1): Observable<Pagination<Event>> {
-    const params = createHttpParams(filters).set('page', page.toString());
+    const params = createHttpParams(filters)
+      .set('page', page.toString())
+      .set('limit', this.EVENTS_PER_PAGE.toString());
     return this.http.get<PaginationDto<EventDto>>(`${this.EVENTS_URL}/`, { params })
       .pipe(map(this.mapTopicPagination));
   }
@@ -164,7 +167,7 @@ export class EventsService {
       items: pagination.results.map((event: EventDto) =>
         this.eventMapper.fromDto(event),
       ),
-      pagesCount: Math.ceil(pagination.count / this.TOPICS_PER_PAGE),
+      pagesCount: Math.ceil(pagination.count / this.EVENTS_PER_PAGE),
       itemsCount: pagination.count,
     };
   }

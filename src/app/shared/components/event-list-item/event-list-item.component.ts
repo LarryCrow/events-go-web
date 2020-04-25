@@ -21,6 +21,7 @@ export class EventListItemComponent {
 
   /**
    * @constructor
+   *
    * @param router - Router.
    */
   public constructor(

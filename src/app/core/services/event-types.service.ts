@@ -8,7 +8,6 @@ import { EventType } from '../models/event-type';
 
 import { AppConfig } from './app-config.service';
 import { EventTypeDto } from './dto/event-type-dto';
-import { PaginationDto } from './dto/pagination-dto';
 
 /**
  * Event types service.

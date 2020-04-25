@@ -11,6 +11,12 @@ import { Component, ChangeDetectionStrategy, Inject, OnInit, OnDestroy } from '@
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingComponent implements OnInit, OnDestroy {
+
+  /**
+   * @constructor
+   *
+   * @param document Document object.
+   */
   public constructor(@Inject(DOCUMENT) private document: Document) { }
 
   /** @inheritdoc */

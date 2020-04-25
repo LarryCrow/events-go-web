@@ -14,6 +14,4 @@ export class MapComponent {
   /** Component options */
   @Input()
   public options: MapOptions;
-
-  public constructor() { }
 }

@@ -17,8 +17,6 @@ export class EventsListComponent {
   @Input()
   public events: Event[];
 
-  public constructor() { }
-
   /**
    * TrackBy function for events list.
    *

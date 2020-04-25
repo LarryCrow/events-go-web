@@ -12,7 +12,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DialogInfoComponent {
 
-  constructor(
+  /**
+   * @constructor
+   *
+   * @param dialogRef Material dialog ref.
+   * @param data Input data.
+   */
+  public constructor(
     public dialogRef: MatDialogRef<DialogInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }

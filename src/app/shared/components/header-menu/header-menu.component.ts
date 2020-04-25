@@ -16,6 +16,4 @@ export class HeaderMenuComponent {
    */
   @Input()
   public links: MenuLink[];
-
-  public constructor() { }
 }

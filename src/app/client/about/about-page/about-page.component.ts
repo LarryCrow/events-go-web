@@ -18,6 +18,12 @@ export class AboutPageComponent {
    */
   public readonly form = this.createFeedbackForm();
 
+  /**
+   * @constructor
+   *
+   * @param fb Form builder
+   * @param dialogService Dialog service.
+   */
   public constructor(
     private readonly fb: FormBuilder,
     private readonly dialogService: DialogService,

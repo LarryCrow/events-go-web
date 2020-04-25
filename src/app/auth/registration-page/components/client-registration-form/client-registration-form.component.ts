@@ -27,13 +27,15 @@ export class ClientRegistrationFormComponent {
 
   /**
    * @constructor
-   * @param fb - Form builder.
-   * @param authService - Auth service.
+   *
+   * @param router Router
+   * @param fb Form builder.
+   * @param authService Auth service.
    */
   public constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private router: Router,
+    private readonly router: Router,
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
   ) { }
 
   /**

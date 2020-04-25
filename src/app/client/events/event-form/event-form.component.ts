@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable, of, ReplaySubject, merge, NEVER } from 'rxjs';
-import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share } from 'rxjs/operators';
+import { Observable, of, ReplaySubject, merge, NEVER, Subject } from 'rxjs';
+import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share, takeUntil } from 'rxjs/operators';
 import { Address, Coords } from 'src/app/core/models/address';
 import { Event } from 'src/app/core/models/event';
 import { EventType } from 'src/app/core/models/event-type';
@@ -19,7 +19,7 @@ import { EventTypesService } from 'src/app/core/services/event-types.service';
   styleUrls: ['./event-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EventFormComponent implements OnInit {
+export class EventFormComponent implements OnInit, OnDestroy {
   /**
    * Event object.
    */
@@ -47,6 +47,7 @@ export class EventFormComponent implements OnInit {
    */
   public minDate = new Date();
 
+  private destroy$ = new Subject<void>();
   private init$ = new ReplaySubject(1);
   private selectedAddressCoords: Coords;
 
@@ -55,6 +56,7 @@ export class EventFormComponent implements OnInit {
    *
    * @param fb Form builder.
    * @param addressesService Addresses service.
+   * @param eventTypeService Event type service.
    */
   public constructor(
     private readonly fb: FormBuilder,
@@ -103,8 +105,17 @@ export class EventFormComponent implements OnInit {
   public onAddressSelect(value: MatAutocompleteSelectedEvent): void {
     const selectedAddress = value.option.value as Address;
     this.addressesService.getCoordinatesByAddress(selectedAddress.unstrictedValue)
-      .pipe(filter((address) => address.isBuilding))
+      .pipe(
+        filter((address) => address.isBuilding),
+        takeUntil(this.destroy$),
+      )
       .subscribe((address) => (this.selectedAddressCoords = address.coords));
+  }
+
+  /** @inheritdoc */
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**

@@ -83,15 +83,14 @@ export class HostPageComponent {
     return combineLatest([
       this.host$,
       this.listMode$,
-    ])
-      .pipe(
-        switchMap(([host, mode]) => this.eventService.getEvents(this.getSearchFilters(host.id, mode))),
-        map((pagination) => pagination.items),
-        shareReplay({
-          refCount: true,
-          bufferSize: 1,
-        }),
-      );
+    ]).pipe(
+      switchMap(([host, mode]) => this.eventService.getEvents(this.getSearchFilters(host.id, mode))),
+      map((pagination) => pagination.items),
+      shareReplay({
+        refCount: true,
+        bufferSize: 1,
+      }),
+    );
   }
 
   private getSearchFilters(host_id: number, mode: ListMode): EventSearchFilters {

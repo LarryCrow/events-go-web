@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, filter, mapTo } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { MenuLink } from './core/models/menu-link';
 import { Role } from './core/models/role.enum';

@@ -26,6 +26,13 @@ export class HostRegistrationComponent {
    */
   public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
+  /**
+   * @constructor
+   *
+   * @param router Router
+   * @param authService Auth service.
+   * @param dialogService Dialog service.
+   */
   public constructor(
     private readonly router: Router,
     private readonly authService: AuthService,

@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share, map } from 'rxjs/operators';
 import { Event } from 'src/app/core/models/event';
-import { EventSearchFilters } from 'src/app/core/models/event-search-filters';
 import { EventsService } from 'src/app/core/services/events.service';
 import { isDateGreaterThan } from 'src/app/shared/utils/date';
 
@@ -20,10 +19,6 @@ const UPCOMING_FILTER_DAY = 5;
 })
 export class MyEventsPageComponent {
   /**
-   * Events
-   */
-  private readonly events$: Observable<Event[]>;
-  /**
    * Upcoming events (less than 5 days)
    */
   public readonly upcomingEvents$: Observable<Event[]>;
@@ -32,6 +27,13 @@ export class MyEventsPageComponent {
    */
   public readonly otherEvents$: Observable<Event[]>;
 
+  private readonly events$: Observable<Event[]>;
+
+  /**
+   * @constructor
+   *
+   * @param eventService Event service.
+   */
   public constructor(
     private readonly eventService: EventsService,
   ) {

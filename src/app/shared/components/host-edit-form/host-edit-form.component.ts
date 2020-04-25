@@ -1,11 +1,8 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { Host } from 'src/app/core/models/host';
 
 import { HostRegistrationData } from '../../../core/models/registration-data';
-import { AuthService } from '../../../core/services/auth.service';
 
 /**
  * Host form for creation/edit.
@@ -42,7 +39,6 @@ export class HostEditFormComponent {
    * @constructor
    *
    * @param fb - Form builder.
-   * @param authService - Auth service.
    */
   public constructor(
     private fb: FormBuilder,

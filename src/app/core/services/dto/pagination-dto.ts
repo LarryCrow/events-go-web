@@ -2,12 +2,12 @@
  * Pagination module.
  */
 export interface PaginationDto<T> {
-  /** count */
+  /** Count. */
   count: number;
-  /** next */
+  /** Next. */
   next: string | null;
-  /** previous */
+  /** Previous. */
   previous: string | null;
-  /** Result list */
+  /** Result list. */
   results: T[];
 }

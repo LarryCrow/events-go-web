@@ -43,6 +43,11 @@ export class UploaderComponent implements ControlValueAccessor {
    */
   public isSelected: boolean;
 
+  /**
+   * @constructor
+   *
+   * @param domSanitizer DOM sanitizer.
+   */
   public constructor(
     private readonly domSanitizer: DomSanitizer,
   ) { }

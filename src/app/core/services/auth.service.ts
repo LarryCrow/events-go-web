@@ -47,6 +47,7 @@ export class AuthService {
 
   /**
    * @constructor.
+   *
    * @param http Http client.
    * @param appConfig App configuration.
    */
@@ -175,11 +176,6 @@ export class AuthService {
     localStorage.setItem(StorageKeys.token, this.token);
   }
 
-  /**
-   * Create user object.
-   *
-   * @param authData Authorization data.
-   */
   private createUser(authData: LoginDto): User {
     return new User({
       id: authData.id,

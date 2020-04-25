@@ -30,11 +30,13 @@ export class LoginPageComponent {
   public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * Run the animation.
+   * @constructor
+   *
+   * @param fb Form builder.
+   * @param authService Auth service.
+   * @param router Router.
    */
-  public loginFinished = false;
-
-  constructor(
+  public constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
@@ -45,13 +47,13 @@ export class LoginPageComponent {
    */
   public onFormSubmit(form: FormGroup): void {
     this.form.markAllAsTouched();
-    if (form.invalid) {
+    if (form.invalid || this.isLoading$.value) {
       return;
     }
     this.apiError$.next('');
     // Fields are required and we are able to cast value to string.
-    const email = form.value.email as string;
-    const pass = form.value.pass as string;
+    const email = form.value.email;
+    const pass = form.value.pass;
     this.isLoading$.next(true);
     this.authService.login(email, pass)
       .pipe(
@@ -78,5 +80,4 @@ export class LoginPageComponent {
       pass: [null, [Validators.required, Validators.minLength(5)]],
     });
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -10,7 +10,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
   template: '',
 })
 export class LogoutPageComponent {
-
   /**
    * @constructor
    *
