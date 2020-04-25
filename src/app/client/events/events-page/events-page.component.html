@@ -7,19 +7,26 @@
     <button class="search-btn filters" (click)="toggleFilters()">
       <img src="assets/icon/filter.svg" />
     </button>
-    <div class="filters" *ngIf="areFiltersShown">
+    <div class="filters-block" *ngIf="areFiltersShown">
       <ego-search-filters
         [selectedFilters]="filters$ | async"
         (select)="onFiltersSelect($event)"
       ></ego-search-filters>
     </div>
-    <!-- <button class="search-btn search" (click)="searchValue()">П</button> -->
   </div>
   <ng-container *ngIf="events$ | async as events">
     <div class="events">
-      <div class="card" *ngFor="let event of events">
+      <div class="card" *ngFor="let event of events.items">
         <ego-event-card [event]="event"></ego-event-card>
       </div>
+      <button
+        type="button"
+        class="dark more-btn"
+        *ngIf="events.items.length < events.itemsCount"
+        (click)="onMoreButton()"
+      >
+        Ещё
+      </button>
     </div>
   </ng-container>
 </div>

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { shareReplay, switchMap } from 'rxjs/operators';
+import { shareReplay, switchMap, map } from 'rxjs/operators';
 import { Event } from 'src/app/core/models/event';
 import { EventSearchFilters } from 'src/app/core/models/event-search-filters';
 import { Host } from 'src/app/core/models/host';
@@ -86,6 +86,7 @@ export class HostPageComponent {
     ])
       .pipe(
         switchMap(([host, mode]) => this.eventService.getEvents(this.getSearchFilters(host.id, mode))),
+        map((pagination) => pagination.items),
         shareReplay({
           refCount: true,
           bufferSize: 1,

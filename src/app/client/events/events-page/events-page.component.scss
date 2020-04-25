@@ -6,12 +6,13 @@
 .container {
   width: 1200px;
   margin: 0 auto;
+  padding: 50px 0;
 }
 
 .search-block {
   width: 100%;
   max-width: 700px;
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -47,6 +48,11 @@
   .search-btn.search {
     right: 0;
   }
+
+  .filters-block {
+    transition: max-height 0.3s ease-out;
+    height: auto;
+  }
 }
 
 .events {
@@ -62,5 +68,12 @@
       display: block;
       box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
     }
+  }
+
+  .more-btn {
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    padding: 15px 20px;
   }
 }

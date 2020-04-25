@@ -1,7 +1,7 @@
 /**
  * Pagination module.
  */
-export interface Pagination<T> {
+export interface PaginationDto<T> {
   /** count */
   count: number;
   /** next */

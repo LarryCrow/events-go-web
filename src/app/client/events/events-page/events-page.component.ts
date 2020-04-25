@@ -1,7 +1,20 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { switchMap, tap, debounceTime, mapTo, startWith, distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import {
+  tap,
+  debounceTime,
+  mapTo,
+  startWith,
+  distinctUntilChanged,
+  map,
+  scan,
+  switchMapTo,
+  mergeMap,
+  shareReplay,
+  withLatestFrom,
+} from 'rxjs/operators';
+import { Pagination } from 'src/app/core/models/pagination';
 
 import { Event } from '../../../core/models/event';
 import { EventSearchFilters } from '../../../core/models/event-search-filters';
@@ -20,7 +33,7 @@ export class EventsPageComponent {
   /**
    * Events list.
    */
-  public readonly events$: Observable<Event[]>;
+  public readonly events$: Observable<Pagination<Event>>;
   /**
    * Form control for search input.
    */
@@ -34,13 +47,19 @@ export class EventsPageComponent {
    */
   public areFiltersShown = false;
   /**
-   * Search filters
+   * Search filters.
    */
   public filters$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
+  /**
+   * Emit when page is changed.
+   */
+  public pageChange$ = new BehaviorSubject<number>(0);
   /**
    * Emit when a user type in search input.
    */
   private readonly searchValue$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
+
+  public readonly moreEventsRequested$ = new Subject<void>();
 
   /**
    * @constructor
@@ -50,7 +69,7 @@ export class EventsPageComponent {
   public constructor(
     private readonly eventsService: EventsService,
   ) {
-    this.events$ = this.initEventsStream();
+    this.events$ = this.initPaginationStream();
   }
 
   /**
@@ -79,7 +98,14 @@ export class EventsPageComponent {
     this.areFiltersShown = false;
   }
 
-  private initEventsStream(): Observable<Event[]> {
+  /**
+   * Handle 'click' event of 'Ещё' button.
+   */
+  public onMoreButton(): void {
+    this.moreEventsRequested$.next();
+  }
+
+  private initPaginationStream(): Observable<Pagination<Event>> {
     const inputChange$: Observable<string> = this.inputControl.valueChanges
       .pipe(
         debounceTime(700),
@@ -97,11 +123,38 @@ export class EventsPageComponent {
           title: title || undefined,
         });
       }),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
 
-    return filters$
-      .pipe(
-        switchMap((f) => this.eventsService.getEvents(f)),
-      );
+    const pageAccumulation$ = this.moreEventsRequested$.pipe(
+      mapTo(1), // Set number of requested pages on every emit
+      startWith(1), // Set initial page
+      scan(((curPage, requestedPages) => curPage + requestedPages)),
+    );
+    const pageChange$: Observable<number> = filters$.pipe(
+      tap(() => console.log('filters')),
+      switchMapTo(pageAccumulation$),
+    );
+
+    return pageChange$.pipe(
+      withLatestFrom(filters$),
+      mergeMap(([page, f]) => {
+        const newTopics$ = this.eventsService.getEvents(f, page);
+        return page !== 1 ?
+          newTopics$ :
+          newTopics$.pipe(startWith(null)); // To clear the accumulator
+      }),
+      // Accumulate loaded topics
+      scan((prevTopics, newTopics) => {
+        if (prevTopics && newTopics) {
+          return {
+            items: prevTopics.items.concat(newTopics.items),
+            itemsCount: newTopics.itemsCount,
+          } as Pagination<Event>;
+        }
+        return newTopics;
+      }, null),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
   }
 }

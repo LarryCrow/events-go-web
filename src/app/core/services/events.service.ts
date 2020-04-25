@@ -7,11 +7,12 @@ import { createHttpParams } from 'src/app/shared/utils/http-params';
 import { EventMapper } from '../mappers/event.mapper';
 import { Event } from '../models/event';
 import { EventSearchFilters } from '../models/event-search-filters';
+import { Pagination } from '../models/pagination';
 import { SaveEventModel } from '../models/save-event';
 
 import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
-import { Pagination } from './dto/pagination';
+import { PaginationDto } from './dto/pagination-dto';
 import { SubscriptionDto } from './dto/subscription-dto';
 
 /**
@@ -23,6 +24,8 @@ import { SubscriptionDto } from './dto/subscription-dto';
 export class EventsService {
   private readonly EVENTS_URL = `${this.appConfig.baseUrl}events`;
   private readonly SUBSCRIPTION_URL = `${this.appConfig.baseUrl}subscription/`;
+
+  private readonly TOPICS_PER_PAGE = 12;
 
   /**
    * @constructor
@@ -36,24 +39,13 @@ export class EventsService {
     private readonly eventMapper: EventMapper,
   ) { }
 
-  /** Debug flag. */
-  public mockData = true;
-
   /**
    * Gets list of events.
    */
-  public getEvents(filters?: EventSearchFilters): Observable<Event[]> {
-    const params = createHttpParams(filters);
-    return this.http.get<Pagination<EventDto>>(this.EVENTS_URL, { params })
-      .pipe(
-        map((obj) => obj.results.map(event => this.eventMapper.fromDto(event))),
-        map((events) => {
-          if (this.mockData) {
-            return [...events, ...events, ...events, ...events];
-          }
-          return events;
-        }),
-      );
+  public getEvents(filters?: EventSearchFilters, page: number = 1): Observable<Pagination<Event>> {
+    const params = createHttpParams(filters).set('page', page.toString());
+    return this.http.get<PaginationDto<EventDto>>(`${this.EVENTS_URL}/`, { params })
+      .pipe(map(this.mapTopicPagination));
   }
 
   /**
@@ -164,12 +156,17 @@ export class EventsService {
     return this.http.get<EventDto[]>(`${this.EVENTS_URL}/my`)
       .pipe(
         map((events) => events.map(event => this.eventMapper.fromDto(event))),
-        map((events) => {
-          if (this.mockData) {
-            return [...events, ...events];
-          }
-          return events;
-        }),
       );
   }
+
+  private mapTopicPagination = pagination => {
+    return {
+      items: pagination.results.map((event: EventDto) =>
+        this.eventMapper.fromDto(event),
+      ),
+      pagesCount: Math.ceil(pagination.count / this.TOPICS_PER_PAGE),
+      itemsCount: pagination.count,
+    };
+  }
+
 }
