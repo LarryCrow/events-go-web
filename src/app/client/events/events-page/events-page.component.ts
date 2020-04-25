@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import {
-  tap,
   debounceTime,
   mapTo,
   startWith,
@@ -49,17 +48,15 @@ export class EventsPageComponent {
   /**
    * Search filters.
    */
-  public filters$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
+  public readonly filters$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
   /**
-   * Emit when page is changed.
+   * Emit when a user requests more events
    */
-  public pageChange$ = new BehaviorSubject<number>(0);
+  public readonly moreEventsRequested$ = new Subject<void>();
   /**
    * Emit when a user type in search input.
    */
   private readonly searchValue$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
-
-  public readonly moreEventsRequested$ = new Subject<void>();
 
   /**
    * @constructor
@@ -132,27 +129,26 @@ export class EventsPageComponent {
       scan(((curPage, requestedPages) => curPage + requestedPages)),
     );
     const pageChange$: Observable<number> = filters$.pipe(
-      tap(() => console.log('filters')),
       switchMapTo(pageAccumulation$),
     );
 
     return pageChange$.pipe(
       withLatestFrom(filters$),
       mergeMap(([page, f]) => {
-        const newTopics$ = this.eventsService.getEvents(f, page);
+        const newEvents$ = this.eventsService.getEvents(f, page);
         return page !== 1 ?
-          newTopics$ :
-          newTopics$.pipe(startWith(null)); // To clear the accumulator
+          newEvents$ :
+          newEvents$.pipe(startWith(null)); // To clear the accumulator
       }),
       // Accumulate loaded topics
-      scan((prevTopics, newTopics) => {
-        if (prevTopics && newTopics) {
+      scan((prevEvents, newEvents) => {
+        if (prevEvents && newEvents) {
           return {
-            items: prevTopics.items.concat(newTopics.items),
-            itemsCount: newTopics.itemsCount,
+            items: prevEvents.items.concat(newEvents.items),
+            itemsCount: newEvents.itemsCount,
           } as Pagination<Event>;
         }
-        return newTopics;
+        return newEvents;
       }, null),
       shareReplay({ bufferSize: 1, refCount: true }),
     );
