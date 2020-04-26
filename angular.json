@@ -24,7 +24,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/web/src/styles.scss"
+              "apps/web/src/styles.scss",
+              "theme/variables.scss"
             ],
             "scripts": []
           },
@@ -90,7 +91,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/web/src/styles.scss"
+              "apps/web/src/styles.scss",
+              "theme/variables.scss"
             ],
             "scripts": []
           }
@@ -151,12 +153,9 @@
               }
             ],
             "styles": [
-              {
-                "input": "apps/mobile/src/theme/variables.scss"
-              },
-              {
-                "input": "apps/mobile/src/global.scss"
-              }
+              "apps/mobile/src/theme/variables.scss",
+              "apps/mobile/src/global.scss",
+              "theme/variables.scss"
             ],
             "scripts": []
           },
