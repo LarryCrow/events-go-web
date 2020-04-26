@@ -11,13 +11,16 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@ego/web": ["apps/web/src"],
+      "@ego/web/*": ["apps/web/src/*"],
+      "@ego/mobile": ["apps/mobile/src"],
+      "@ego/mobile/*": ["apps/mobile/src/*"],
+      "@ego/common": ["libs/common/src"],
+      "@ego/common/*": ["libs/common/src/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
