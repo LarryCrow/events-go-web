@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { tap, catchError, map, mapTo, first } from 'rxjs/operators';
@@ -24,6 +24,7 @@ const API_ERRORS = {
   credentials: 'Invalid credentials',
   email: 'This field must be unique.',
   unconfirmed: 'Host is still not confirmed',
+  wrongRole: 'User has wrong role for this action',
 };
 
 /**
@@ -74,16 +75,30 @@ export class AuthService {
           this.userChange$.next(this.createUser(data));
         }),
         map((data) => data.role),
-        catchError((err) => {
-          const msg = err.error.error;
-          if (msg === API_ERRORS.credentials) {
-            return throwError(new Error('Некорректный логин или пароль'));
+        catchError((err) => throwError(this.mapApiLoginError(err))),
+      );
+  }
+
+  public clientLogin(email: string, password: string): Observable<any> {
+    const body = {
+      email,
+      password,
+    };
+    return this.http.post<LoginDto>(this.LOGIN_URL, body)
+      .pipe(
+        tap((data) => {
+          if (data.role !== Role.Client) {
+            throw {
+              error: {
+                error: 'User has wrong role for this action',
+              },
+            };
           }
-          if (msg === API_ERRORS.unconfirmed) {
-            return throwError(new Error('Ваш аккаунт ещё не потверждён'));
-          }
-          return throwError(err);
+          this.saveToken(data);
+          this.userChange$.next(this.createUser(data));
         }),
+        map((data) => data.role),
+        catchError((err) => throwError(this.mapApiLoginError(err))),
       );
   }
 
@@ -201,5 +216,19 @@ export class AuthService {
     fd.append('vk', data.vk);
     fd.append('telegram', data.telegram);
     return fd;
+  }
+
+  private mapApiLoginError(error: HttpErrorResponse): Error {
+    const msg = error.error.error;
+    if (msg === API_ERRORS.credentials) {
+      return new Error('Некорректный логин или пароль');
+    }
+    if (msg === API_ERRORS.unconfirmed) {
+      return new Error('Ваш аккаунт ещё не потверждён');
+    }
+    if (msg === API_ERRORS.wrongRole) {
+      return new Error('К сожалению, это приложение предназначено только для участников');
+    }
+    return error;
   }
 }
