@@ -6,6 +6,7 @@ import { SharedModule as CommonSharedModule } from '@ego/common/shared/shared.mo
 import { IonicModule } from '@ionic/angular';
 
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: null,
+    component: RegisterComponent,
   },
   {
     path: 'logout',
@@ -27,7 +28,7 @@ const routes: Routes = [
  * Auth module.
  */
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

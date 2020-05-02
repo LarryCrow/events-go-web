@@ -1,19 +1,21 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DestroyableBase } from '@ego/common/shared/components/destroyable-base/destroyable-base.component';
-import { AuthService } from '@ego/mobile/app/core/services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { first, finalize, filter, takeUntil } from 'rxjs/operators';
 
-/** Login page. */
+import { AuthService } from '../../core/services/auth.service';
+import { NavController } from '@ionic/angular';
+
+/** Registration page. */
 @Component({
-  selector: 'egom-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'egom-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent extends DestroyableBase {
+export class RegisterComponent extends DestroyableBase {
   /**
    * Form group for login form.
    */
@@ -38,6 +40,7 @@ export class LoginComponent extends DestroyableBase {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly navCtrl: NavController,
   ) {
     super();
     this.form = this.initForm();
@@ -54,7 +57,7 @@ export class LoginComponent extends DestroyableBase {
     const email = form.value.email;
     const pass = form.value.pass;
     this.isLoading$.next(true);
-    this.authService.login(email, pass)
+    this.authService.registerClient({ email, pass })
       .pipe(
         first(),
         finalize(() => this.isLoading$.next(false)),
@@ -71,6 +74,13 @@ export class LoginComponent extends DestroyableBase {
           }
         },
       );
+  }
+
+  /**
+   * Redirect back to login page.
+   */
+  public goLoginBack(): void {
+    this.navCtrl.back();
   }
 
   private initForm(): FormGroup {

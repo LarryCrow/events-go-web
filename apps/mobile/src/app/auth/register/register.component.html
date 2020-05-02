@@ -3,9 +3,13 @@
     <img src="assets/logocropped.png" />
   </div>
   <p class="ion-text-center greetings">
-    Найди мероприятие по душе и проведи время с пользой и удовольствием.
+    Присоединяйся к дружному сообществу чтобы всегда быть в центре событий.
   </p>
-  <form [formGroup]="form" (ngSubmit)="onFormSubmit(form)" #loginForm="ngForm">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onFormSubmit(form)"
+    #registerForm="ngForm"
+  >
     <label>
       <span>Email</span>
       <input type="text" type="email" formControlName="email" />
@@ -29,26 +33,16 @@
   <ion-button
     color="secondary"
     expand="full"
-    (click)="loginForm.ngSubmit.emit()"
-    >Войти</ion-button
+    (click)="registerForm.ngSubmit.emit()"
   >
-  <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-col class="ion-no-padding">
-        <ion-button color="secondary" expand="full" fill="clear">
-          Забыли пароль?
-        </ion-button>
-      </ion-col>
-      <ion-col class="ion-no-padding">
-        <ion-button
-          color="secondary"
-          expand="full"
-          fill="clear"
-          [routerLink]="['/auth', 'register']"
-        >
-          Нет аккаунта?
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    Создать
+  </ion-button>
+  <ion-button
+    color="secondary"
+    expand="full"
+    fill="clear"
+    (click)="goLoginBack()"
+  >
+    Назад
+  </ion-button>
 </ion-footer>
