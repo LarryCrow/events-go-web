@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '@ego/common/core/services/auth.service';
+import { AuthService } from '@ego/mobile/app/core/services/auth.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { first, finalize, filter, takeUntil } from 'rxjs/operators';
 
@@ -56,7 +56,7 @@ export class LoginComponent implements OnDestroy {
     const email = form.value.email;
     const pass = form.value.pass;
     this.isLoading$.next(true);
-    this.authService.clientLogin(email, pass)
+    this.authService.login(email, pass)
       .pipe(
         first(),
         finalize(() => this.isLoading$.next(false)),

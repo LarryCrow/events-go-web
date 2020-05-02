@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '../models/user';
 
-import { AuthService } from './auth.service';
+import { BaseAuthService } from './auth.service';
 
 /**
  * Authorization service.
@@ -20,7 +20,7 @@ export class UserService {
    * @param authService - Authentication service.
    */
   public constructor(
-    private readonly authService: AuthService,
+    private readonly authService: BaseAuthService,
   ) {
     this.currentUser$ = this.authService.userChange$;
   }

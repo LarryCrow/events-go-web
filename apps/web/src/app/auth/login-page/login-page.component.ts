@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { first, finalize } from 'rxjs/operators';
-import { AuthService } from '@ego/common/core/services/auth.service';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 
 /**
  * Login page.

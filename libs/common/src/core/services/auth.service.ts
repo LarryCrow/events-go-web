@@ -28,18 +28,17 @@ const API_ERRORS = {
 };
 
 /**
- * Authorization service.
+ * Base authorization service.
+ * Extended by web and mobiles auth services.
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthService {
+export abstract class BaseAuthService {
   private readonly baseUrl = `${this.appConfig.baseUrl}`;
-  private readonly REGISTER_HOST_URL = `${this.baseUrl}user/create/host`;
   private readonly REGISTER_CLIENT_URL = `${this.baseUrl}user/create/client`;
   private readonly CURRENT_USER_URL = `${this.baseUrl}user/current`;
-  private readonly LOGIN_URL = `${this.baseUrl}user/login`;
   private token: string | null = null;
+
+  /** Login url */
+  public readonly LOGIN_URL = `${this.baseUrl}user/login`;
 
   /**
    * Emmited when a user is changed.
@@ -53,73 +52,9 @@ export class AuthService {
    * @param appConfig App configuration.
    */
   public constructor(
-    private readonly http: HttpClient,
-    private readonly appConfig: AppConfig,
+    protected readonly http: HttpClient,
+    protected readonly appConfig: AppConfig,
   ) { }
-
-  /**
-   * Login request.
-   *
-   * @param email - Email.
-   * @param password - Password.
-   */
-  public login(email: string, password: string): Observable<number> {
-    const body = {
-      email,
-      password,
-    };
-    return this.http.post<LoginDto>(this.LOGIN_URL, body)
-      .pipe(
-        tap((data) => {
-          this.saveToken(data);
-          this.userChange$.next(this.createUser(data));
-        }),
-        map((data) => data.role),
-        catchError((err) => throwError(this.mapApiLoginError(err))),
-      );
-  }
-
-  public clientLogin(email: string, password: string): Observable<any> {
-    const body = {
-      email,
-      password,
-    };
-    return this.http.post<LoginDto>(this.LOGIN_URL, body)
-      .pipe(
-        tap((data) => {
-          if (data.role !== Role.Client) {
-            throw {
-              error: {
-                error: 'User has wrong role for this action',
-              },
-            };
-          }
-          this.saveToken(data);
-          this.userChange$.next(this.createUser(data));
-        }),
-        map((data) => data.role),
-        catchError((err) => throwError(this.mapApiLoginError(err))),
-      );
-  }
-
-  /**
-   * Register a host.
-   *
-   * @param data Data for registration.
-   */
-  public registerHost(data: HostRegistrationData): Observable<void> {
-    const formData = this.generateFormDataForHostRegistration(data);
-    return this.http.post<LoginDto>(this.REGISTER_HOST_URL, formData)
-      .pipe(
-        mapTo(null),
-        catchError((err) => {
-          if (err.error.email && err.error.email[0] === API_ERRORS.email) {
-            return throwError(new Error('Выбранный email уже занят.'));
-          }
-          return throwError(err);
-        }),
-      );
-  }
 
   /**
    * Register a client.
@@ -140,12 +75,7 @@ export class AuthService {
           this.userChange$.next(this.createUser(res));
         }),
         mapTo(null),
-        catchError((err) => {
-          if (err.error.email && err.error.email[0] === API_ERRORS.email) {
-            return throwError(new Error('Выбранный email уже занят.'));
-          }
-          return throwError(err);
-        }),
+        catchError((err) => throwError(this.mapApiRegistrationError(err))),
       );
   }
 
@@ -186,12 +116,20 @@ export class AuthService {
     this.userChange$.next(null);
   }
 
-  private saveToken(authData: LoginDto): void {
+  /**
+   * Save token to local storage.
+   * @param authData Authentication data.
+   */
+  protected saveToken(authData: LoginDto): void {
     this.token = authData.token;
     localStorage.setItem(StorageKeys.token, this.token);
   }
 
-  private createUser(authData: LoginDto): User {
+  /**
+   * Create new user
+   * @param authData Authentication data.
+   */
+  protected createUser(authData: LoginDto): User {
     return new User({
       id: authData.id,
       role: authData.role === 1 ? Role.Host : Role.Client,
@@ -202,23 +140,11 @@ export class AuthService {
     localStorage.setItem(StorageKeys.token, '');
   }
 
-  private generateFormDataForHostRegistration(data: HostRegistrationData): FormData {
-    const fd = new FormData();
-    fd.append('email', data.email);
-    fd.append('password', data.pass);
-    fd.append('name', data.name);
-    fd.append('avatar', data.avatar);
-    fd.append('about', data.about);
-    fd.append('phone', data.phone);
-    fd.append('work_email', data.workEmail);
-    fd.append('instagram', data.instagram);
-    fd.append('twitter', data.twitter);
-    fd.append('vk', data.vk);
-    fd.append('telegram', data.telegram);
-    return fd;
-  }
-
-  private mapApiLoginError(error: HttpErrorResponse): Error {
+  /**
+   * Map api login errors to Error object.
+   * @param error Http error.
+   */
+  protected mapApiLoginError(error: HttpErrorResponse): Error {
     const msg = error.error.error;
     if (msg === API_ERRORS.credentials) {
       return new Error('Некорректный логин или пароль');
@@ -228,6 +154,17 @@ export class AuthService {
     }
     if (msg === API_ERRORS.wrongRole) {
       return new Error('К сожалению, это приложение предназначено только для участников');
+    }
+    return error;
+  }
+
+  /**
+   * Map api registration error to Error object.
+   * @param error Http error.
+   */
+  protected mapApiRegistrationError(error: HttpErrorResponse): Error {
+    if (error.error.email && error.error.email[0] === API_ERRORS.email) {
+      return new Error('Выбранный email уже занят.');
     }
     return error;
   }

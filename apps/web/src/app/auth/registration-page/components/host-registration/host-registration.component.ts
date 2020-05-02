@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { first } from 'rxjs/internal/operators/first';
 import { finalize, switchMapTo } from 'rxjs/operators';
 import { HostRegistrationData } from '@ego/common/core/models/registration-data';
-import { AuthService } from '@ego/common/core/services/auth.service';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 import { DialogService } from '@ego/common/core/services/dialog.service';
 
 const NOTIFICATION_MESSAGE = `Ваш аккаунт зарегистрирован, но нам нужно время, чтобы проверить его.

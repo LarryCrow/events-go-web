@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { ClientRegistrationData } from '@ego/common/core/models/registration-data';
-import { AuthService } from '@ego/common/core/services/auth.service';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 
 /**
  * Host form component for registration.

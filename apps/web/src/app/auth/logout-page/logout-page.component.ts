@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@ego/common/core/services/auth.service';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 
 /**
  * Logout page.

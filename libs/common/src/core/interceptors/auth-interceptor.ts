@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AppConfig } from '../services/app-config.service';
-import { AuthService } from '../services/auth.service';
+import { BaseAuthService } from '../services/auth.service';
 
 const NO_TOKEN_URLS = [
   'user/create/host',
@@ -23,8 +23,7 @@ const DADATA_BASE_URL = 'suggestions.dadata.ru';
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
-    private authService: AuthService,
-    private appConfig: AppConfig,
+    private authService: BaseAuthService,
   ) { }
 
   /** Inject auth token in requests */
