@@ -30,7 +30,7 @@ const ValidationErrorMessageFactories = {
  * Validation error renderer component.
  */
 @Component({
-  selector: 'ego-validation-message',
+  selector: 'egoc-validation-message',
   templateUrl: './validation-message.component.html',
   styleUrls: ['./validation-message.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

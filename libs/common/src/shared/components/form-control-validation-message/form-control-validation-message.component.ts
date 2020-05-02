@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 * Render error message for the target form control.
 */
 @Component({
-  selector: 'ego-form-control-validation-message',
+  selector: 'egoc-form-control-validation-message',
   templateUrl: './form-control-validation-message.component.html',
   styleUrls: ['./form-control-validation-message.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

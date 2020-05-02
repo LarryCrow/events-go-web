@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DestroyableBase } from '@ego/common/shared/components/destroyable-base/destroyable-base.component';
 import { AuthService } from '@ego/mobile/app/core/services/auth.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { first, finalize, filter, takeUntil } from 'rxjs/operators';
 
 /** Login page. */
@@ -12,7 +13,7 @@ import { first, finalize, filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent extends DestroyableBase {
   /**
    * Form group for login form.
    */
@@ -26,8 +27,6 @@ export class LoginComponent implements OnDestroy {
    */
   public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
-  private readonly destroy$ = new Subject<void>();
-
   /**
    * @constructor
    *
@@ -40,6 +39,7 @@ export class LoginComponent implements OnDestroy {
     private readonly authService: AuthService,
     private readonly router: Router,
   ) {
+    super();
     this.form = this.initForm();
   }
 
@@ -52,7 +52,6 @@ export class LoginComponent implements OnDestroy {
       return;
     }
     this.apiError$.next('');
-    // Fields are required and we are able to cast value to string.
     const email = form.value.email;
     const pass = form.value.pass;
     this.isLoading$.next(true);
@@ -73,12 +72,6 @@ export class LoginComponent implements OnDestroy {
           }
         },
       );
-  }
-
-  /** @inheritdoc */
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   private initForm(): FormGroup {

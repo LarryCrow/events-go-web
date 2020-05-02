@@ -1,14 +1,15 @@
-import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable, of, ReplaySubject, merge, NEVER, Subject } from 'rxjs';
-import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share, takeUntil } from 'rxjs/operators';
 import { Address, Coords } from '@ego/common/core/models/address';
 import { Event } from '@ego/common/core/models/event';
 import { EventType } from '@ego/common/core/models/event-type';
 import { SaveEventModel } from '@ego/common/core/models/save-event';
 import { AddressesService } from '@ego/common/core/services/addresses.service';
 import { EventTypesService } from '@ego/common/core/services/event-types.service';
+import { DestroyableBase } from '@ego/common/shared/components/destroyable-base/destroyable-base.component';
+import { Observable, of, ReplaySubject, merge, NEVER } from 'rxjs';
+import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share, takeUntil } from 'rxjs/operators';
 
 /**
  * Form to create or edit event.
@@ -19,7 +20,7 @@ import { EventTypesService } from '@ego/common/core/services/event-types.service
   styleUrls: ['./event-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EventFormComponent implements OnInit, OnDestroy {
+export class EventFormComponent extends DestroyableBase implements OnInit {
   /**
    * Event object.
    */
@@ -47,7 +48,6 @@ export class EventFormComponent implements OnInit, OnDestroy {
    */
   public minDate = new Date();
 
-  private destroy$ = new Subject<void>();
   private init$ = new ReplaySubject(1);
   private selectedAddressCoords: Coords;
 
@@ -63,6 +63,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     private readonly addressesService: AddressesService,
     private readonly eventTypeService: EventTypesService,
   ) {
+    super();
     this.form$ = this.initFormStream();
     this.addresses$ = this.initAddressesForAutocompleteStream(this.form$);
     this.types$ = this.initTypesStream();
@@ -110,12 +111,6 @@ export class EventFormComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe((address) => (this.selectedAddressCoords = address.coords));
-  }
-
-  /** @inheritdoc */
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   /**

@@ -6,9 +6,9 @@
   <label>
     <span>Название* </span>
     <input formControlName="title" type="text" />
-    <ego-form-control-validation-message
+    <egoc-form-control-validation-message
       controlName="title"
-    ></ego-form-control-validation-message>
+    ></egoc-form-control-validation-message>
   </label>
   <label>
     <span>Адрес*</span>
@@ -27,9 +27,9 @@
         {{ address.value }}
       </mat-option>
     </mat-autocomplete>
-    <ego-form-control-validation-message
+    <egoc-form-control-validation-message
       controlName="address"
-    ></ego-form-control-validation-message>
+    ></egoc-form-control-validation-message>
   </label>
   <div class="row">
     <label>
@@ -41,9 +41,9 @@
         formControlName="start"
       />
       <owl-date-time #startDate></owl-date-time>
-      <ego-form-control-validation-message
+      <egoc-form-control-validation-message
         controlName="start"
-      ></ego-form-control-validation-message>
+      ></egoc-form-control-validation-message>
     </label>
     <label>
       <span>Время окончания*</span>
@@ -54,18 +54,18 @@
         formControlName="end"
       />
       <owl-date-time #endDate></owl-date-time>
-      <ego-form-control-validation-message
+      <egoc-form-control-validation-message
         controlName="end"
-      ></ego-form-control-validation-message>
+      ></egoc-form-control-validation-message>
     </label>
   </div>
   <div class="row">
     <label>
       <span>Стоимость*</span>
       <input formControlName="price" type="number" />
-      <ego-form-control-validation-message
+      <egoc-form-control-validation-message
         controlName="price"
-      ></ego-form-control-validation-message>
+      ></egoc-form-control-validation-message>
     </label>
     <label>
       <span>Тип события*</span>
@@ -74,21 +74,21 @@
           {{ type.value }}
         </option>
       </select>
-      <ego-form-control-validation-message
+      <egoc-form-control-validation-message
         controlName="type"
-      ></ego-form-control-validation-message>
+      ></egoc-form-control-validation-message>
     </label>
   </div>
   <label>
     <span>Описание*</span>
     <textarea formControlName="description"></textarea>
-    <ego-form-control-validation-message
+    <egoc-form-control-validation-message
       controlName="description"
-    ></ego-form-control-validation-message>
+    ></egoc-form-control-validation-message>
   </label>
   <ego-uploader class="uploader" formControlName="avatar"></ego-uploader>
-  <ego-form-control-validation-message
+  <egoc-form-control-validation-message
     controlName="avatar"
-  ></ego-form-control-validation-message>
+  ></egoc-form-control-validation-message>
   <button type="submit" class="primary submit-btn">Сохранить</button>
 </form>
