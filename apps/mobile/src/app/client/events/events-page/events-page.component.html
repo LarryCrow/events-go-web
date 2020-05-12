@@ -1,1 +1,31 @@
-<p>events-page works!</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Все события</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="secondary" (click)="onFiltersButton()">
+        <ion-icon
+          size="small"
+          slot="icon-only"
+          src="assets/icon/filter.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="events$ | async as events">
+    <egom-event-card
+      class="card"
+      *ngFor="let event of events.items"
+      [event]="event"
+    ></egom-event-card>
+    <ion-item *ngIf="events.items.length === 0" lines="none">
+      Мероприятий нет, попробуйте изменить значения фильтров :(
+    </ion-item>
+  </ng-container>
+  <ion-infinite-scroll threshold="200px" (ionInfinite)="loadMoreEvents($event)">
+    <!-- <ego-loading></ego-loading> -->
+    <ion-infinite-scroll-content loadingText="Loading more events...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

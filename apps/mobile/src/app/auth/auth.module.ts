@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { SharedModule as CommonSharedModule } from '@ego/common/shared/shared.module';
+import { CommonSharedModule } from '@ego/common/shared/shared.module';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginComponent } from './login/login.component';

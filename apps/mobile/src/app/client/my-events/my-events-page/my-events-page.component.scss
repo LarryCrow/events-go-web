@@ -1,0 +1,24 @@
+:host {
+  --space: 16px;
+}
+
+ion-content {
+  --padding-top: var(--space);
+  --padding-bottom: var(--space);
+  --padding-start: var(--space);
+  --padding-end: var(--space);
+}
+
+.title {
+  margin-bottom: calc(var(--space) / 2);
+
+  &:not(:first-child) {
+    margin-top: var(--space);
+  }
+}
+
+.card {
+  display: block;
+  margin-bottom: var(--space);
+  border-radius: 5px;
+}

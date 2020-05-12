@@ -27,3 +27,30 @@
 
 @import "theme/input-controls.scss";
 @import "theme/variables.scss";
+
+* {
+  font-size: var(--font-size);
+}
+
+p,
+a,
+h1,
+h2 {
+  margin: 0;
+}
+
+p {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+ion-title {
+  font-size: 1.25rem;
+}

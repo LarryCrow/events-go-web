@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Observable, throwError, BehaviorSubject, of } from 'rxjs';
 import { tap, catchError, map, mapTo, first } from 'rxjs/operators';
 
 import { HostRegistrationData, ClientRegistrationData } from '../models/registration-data';
@@ -31,7 +31,7 @@ const API_ERRORS = {
  * Base authorization service.
  * Extended by web and mobiles auth services.
  */
-export abstract class BaseAuthService {
+export class BaseAuthService {
   private readonly baseUrl = `${this.appConfig.baseUrl}`;
   private readonly REGISTER_CLIENT_URL = `${this.baseUrl}user/create/client`;
   private readonly CURRENT_USER_URL = `${this.baseUrl}user/current`;
@@ -89,22 +89,23 @@ export abstract class BaseAuthService {
   /**
    * Attempt to get current user.
    */
-  public getCurrentUser(): void {
+  public getCurrentUser(): Observable<boolean> {
     const token = localStorage.getItem(StorageKeys.token);
     if (!token) {
       this.userChange$.next(null);
-      return;
+      return of(false);
     }
     this.token = token;
-    this.http.get<LoginDto>(this.CURRENT_USER_URL)
+    return this.http.get<LoginDto>(this.CURRENT_USER_URL)
       .pipe(
         first(),
+        tap((res) => this.userChange$.next(this.createUser(res))),
+        mapTo(true),
         catchError((err) => {
           this.clearStorage();
           return throwError(err);
         }),
-      )
-      .subscribe((res) => this.userChange$.next(this.createUser(res)));
+      );
   }
 
   /**

@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Детали события</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openPopover()">
+        <ion-icon
+          slot="icon-only"
+          src="assets/icon/ellipsis-vertical.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="event$ | async as event">
+    <div class="image" [class.canceled]="event.isCanceled">
+      <img [src]="event.avatar" />
+      <button (click)="onCanceledButton()">
+        Событие отменено
+      </button>
+    </div>
+    <div class="content">
+      <div class="host item">
+        <h1>{{ event.title }}</h1>
+        <div>
+          <p>
+            Организатор:
+            <a [routerLink]="['..', 'host', event.host.id]">{{
+              event.host.name
+            }}</a>
+          </p>
+          <ng-container *ngIf="{ value: isUserSubscribed$ | async } as context">
+            <ion-button
+              *ngIf="!context.value; else unsubscribeBtn"
+              class="ion-no-margin"
+              color="secondary"
+              type="button"
+              (click)="onSubscribeBtnClick(event.id)"
+            >
+              Я пойду
+            </ion-button>
+          </ng-container>
+        </div>
+        <ng-template #unsubscribeBtn>
+          <ion-button
+            color="danger"
+            class="ion-no-margin"
+            type="button"
+            (click)="onUnsubscribeBtnClick(event.id)"
+          >
+            Я не пойду
+          </ion-button>
+        </ng-template>
+      </div>
+      <div class="date-section item">
+        <div class="start">
+          <p class="note">Начало:</p>
+          <p class="date">{{ event.start | date }}</p>
+          <p class="time">{{ event.start | date: "HH:mm" }}</p>
+        </div>
+        <div class="end">
+          <p class="note">Окончание:</p>
+          <p class="date">{{ event.end | date }}</p>
+          <p class="time">{{ event.end | date: "HH:mm" }}</p>
+        </div>
+      </div>
+      <div class="additional item">
+        <p><span class="note">Тип мероприятия:</span> {{ event.type.value }}</p>
+        <p>
+          <span class="note">Стоимость:</span>
+          {{ event.price | currency: "RUB" }}
+        </p>
+        <p><span class="note">Адрес:</span> {{ readbleName$ | async }}</p>
+      </div>
+
+      <div class="map item" *ngIf="mapOptions$ | async as options">
+        <ego-map [options]="options"></ego-map>
+      </div>
+      <div class="item">
+        <p class="description">{{ event.description }}</p>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>

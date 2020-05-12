@@ -11,7 +11,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'schedules',
+        redirectTo: 'events',
       },
       {
         path: 'events',

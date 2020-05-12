@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Организатор</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="host$ | async as host">
+    <div class="image">
+      <img [src]="host.avatar" />
+    </div>
+    <div class="content">
+      <div class="item">
+        <h2>{{ host.name }}</h2>
+      </div>
+      <div class="item description">
+        <p>{{ host.about }}</p>
+      </div>
+      <div class="item contacts">
+        <p class="note">Контакты:</p>
+        <p *ngIf="host.phone">
+          Телефон: <a [href]="'tel:+7' + host.phone"></a>+7{{ host.phone }}
+        </p>
+        <p *ngIf="host.workEmail">
+          Почта:
+          <a [href]="'mailto:' + host.workEmail">{{ host.workEmail }}</a>
+        </p>
+        <a
+          *ngIf="host.social.instagram"
+          class="icon-link"
+          [href]="host.social.instagram"
+        >
+          <img src="/assets/icon/instagram.svg" /> Instagram
+        </a>
+        <a *ngIf="host.social.vk" class="icon-link" [href]="host.social.vk">
+          <img src="assets/icon/vk.svg" />VK
+        </a>
+        <a
+          *ngIf="host.social.twitter"
+          class="icon-link"
+          [href]="host.social.twitter"
+        >
+          <img src="assets/icon/twitter.svg" />Twitter
+        </a>
+        <a
+          *ngIf="host.social.telegram"
+          class="icon-link"
+          [href]="host.social.telegram"
+        >
+          <img src="assets/icon/telegram.svg" /> Telegram
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>

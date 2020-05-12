@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onCloseClick()" fill="clear" class="ion-no-padding">
+        <ion-icon
+          slot="icon-only"
+          size="small"
+          src="assets/icon/close.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Фильтры</ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="submit" (click)="submitForm()">Применить</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form
+    *ngIf="form$ | async as form"
+    [formGroup]="form"
+    (ngSubmit)="onFormSubmitted(form)"
+  >
+    <label>
+      <span>Название мероприятия</span>
+      <input type="text" formControlName="title" />
+    </label>
+    <label>
+      <span>Организатор</span>
+      <input type="text" formControlName="hostName" />
+    </label>
+    <label>
+      <span>Тип мероприятия</span>
+      <select formControlName="type">
+        <option [ngValue]="null" selected></option>
+        <option *ngFor="let type of eventTypes$ | async" [value]="type.id">
+          {{ type.value }}
+        </option>
+      </select>
+    </label>
+    <label>
+      <span>От</span>
+      <input formControlName="start" type="date" />
+    </label>
+    <label>
+      <span>До</span>
+      <input formControlName="end" type="date" />
+    </label>
+    <ion-button
+      color="secondary"
+      fill="clear"
+      expand="full"
+      (click)="onClearClick(form)"
+    >
+      Сбросить всё
+    </ion-button>
+  </form>
+</ion-content>

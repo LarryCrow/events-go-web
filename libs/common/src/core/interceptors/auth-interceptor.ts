@@ -4,10 +4,9 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AppConfig } from '../services/app-config.service';
 import { BaseAuthService } from '../services/auth.service';
 
 const NO_TOKEN_URLS = [

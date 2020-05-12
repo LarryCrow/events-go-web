@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { shareReplay, switchMap, map } from 'rxjs/operators';
 import { Event } from '@ego/common/core/models/event';
 import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
 import { Host } from '@ego/common/core/models/host';
 import { EventsService } from '@ego/common/core/services/events.service';
 import { HostsService } from '@ego/common/core/services/hosts.service';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { shareReplay, switchMap, map } from 'rxjs/operators';
 
 /**
  * List of modes.

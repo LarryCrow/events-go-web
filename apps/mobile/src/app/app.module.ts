@@ -1,7 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { AuthInterceptor } from '@ego/common/core/interceptors/auth-interceptor';
+import { BaseAuthService } from '@ego/common/core/services/auth.service';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -9,6 +11,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TabsComponent } from './client/tabs/tabs.component';
+import { AuthService } from './core/services/auth.service';
 
 /**
  * App module for the mobile application.
@@ -26,6 +29,8 @@ import { TabsComponent } from './client/tabs/tabs.component';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, deps: [AuthService] },
+    { provide: BaseAuthService, useExisting: AuthService },
   ],
   bootstrap: [AppComponent],
 })
