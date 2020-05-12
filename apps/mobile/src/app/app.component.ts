@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
+import { tap, first } from 'rxjs/operators';
 
 import { AuthService } from './core/services/auth.service';
-import { tap, first } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 /** App component. */
 @Component({

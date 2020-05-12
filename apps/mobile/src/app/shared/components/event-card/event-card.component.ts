@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Event } from '@ego/common/core/models/event';
 
 /**
@@ -14,6 +14,4 @@ export class EventCardComponent {
   /** Event */
   @Input()
   public event: Event;
-
-  public constructor() { }
 }

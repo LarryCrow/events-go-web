@@ -14,17 +14,11 @@ import { first, finalize, filter, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends DestroyableBase {
-  /**
-   * Form group for login form.
-   */
+  /** Form group for login form. */
   public readonly form: FormGroup;
-  /**
-   * Error message.
-   */
+  /** Error message. */
   public readonly apiError$ = new BehaviorSubject<string>('');
-  /**
-   * Loading controller.
-   */
+  /** Loading controller. */
   public readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
   /**
@@ -78,10 +72,13 @@ export class LoginComponent extends DestroyableBase {
       email: [null, [Validators.required, Validators.email]],
       pass: [null, [Validators.required, Validators.minLength(5)]],
     });
+
+    // Remove error when any control changes.
     form.valueChanges.pipe(
       filter(() => this.apiError$.value.length !== 0),
       takeUntil(this.destroy$),
     ).subscribe(() => this.apiError$.next(''));
+
     return form;
   }
 }

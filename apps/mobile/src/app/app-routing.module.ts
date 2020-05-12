@@ -38,6 +38,7 @@ const routes: Routes = [
   },
 ];
 
+/** Routing module for mobile app */
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),

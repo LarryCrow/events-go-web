@@ -16,13 +16,9 @@ import { shareReplay, switchMap, map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HostPageComponent {
-  /**
-   * Host.
-   */
+  /** Host. */
   public readonly host$: Observable<Host>;
-  /**
-   * Events list.
-   */
+  /** Events list. */
   public readonly events$: Observable<Event[]>;
 
   /**

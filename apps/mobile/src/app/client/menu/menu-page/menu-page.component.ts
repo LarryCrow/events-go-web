@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DialogService } from '@ego/mobile/app/core/services/dialog.service';
-import { first, filter } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
+import { first, filter } from 'rxjs/operators';
 
 /**
  * Menu item model.
@@ -26,9 +26,7 @@ const LOGOUT_MESSAGE = 'Вы уверены, что хотите выйти?';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuPageComponent {
-  /**
-   * Menu list.
-   */
+  /** Menu list. */
   public menu: MenuItem[];
 
   /**

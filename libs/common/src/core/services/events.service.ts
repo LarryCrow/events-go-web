@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { createHttpParams } from '../../shared/utils/http-params';
 
+import { createHttpParams } from '../../shared/utils/http-params';
 import { EventMapper } from '../mappers/event.mapper';
 import { Event } from '../models/event';
 import { EventSearchFilters } from '../models/event-search-filters';

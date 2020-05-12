@@ -5,7 +5,7 @@ import { MapOptions } from '@ego/common/core/models/map-options';
  * Map component.
  */
 @Component({
-  selector: 'ego-map',
+  selector: 'egoс-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

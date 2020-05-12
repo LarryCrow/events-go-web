@@ -12,6 +12,11 @@ import { Calendar } from '@ionic-native/calendar/ngx';
 })
 export class EventDetailsPopoverComponent {
 
+  /**
+   * @constructor
+   *
+   * @param calendar Calendar plugin service.
+   */
   public constructor(
     private readonly calendar: Calendar,
   ) { }

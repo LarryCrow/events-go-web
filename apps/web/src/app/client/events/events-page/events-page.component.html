@@ -14,15 +14,15 @@
       ></ego-search-filters>
     </div>
   </div>
-  <ng-container *ngIf="events$ | async as events">
-    <div class="events">
-      <div class="card" *ngFor="let event of events.items">
+  <ng-container *ngIf="pagination$ | async as pagination">
+    <div class="pagination">
+      <div class="card" *ngFor="let event of pagination.items">
         <ego-event-card [event]="event"></ego-event-card>
       </div>
       <button
         type="button"
         class="dark more-btn"
-        *ngIf="events.items.length < events.itemsCount"
+        *ngIf="pagination.items.length < pagination.itemsCount"
         (click)="onMoreButton()"
       >
         Ещё

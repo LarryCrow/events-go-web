@@ -13,7 +13,7 @@ import { tap, map, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class AuthService extends BaseAuthService {
+export class AuthService extends BaseAuthService {
 
   public constructor(
     protected readonly http: HttpClient,
@@ -22,6 +22,12 @@ export abstract class AuthService extends BaseAuthService {
     super(http, appConfig);
   }
 
+  /**
+   * Login method.
+   *
+   * @param email Email.
+   * @param password Password.
+   */
   public login(email: string, password: string): Observable<any> {
     const body = {
       email,

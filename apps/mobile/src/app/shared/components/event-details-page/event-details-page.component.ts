@@ -26,29 +26,17 @@ const CANCELED_TEXT = 'К сожалению, мероприятие было о
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventDetailsPageComponent {
-  /**
-   * Is a user subscribed or not.
-   */
+  /** Is a user subscribed or not. */
   public readonly isUserSubscribed$: Observable<boolean>;
-  /**
-   * Event.
-   */
+  /** Event. */
   public event$: Observable<Event>;
-  /**
-   * Map options.
-   */
+  /** Map options. */
   public readonly mapOptions$: Observable<MapOptions>;
-  /**
-   * Is event canceled.
-   */
+  /** Is event canceled. */
   public readonly isCancenled$: Observable<boolean>;
-  /**
-   * Name to display event address.
-   */
+  /** Name to display event address. */
   public readonly readbleName$: Observable<string>;
-  /**
-   * Number of event subscribers.
-   */
+  /** Number of event subscribers. */
   public readonly subscribersNumber$: Observable<number>;
 
   private readonly updateSubscription$ = new ReplaySubject<void>(1);
@@ -60,8 +48,8 @@ export class EventDetailsPageComponent {
    * @param route Activated route.
    * @param dialogService Dialog service.
    * @param userService User service.
-   * @param router Router.
    * @param addressService Addresses service.
+   * @param popoverCtrl Popover controller.
    */
   public constructor(
     private readonly eventsService: EventsService,

@@ -16,9 +16,7 @@ const SUCCESSFUL_SENT_TEXT = 'Ваше сообщение было отправ�
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutPageComponent {
-  /**
-   * Feedback form.
-   */
+  /** Feedback form. */
   public readonly form = this.createFeedbackForm();
 
   /**
@@ -40,7 +38,8 @@ export class AboutPageComponent {
     if (this.form.invalid) {
       return;
     }
-    this.dialogService.openInformDialog({ header: SUCCESSFUL_SENT_HEADER, message: SUCCESSFUL_SENT_TEXT })
+    this.dialogService
+      .openInformDialog({ header: SUCCESSFUL_SENT_HEADER, message: SUCCESSFUL_SENT_TEXT })
       .pipe(first()).subscribe();
   }
 

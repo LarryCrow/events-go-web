@@ -3,7 +3,7 @@ import { Event } from '@ego/common/core/models/event';
 import { EventsService } from '@ego/common/core/services/events.service';
 import { isDateGreaterThan } from '@ego/common/shared/utils/date';
 import { Observable, Subject } from 'rxjs';
-import { share, map, startWith, switchMapTo, switchMap, first } from 'rxjs/operators';
+import { share, map, startWith, switchMap, first } from 'rxjs/operators';
 
 /** Number of days to filter upcoming events */
 const UPCOMING_FILTER_DAY = 5;
@@ -16,13 +16,9 @@ const UPCOMING_FILTER_DAY = 5;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyEventsPageComponent {
-  /**
-   * Upcoming events (less than 5 days)
-   */
+  /** Upcoming events (less than 5 days) */
   public readonly upcomingEvents$: Observable<Event[]>;
-  /**
-   * Events with date greater than 5 days.
-   */
+  /** Events with date greater than 5 days. */
   public readonly otherEvents$: Observable<Event[]>;
 
   private readonly events$: Observable<Event[]>;

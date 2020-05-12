@@ -10,6 +10,7 @@ import { startWith, shareReplay, mapTo, scan, switchMapTo, withLatestFrom, merge
 
 import { EventFiltersModal } from '../components/event-filters-modal/event-filters-modal.component';
 
+/** Events page component */
 @Component({
   selector: 'egom-events-page',
   templateUrl: './events-page.component.html',
@@ -17,45 +18,30 @@ import { EventFiltersModal } from '../components/event-filters-modal/event-filte
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventsPageComponent {
-  /**
-   * Events list.
-   */
-  public readonly events$: Observable<Pagination<Event>>;
-  /**
-   * Form control for search input.
-   */
+  /** Events list. */
+  public readonly pagination$: Observable<Pagination<Event>>;
+  /** Form control for search input. */
   public readonly inputControl = new FormControl('');
-  /**
-   * Loading controller.
-   */
+  /** Loading controller. */
   public readonly isLoading$ = new BehaviorSubject<boolean>(false);
-  /**
-   * Control if filters are shown.
-   */
-  public areFiltersShown = false;
-  /**
-   * Search filters.
-   */
+  /** Search filters. */
   public readonly filters$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
-  /**
-   * Emit when a user requests more events
-   */
+  /** Emit when a user requests more events */
   public readonly moreEventsRequested$ = new Subject<void>();
-  /**
-   * Emit when a user type in search input.
-   */
+  /** Emit when a user type in search input. */
   private readonly searchValue$ = new BehaviorSubject<EventSearchFilters>(new EventSearchFilters({}));
 
   /**
    * @constructor
    *
+   * @param modalCtrl Modal controller.
    * @param eventsService Event service.
    */
   public constructor(
-    private readonly eventsService: EventsService,
     private readonly modalCtrl: ModalController,
+    private readonly eventsService: EventsService,
   ) {
-    this.events$ = this.initPaginationStream();
+    this.pagination$ = this.initPaginationStream();
   }
 
   /**
@@ -69,19 +55,12 @@ export class EventsPageComponent {
   }
 
   /**
-   * Open/close filters component.
-   */
-  public toggleFilters(): void {
-    this.areFiltersShown = !this.areFiltersShown;
-  }
-
-  /**
-   * Handle 'select' event of 'ego-search-filters'
+   * Handle 'select' event of 'ego-search-filters'.
+   *
    * @param selectedFilters Filters.
    */
   public onFiltersSelect(selectedFilters: EventSearchFilters): void {
     this.filters$.next(selectedFilters);
-    this.areFiltersShown = false;
   }
 
   /**
@@ -89,7 +68,7 @@ export class EventsPageComponent {
    */
   public loadMoreEvents(event: CustomEvent): void {
     this.moreEventsRequested$.next();
-    this.events$.pipe(first())
+    this.pagination$.pipe(first())
       // @ts-ignore the absence of `complete` on CustomEventTarget
       .subscribe(() => event.target.complete());
   }
@@ -130,7 +109,7 @@ export class EventsPageComponent {
           newEvents$ :
           newEvents$.pipe(startWith(null)); // To clear the accumulator
       }),
-      // Accumulate loaded topics
+      // Accumulate loaded events
       scan((prevEvents: Pagination<Event>, newEvents: Pagination<Event>) => {
         if (prevEvents && newEvents) {
           return {

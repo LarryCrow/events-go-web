@@ -31,16 +31,23 @@
           *ngIf="host.social.instagram"
           class="icon-link"
           [href]="host.social.instagram"
+          target="_blank"
         >
           <img src="/assets/icon/instagram.svg" /> Instagram
         </a>
-        <a *ngIf="host.social.vk" class="icon-link" [href]="host.social.vk">
+        <a
+          *ngIf="host.social.vk"
+          class="icon-link"
+          [href]="host.social.vk"
+          target="_blank"
+        >
           <img src="assets/icon/vk.svg" />VK
         </a>
         <a
           *ngIf="host.social.twitter"
           class="icon-link"
           [href]="host.social.twitter"
+          target="_blank"
         >
           <img src="assets/icon/twitter.svg" />Twitter
         </a>
@@ -48,6 +55,7 @@
           *ngIf="host.social.telegram"
           class="icon-link"
           [href]="host.social.telegram"
+          target="_blank"
         >
           <img src="assets/icon/telegram.svg" /> Telegram
         </a>

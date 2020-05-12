@@ -20,23 +20,19 @@ export class EventFiltersModal implements OnInit {
   /** Selected filters */
   @Input()
   public selectedFilters: EventSearchFilters;
-  /**
-  * Form group
-  */
+  /** Form group */
   public readonly form$: Observable<FormGroup>;
-  /**
-   * Event types
-   */
+  /** Event types */
   public readonly eventTypes$: Observable<EventType[]>;
 
   private readonly init$ = new ReplaySubject<void>(1);
 
   /**
-     * @constructor
-     *
-     * @param fb Form builder.
-     * @param eventTypesService Event types service.
-     */
+   * @constructor
+   *
+   * @param fb Form builder.
+   * @param eventTypesService Event types service.
+   */
   public constructor(
     private readonly fb: FormBuilder,
     private readonly eventTypesService: EventTypesService,
