@@ -6,6 +6,7 @@ import { EventTypesService } from '@ego/common/core/services/event-types.service
 import { ModalController } from '@ionic/angular';
 import { Observable, NEVER, merge, of, ReplaySubject } from 'rxjs';
 import { tap, switchMapTo, first } from 'rxjs/operators';
+import { parseDateToFilterString } from '@ego/common/shared/utils/date';
 
 /**
  * Event filters modal
@@ -53,14 +54,22 @@ export class EventFiltersModal implements OnInit {
   public submitForm(): void {
     this.form$.pipe(first())
       .subscribe((form) => {
+
+        const startDate = form.value.start
+          ? parseDateToFilterString(new Date(form.value.start))
+          : undefined;
+        const endDate = form.value.end
+          ? parseDateToFilterString(new Date(form.value.end))
+          : undefined;
+
         const filters = new EventSearchFilters({
           title: form.value.title || undefined,
           host: form.value.hostName || undefined,
           type_id: form.value.type ? parseInt(form.value.type, 10) : undefined,
-          start: form.value.start || undefined,
-          end: form.value.end || undefined,
+          start: startDate,
+          end: endDate,
         });
-        filters.upcoming = form.value.start ? false : true;
+        filters.upcoming = startDate ? false : true;
         this.close(filters);
       });
   }

@@ -4,6 +4,8 @@ import { SocialMedia } from './social-media';
 export class Host {
   /** User. */
   public id: number;
+  /** Email. */
+  public email: string;
   /** Name. */
   public name: string;
   /** Is activated. */
@@ -21,6 +23,7 @@ export class Host {
 
   public constructor(data: Partial<Host>) {
     this.id = data.id;
+    this.email = data.email;
     this.name = data.name;
     this.isActivated = data.isActivated;
     this.avatar = data.avatar;

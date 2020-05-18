@@ -1,3 +1,4 @@
+import { Client } from './client';
 import { Host } from './host';
 import { Role } from './role.enum';
 
@@ -10,7 +11,7 @@ export class User {
   /** User role */
   public role: Role;
   /** User information in case it's a host. */
-  public details: Host | null;
+  public details: Host | Client;
 
   public constructor(data: Partial<User>) {
     this.id = data.id;

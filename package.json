@@ -9,6 +9,7 @@
     "ng": "ng",
     "ionic": "ionic",
     "serve-mobile": "ionic serve --project=mobile --address=0.0.0.0",
+    "run-android": "ionic cordova run android --device --no-native-run --project=mobile",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

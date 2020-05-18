@@ -28,6 +28,29 @@
 @import "theme/input-controls.scss";
 @import "theme/variables.scss";
 
+:root {
+  --ion-tab-bar-color-selected: var(--ion-color-primary-tint);
+  --ion-font-family: "FiraSans", Roboto, "Helvetica Neue", sans-serif;
+  --ion-padding: 1.25rem;
+  --ion-margin: 1.25rem;
+
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+
+  --ion-text-color: #000000;
+  --ion-text-color-rgb: 0, 0, 0;
+
+  --ion-color-step-100: #e6e6e6;
+  --ion-color-step-200: #cccccc;
+  --ion-color-step-300: #b3b3b3;
+  --ion-color-step-400: #999999;
+  --ion-color-step-500: #808080;
+  --ion-color-step-600: #666666;
+  --ion-color-step-700: #4d4d4d;
+  --ion-color-step-800: #333333;
+  --ion-color-step-900: #191919;
+}
+
 * {
   font-size: var(--font-size);
 }
@@ -53,4 +76,8 @@ h2 {
 
 ion-title {
   font-size: 1.25rem;
+}
+
+label > ion-text {
+  margin-bottom: 8px;
 }

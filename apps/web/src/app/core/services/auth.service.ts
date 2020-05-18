@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HostRegistrationData } from '@ego/common/core/models/registration-data';
 import { AppConfig } from '@ego/common/core/services/app-config.service';
 import { BaseAuthService } from '@ego/common/core/services/auth.service';
-import { LoginDto } from '@ego/common/core/services/dto/login-dto';
+import { AuthDto } from '@ego/common/core/services/dto/login-dto';
 import { Observable, throwError } from 'rxjs';
 import { tap, map, catchError, mapTo } from 'rxjs/operators';
 
@@ -34,7 +34,7 @@ export abstract class AuthService extends BaseAuthService {
       email,
       password,
     };
-    return this.http.post<LoginDto>(this.LOGIN_URL, body)
+    return this.http.post<AuthDto>(this.LOGIN_URL, body)
       .pipe(
         tap((data) => {
           this.saveToken(data);
@@ -52,7 +52,7 @@ export abstract class AuthService extends BaseAuthService {
    */
   public registerHost(data: HostRegistrationData): Observable<void> {
     const formData = this.generateFormDataForHostRegistration(data);
-    return this.http.post<LoginDto>(this.REGISTER_HOST_URL, formData)
+    return this.http.post<AuthDto>(this.REGISTER_HOST_URL, formData)
       .pipe(
         mapTo(null),
         catchError((err) => throwError(this.mapApiRegistrationError(err))),

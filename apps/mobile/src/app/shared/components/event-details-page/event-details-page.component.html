@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Детали события</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openPopover()">
+      <ion-button (click)="openPopover($event)">
         <ion-icon
           slot="icon-only"
           src="assets/icon/ellipsis-vertical.svg"
@@ -36,7 +36,7 @@
             <ion-button
               *ngIf="!context.value; else unsubscribeBtn"
               class="ion-no-margin"
-              color="secondary"
+              color="primary"
               type="button"
               (click)="onSubscribeBtnClick(event.id)"
             >

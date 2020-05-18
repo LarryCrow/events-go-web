@@ -92,10 +92,11 @@ export class EventDetailsPageComponent {
   /**
    * Open popover
    */
-  public async openPopover(): Promise<void> {
+  public async openPopover(event: any): Promise<void> {
     const popover = await this.popoverCtrl.create({
       component: EventDetailsPopoverComponent,
       translucent: true,
+      event: event,
     });
     popover.present();
   }

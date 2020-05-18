@@ -1,10 +1,5 @@
-:host {
-  --space: 15px;
-}
-
 ion-card {
-  --background: var(--mobile-card-color);
-  --color: var(--primary-color);
+  --background: var(--ion-color-primary);
 
   img {
     width: 100%;
@@ -23,11 +18,11 @@ ion-card-header {
   }
 
   ion-card-subtitle {
-    --color: var(--mobile-card-subtitle);
+    --color: var(--ion-color-warning);
   }
 
   ion-card-title {
-    --color: var(--primary-color);
+    --color: var(--ion-color-primary-contrast);
 
     font-size: 1.5rem;
     font-weight: 400;
@@ -38,6 +33,7 @@ ion-card-content {
   padding-top: 0;
 
   .description {
+    color: var(--ion-color-primary-contrast);
     margin-top: 15px;
     overflow: hidden;
     display: -webkit-box;

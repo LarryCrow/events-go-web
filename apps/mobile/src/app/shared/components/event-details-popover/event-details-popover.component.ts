@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Calendar } from '@ionic-native/calendar/ngx';
+import { CalendarService, CalendarOptions } from '@ego/mobile/app/core/services/calendar.service';
+import { first } from 'rxjs/operators';
 
 /**
  * Event details popover component.
@@ -18,16 +19,22 @@ export class EventDetailsPopoverComponent {
    * @param calendar Calendar plugin service.
    */
   public constructor(
-    private readonly calendar: Calendar,
+    private readonly calendarService: CalendarService,
   ) { }
 
   /**
    * Add event to calendar.
    */
   public addToCalendar(): void {
-    this.calendar.createCalendar('MyCalendar').then(
-      (msg) => { console.log(msg); },
-      (err) => { console.log(err); },
-    );
+    const options: CalendarOptions = {
+      title: 'title',
+      endDate: new Date(),
+      startDate: new Date(),
+      location: 'location',
+      notes: 'notes',
+    };
+    this.calendarService.createNote(options)
+      .pipe(first())
+      .subscribe();
   }
 }

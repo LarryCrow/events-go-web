@@ -12,19 +12,6 @@
   }
 }
 
-.date-section {
-  display: flex;
-  flex-direction: row;
-
-  & > * {
-    flex: 1;
-  }
-
-  .time {
-    font-size: 1.5rem;
-  }
-}
-
 .icon-link {
   display: flex;
   align-items: center;
@@ -38,14 +25,10 @@
 
 .item {
   padding: var(--space);
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--primary-border-color);
-  }
 }
 
 .note {
-  color: var(--additional-text-color);
+  color: var(--ion-color-step-400);
   font-size: 0.86rem;
   margin-bottom: var(--space);
 }

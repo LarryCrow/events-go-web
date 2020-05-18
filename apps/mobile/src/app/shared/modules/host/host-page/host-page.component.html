@@ -4,6 +4,14 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Организатор</ion-title>
+    <ion-buttons *ngIf="host$ | async as host" slot="end">
+      <ion-button (click)="openPopover($event, host)">
+        <ion-icon
+          slot="icon-only"
+          src="assets/icon/ellipsis-vertical.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>

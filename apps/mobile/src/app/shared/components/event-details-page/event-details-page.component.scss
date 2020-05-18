@@ -31,7 +31,7 @@
       top: 20px;
       left: 0px;
       padding: 0 calc(var(--space) / 2);
-      background: var(--yellow);
+      background: var(--ion-color-warning);
       text-decoration: underline;
     }
 
@@ -72,7 +72,7 @@
 }
 
 .note {
-  color: var(--additional-text-color);
+  color: var(--ion-color-step-400);
   font-size: 0.86rem;
   margin-bottom: var(--space);
 }
@@ -81,7 +81,7 @@
   padding: var(--space);
 
   &:not(:last-child) {
-    border-bottom: 1px solid var(--primary-border-color);
+    border-bottom: 1px solid var(--ion-color-step-500);
   }
 }
 

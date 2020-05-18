@@ -7,6 +7,9 @@ import { EventsService } from '@ego/common/core/services/events.service';
 import { HostsService } from '@ego/common/core/services/hosts.service';
 import { Observable } from 'rxjs';
 import { shareReplay, switchMap, map } from 'rxjs/operators';
+import { PopoverController } from '@ionic/angular';
+import { HostPopoverComponent } from '../components/host-popover/host-popover.component';
+import { FeedbackService } from '@ego/common/core/services/feedback.service';
 
 /** Host page. */
 @Component({
@@ -32,10 +35,27 @@ export class HostPageComponent {
     private readonly hostService: HostsService,
     private readonly route: ActivatedRoute,
     private readonly eventService: EventsService,
+    private readonly popoverCtrl: PopoverController,
+    private readonly feedbackService: FeedbackService,
   ) {
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.host$ = this.initHostStream(id);
     this.events$ = this.initEventsStream();
+    this.feedbackService.getHostFeedback(id)
+      .subscribe((x) => console.log(x));
+  }
+
+  /**
+   * Open popover
+   */
+  public async openPopover(event: any, host: Host): Promise<void> {
+    const popover = await this.popoverCtrl.create({
+      component: HostPopoverComponent,
+      translucent: true,
+      event: event,
+      componentProps: { host },
+    });
+    popover.present();
   }
 
   private initHostStream(id: number): Observable<Host> {

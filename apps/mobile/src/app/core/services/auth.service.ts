@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserMapper } from '@ego/common/core/mappers/user.mapper';
 import { Role } from '@ego/common/core/models/role.enum';
 import { AppConfig } from '@ego/common/core/services/app-config.service';
 import { BaseAuthService } from '@ego/common/core/services/auth.service';
-import { LoginDto } from '@ego/common/core/services/dto/login-dto';
+import { AuthDto } from '@ego/common/core/services/dto/login-dto';
 import { Observable, throwError } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 
@@ -18,8 +19,9 @@ export class AuthService extends BaseAuthService {
   public constructor(
     protected readonly http: HttpClient,
     protected readonly appConfig: AppConfig,
+    protected readonly userMapper: UserMapper,
   ) {
-    super(http, appConfig);
+    super(http, appConfig, userMapper);
   }
 
   /**
@@ -33,7 +35,7 @@ export class AuthService extends BaseAuthService {
       email,
       password,
     };
-    return this.http.post<LoginDto>(this.LOGIN_URL, body)
+    return this.http.post<AuthDto>(this.LOGIN_URL, body)
       .pipe(
         tap((data) => {
           if (data.role !== Role.Client) {

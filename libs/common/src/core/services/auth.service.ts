@@ -1,14 +1,16 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable, throwError, BehaviorSubject, of } from 'rxjs';
-import { tap, catchError, map, mapTo, first } from 'rxjs/operators';
+import { tap, catchError, mapTo, first } from 'rxjs/operators';
 
-import { HostRegistrationData, ClientRegistrationData } from '../models/registration-data';
+import { UserMapper } from '../mappers/user.mapper';
+import { ClientRegistrationData } from '../models/registration-data';
 import { Role } from '../models/role.enum';
 import { User } from '../models/user';
 
 import { AppConfig } from './app-config.service';
-import { LoginDto } from './dto/login-dto';
+import { ClientDto } from './dto/client.dto';
+import { HostDto } from './dto/host-dto';
+import { AuthDto } from './dto/login-dto';
 
 /**
  * List of keys to apply local storage.
@@ -34,7 +36,7 @@ const API_ERRORS = {
 export class BaseAuthService {
   private readonly baseUrl = `${this.appConfig.baseUrl}`;
   private readonly REGISTER_CLIENT_URL = `${this.baseUrl}user/create/client`;
-  private readonly CURRENT_USER_URL = `${this.baseUrl}user/current`;
+  private readonly CURRENT_USER_URL = `${this.baseUrl}user/me`;
   private token: string | null = null;
 
   /** Login url */
@@ -54,6 +56,7 @@ export class BaseAuthService {
   public constructor(
     protected readonly http: HttpClient,
     protected readonly appConfig: AppConfig,
+    protected readonly userMapper: UserMapper,
   ) { }
 
   /**
@@ -65,10 +68,11 @@ export class BaseAuthService {
     const body = {
       email: data.email,
       password: data.pass,
+      name: data.name,
     };
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'form-data');
-    return this.http.post<LoginDto>(this.REGISTER_CLIENT_URL, body, { headers })
+    return this.http.post<AuthDto>(this.REGISTER_CLIENT_URL, body, { headers })
       .pipe(
         tap((res) => {
           this.saveToken(res);
@@ -96,7 +100,7 @@ export class BaseAuthService {
       return of(false);
     }
     this.token = token;
-    return this.http.get<LoginDto>(this.CURRENT_USER_URL)
+    return this.http.get<AuthDto>(this.CURRENT_USER_URL)
       .pipe(
         first(),
         tap((res) => this.userChange$.next(this.createUser(res))),
@@ -121,7 +125,7 @@ export class BaseAuthService {
    * Save token to local storage.
    * @param authData Authentication data.
    */
-  protected saveToken(authData: LoginDto): void {
+  protected saveToken(authData: AuthDto): void {
     this.token = authData.token;
     localStorage.setItem(StorageKeys.token, this.token);
   }
@@ -130,11 +134,8 @@ export class BaseAuthService {
    * Create new user
    * @param authData Authentication data.
    */
-  protected createUser(authData: LoginDto): User {
-    return new User({
-      id: authData.id,
-      role: authData.role === 1 ? Role.Host : Role.Client,
-    });
+  protected createUser(authData: AuthDto): User {
+    return this.userMapper.fromDto(authData);
   }
 
   private clearStorage(): void {

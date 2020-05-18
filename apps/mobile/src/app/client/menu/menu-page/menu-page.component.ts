@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DialogService } from '@ego/mobile/app/core/services/dialog.service';
 import { NavController } from '@ionic/angular';
 import { first, filter } from 'rxjs/operators';
+import { AuthService } from '@ego/mobile/app/core/services/auth.service';
 
 /**
  * Menu item model.
@@ -28,6 +29,8 @@ const LOGOUT_MESSAGE = 'Вы уверены, что хотите выйти?';
 export class MenuPageComponent {
   /** Menu list. */
   public menu: MenuItem[];
+  /** Current user. */
+  public readonly currentUser$ = this.authService.userChange$;
 
   /**
    * @constructor
@@ -35,6 +38,7 @@ export class MenuPageComponent {
   public constructor(
     private readonly dialogService: DialogService,
     private readonly navCtrl: NavController,
+    private readonly authService: AuthService,
   ) {
     this.menu = [
       {

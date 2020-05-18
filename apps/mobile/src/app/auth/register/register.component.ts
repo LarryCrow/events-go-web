@@ -50,8 +50,9 @@ export class RegisterComponent extends DestroyableBase {
     }
     const email = form.value.email;
     const pass = form.value.pass;
+    const name = form.value.name;
     this.isLoading$.next(true);
-    this.authService.registerClient({ email, pass })
+    this.authService.registerClient({ email, pass, name })
       .pipe(
         first(),
         finalize(() => this.isLoading$.next(false)),
@@ -81,6 +82,7 @@ export class RegisterComponent extends DestroyableBase {
     const form = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       pass: [null, [Validators.required, Validators.minLength(5)]],
+      name: [null, [Validators.required]],
     });
 
     // Remove error when any control changes.

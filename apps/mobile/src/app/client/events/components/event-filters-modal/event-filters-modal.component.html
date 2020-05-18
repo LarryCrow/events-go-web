@@ -21,33 +21,43 @@
     [formGroup]="form"
     (ngSubmit)="onFormSubmitted(form)"
   >
-    <label>
-      <span>Название мероприятия</span>
-      <input type="text" formControlName="title" />
-    </label>
-    <label>
-      <span>Организатор</span>
-      <input type="text" formControlName="hostName" />
-    </label>
-    <label>
-      <span>Тип мероприятия</span>
-      <select formControlName="type">
-        <option [ngValue]="null" selected></option>
-        <option *ngFor="let type of eventTypes$ | async" [value]="type.id">
-          {{ type.value }}
-        </option>
-      </select>
-    </label>
-    <label>
-      <span>От</span>
-      <input formControlName="start" type="date" />
-    </label>
-    <label>
-      <span>До</span>
-      <input formControlName="end" type="date" />
-    </label>
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating"> Название мероприятия </ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"> Организатор</ion-label>
+        <ion-input type="text" formControlName="hostName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Тип мероприятия</ion-label>
+        <ion-select formControlName="type">
+          <ion-select-option
+            *ngFor="let type of eventTypes$ | async"
+            [value]="type.id"
+          >
+            {{ type.value }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">От</ion-label>
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          formControlName="start"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">До</ion-label>
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          formControlName="end"
+        ></ion-datetime>
+      </ion-item>
+    </ion-list>
     <ion-button
-      color="secondary"
+      color="warning"
       fill="clear"
       expand="full"
       (click)="onClearClick(form)"

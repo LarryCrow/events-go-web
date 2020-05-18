@@ -38,4 +38,6 @@ export interface HostRegistrationData extends RegistrationData {
 // tslint:disable-next-line: no-empty-interface
 export interface ClientRegistrationData extends RegistrationData {
   // There are no extra fields that differ from the base model yet.
+  /** Client name. */
+  name: string;
 }

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { AuthInterceptor } from '@ego/common/core/interceptors/auth-interceptor';
 import { BaseAuthService } from '@ego/common/core/services/auth.service';
+import { Calendar } from '@ionic-native/calendar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -31,6 +32,7 @@ import { AuthService } from './core/services/auth.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, deps: [AuthService] },
     { provide: BaseAuthService, useExisting: AuthService },
+    Calendar,
   ],
   bootstrap: [AppComponent],
 })
