@@ -1,15 +1,15 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, combineLatest, ReplaySubject } from 'rxjs';
-import { filter, first, switchMap, map, startWith, shareReplay, switchMapTo } from 'rxjs/operators';
-import { AddressesService } from '@ego/common/core/services/addresses.service';
-
 import { Event } from '@ego/common/core/models/event';
 import { MapOptions } from '@ego/common/core/models/map-options';
 import { Role } from '@ego/common/core/models/role.enum';
+import { AddressesService } from '@ego/common/core/services/addresses.service';
 import { DialogService } from '@ego/common/core/services/dialog.service';
 import { EventsService } from '@ego/common/core/services/events.service';
 import { UserService } from '@ego/common/core/services/user.service';
+import { Observable, combineLatest, ReplaySubject } from 'rxjs';
+import { filter, first, switchMap, map, startWith, shareReplay, switchMapTo } from 'rxjs/operators';
+import { Host } from '@ego/common/core/models/host';
 
 const UNAUTHORIZED_SUBSCRIBE = 'Для того, чтобы подписаться на событие, вам необходимо авторизоватьcя.';
 const INCORRECT_ROLE = 'Организатор не может подписываться на события.';
@@ -162,7 +162,7 @@ export class EventDetailsComponent {
       .pipe(
         first(),
         filter(([_, user]) => user && user.role === Role.Host),
-        map(([event, user]) => event.host.id === user.id),
+        map(([event, user]) => event.host.id === (user.details as Host).id),
         startWith(false),
       );
   }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
+import { DestroyableBase } from './components/destroyable-base/destroyable-base.component';
 import {
   FormControlValidationMessageComponent,
 } from './components/form-control-validation-message/form-control-validation-message.component';
@@ -17,6 +18,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     FormControlValidationMessageComponent,
     ValidationMessageComponent,
     MapComponent,
+    DestroyableBase,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
   exports: [
     FormControlValidationMessageComponent,
     MapComponent,
+    DestroyableBase,
   ],
 })
 export class CommonSharedModule { }

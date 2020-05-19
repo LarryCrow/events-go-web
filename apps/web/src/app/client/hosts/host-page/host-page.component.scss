@@ -31,6 +31,12 @@
       margin-bottom: calc(var(--space) * 1.5);
     }
   }
+
+  .feedback-btn {
+    width: 100%;
+    padding: var(--space);
+    margin-top: calc(var(--space) * 2);
+  }
 }
 
 .avatar {

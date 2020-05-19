@@ -15,7 +15,7 @@
     </div>
   </div>
   <ng-container *ngIf="pagination$ | async as pagination">
-    <div class="pagination">
+    <div class="events">
       <div class="card" *ngFor="let event of pagination.items">
         <ego-event-card [event]="event"></ego-event-card>
       </div>
