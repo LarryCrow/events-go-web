@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Calendar } from '@ionic-native/calendar/ngx';
 import { Observable, from } from 'rxjs';
 import { mapTo, switchMap, switchMapTo, filter } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
 
 export interface CalendarOptions {
   /** Title */
@@ -29,6 +30,7 @@ export class CalendarService {
    */
   public constructor(
     private readonly calendar: Calendar,
+    private readonly alertCtrl: AlertController,
   ) { }
 
   /** Create calendar note. */
@@ -45,6 +47,7 @@ export class CalendarService {
           }
           return this.createEvent(options);
         }),
+        switchMap(() => this.showSuccessMessage()),
         mapTo(null),
       );
   }
@@ -58,9 +61,10 @@ export class CalendarService {
 
   private askForPermission(): Observable<boolean> {
     return new Observable<boolean>((subscriber) => {
-      this.calendar.requestWritePermission()
-        .then((val) => subscriber.next(true))
-        .catch((err) => subscriber.next(false));
+      this.calendar.requestWritePermission(
+        () => subscriber.next(true),
+        () => subscriber.next(false),
+      );
     });
   }
 
@@ -72,5 +76,16 @@ export class CalendarService {
       options.startDate,
       options.endDate,
     )).pipe(mapTo(null));
+  }
+
+  private async showSuccessMessage(): Promise<void> {
+    const alert = await this.alertCtrl.create({
+      message: 'Событие было добавлено',
+      buttons: [
+        { text: 'ОК' },
+      ],
+    });
+
+    return alert.present() && alert.onDidDismiss().then();
   }
 }

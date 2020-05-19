@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '@ego/web/app/shared/shared.module';
 
 import { AboutPageComponent } from './about-page/about-page.component';
+import { CommonSharedModule } from '@ego/common/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    CommonSharedModule,
   ],
 })
 export class AboutModule { }

@@ -1,6 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CalendarService, CalendarOptions } from '@ego/mobile/app/core/services/calendar.service';
 import { first } from 'rxjs/operators';
+import { Event } from '@ego/common/core/models/event';
+import { PopoverController } from '@ionic/angular';
 
 /**
  * Event details popover component.
@@ -12,6 +14,8 @@ import { first } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventDetailsPopoverComponent {
+  @Input()
+  public event: Event;
 
   /**
    * @constructor
@@ -19,6 +23,7 @@ export class EventDetailsPopoverComponent {
    * @param calendar Calendar plugin service.
    */
   public constructor(
+    private readonly popoverCtrl: PopoverController,
     private readonly calendarService: CalendarService,
   ) { }
 
@@ -27,14 +32,18 @@ export class EventDetailsPopoverComponent {
    */
   public addToCalendar(): void {
     const options: CalendarOptions = {
-      title: 'title',
-      endDate: new Date(),
-      startDate: new Date(),
+      title: this.event.title,
+      endDate: this.event.end,
+      startDate: this.event.start,
       location: 'location',
       notes: 'notes',
     };
     this.calendarService.createNote(options)
       .pipe(first())
-      .subscribe();
+      .subscribe(() => this.close());
+  }
+
+  private close(): void {
+    this.popoverCtrl.dismiss();
   }
 }

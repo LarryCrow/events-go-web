@@ -8,8 +8,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Routes, RouterModule } from '@angular/router';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { IsHostGuard } from '@ego/common/core/guards/is-host.guard';
+import { CommonSharedModule } from '@ego/common/shared/shared.module';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { SharedModule } from '../../shared/shared.module';
 
@@ -74,6 +75,7 @@ const routes: Routes = [
     OwlNativeDateTimeModule,
     MatTooltipModule,
     MatSelectModule,
+    CommonSharedModule,
   ],
 })
 export class EventsModule { }

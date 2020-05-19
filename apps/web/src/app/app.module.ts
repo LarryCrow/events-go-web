@@ -5,6 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from '@ego/common/core/interceptors/auth-interceptor';
+import { BaseAuthService } from '@ego/common/core/services/auth.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, deps: [AuthService] },
+    { provide: BaseAuthService, useExisting: AuthService },
   ],
   bootstrap: [AppComponent],
 })

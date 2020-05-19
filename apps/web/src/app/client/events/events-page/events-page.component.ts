@@ -32,7 +32,7 @@ export class EventsPageComponent {
   /**
    * Events list.
    */
-  public readonly events$: Observable<Pagination<Event>>;
+  public readonly pagination$: Observable<Pagination<Event>>;
   /**
    * Form control for search input.
    */
@@ -66,7 +66,7 @@ export class EventsPageComponent {
   public constructor(
     private readonly eventsService: EventsService,
   ) {
-    this.events$ = this.initPaginationStream();
+    this.pagination$ = this.initPaginationStream();
   }
 
   /**

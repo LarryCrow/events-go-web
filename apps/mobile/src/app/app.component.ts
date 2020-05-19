@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { tap, first } from 'rxjs/operators';
 
 import { AuthService } from './core/services/auth.service';
@@ -29,6 +29,7 @@ export class AppComponent {
     private readonly statusBar: StatusBar,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly navCtrl: NavController,
   ) {
     this.initializeApp();
   }
@@ -51,6 +52,16 @@ export class AppComponent {
             }
           }),
         ).subscribe();
+    });
+
+    // Get current router outlet and check if it's possible to go back.
+    this.platform.backButton.subscribeWithPriority(0, () => {
+      const outlet = (this.navCtrl as any).topOutlet;
+      if (outlet.canGoBack()) {
+        outlet.pop();
+      } else {
+        (navigator as any).app.exitApp();
+      }
     });
   }
 }

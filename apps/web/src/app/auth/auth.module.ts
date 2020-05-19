@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonSharedModule } from '@ego/common/shared/shared.module';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -53,6 +54,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    CommonSharedModule,
   ],
 })
 export class AuthModule { }

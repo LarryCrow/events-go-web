@@ -5,7 +5,10 @@
     </ion-buttons>
     <ion-title>Детали события</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openPopover($event)">
+      <ion-button
+        *ngIf="event$ | async as event"
+        (click)="openPopover($event, event)"
+      >
         <ion-icon
           slot="icon-only"
           src="assets/icon/ellipsis-vertical.svg"

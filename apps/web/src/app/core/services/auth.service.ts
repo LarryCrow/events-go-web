@@ -6,6 +6,7 @@ import { BaseAuthService } from '@ego/common/core/services/auth.service';
 import { AuthDto } from '@ego/common/core/services/dto/login-dto';
 import { Observable, throwError } from 'rxjs';
 import { tap, map, catchError, mapTo } from 'rxjs/operators';
+import { UserMapper } from '@ego/common/core/mappers/user.mapper';
 
 /**
  * Authorization service.
@@ -20,8 +21,9 @@ export abstract class AuthService extends BaseAuthService {
   public constructor(
     protected readonly http: HttpClient,
     protected readonly appConfig: AppConfig,
+    protected readonly userMapper: UserMapper,
   ) {
-    super(http, appConfig);
+    super(http, appConfig, userMapper);
   }
 
   /**

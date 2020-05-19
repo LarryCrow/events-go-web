@@ -49,6 +49,8 @@ export class ClientRegistrationFormComponent {
     const data: ClientRegistrationData = {
       email: this.form.value.email as string,
       pass: this.form.value.pass as string,
+      // TODO: Expand form.
+      name: '',
     };
     this.authService.registerClient(data)
       .pipe(first())
