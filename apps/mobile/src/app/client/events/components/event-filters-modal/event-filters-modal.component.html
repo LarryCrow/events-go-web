@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onCloseClick()" fill="clear" class="ion-no-padding">
+        <ion-icon
+          slot="icon-only"
+          size="small"
+          src="assets/icon/close.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Фильтры</ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="submit" (click)="submitForm()">Применить</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form *ngIf="form$ | async as form" [formGroup]="form">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating"> Название мероприятия </ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"> Организатор</ion-label>
+        <ion-input type="text" formControlName="hostName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Тип мероприятия</ion-label>
+        <ion-select formControlName="type">
+          <ion-select-option
+            *ngFor="let type of eventTypes$ | async"
+            [value]="type.id"
+          >
+            {{ type.value }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">От</ion-label>
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          formControlName="start"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">До</ion-label>
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          formControlName="end"
+        ></ion-datetime>
+      </ion-item>
+    </ion-list>
+    <ion-button
+      color="warning"
+      fill="clear"
+      expand="full"
+      (click)="onClearClick(form)"
+    >
+      Сбросить всё
+    </ion-button>
+  </form>
+</ion-content>

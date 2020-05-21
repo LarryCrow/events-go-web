@@ -1,0 +1,98 @@
+:host {
+  --space: 16px;
+}
+
+.image {
+  position: relative;
+  height: 250px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  button {
+    display: none;
+  }
+
+  &.canceled {
+    img {
+      filter: brightness(0.5);
+    }
+
+    button {
+      display: block;
+      background: none;
+      padding: 0;
+      outline: none;
+      position: absolute;
+      height: calc(var(--space) * 2);
+      top: 20px;
+      left: 0px;
+      padding: 0 calc(var(--space) / 2);
+      background: var(--ion-color-warning);
+      text-decoration: underline;
+    }
+
+    button::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 0;
+      right: calc(var(--space) * -1);
+      border-top: var(--space) solid transparent;
+      border-bottom: var(--space) solid transparent;
+      border-left: var(--space) solid var(--yellow);
+    }
+  }
+}
+
+.host {
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.date-section {
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    flex: 1;
+  }
+
+  .time {
+    font-size: 1.5rem;
+  }
+}
+
+.note {
+  color: var(--ion-color-step-400);
+  font-size: 0.86rem;
+  margin-bottom: var(--space);
+}
+
+.item {
+  padding: var(--space);
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--ion-color-step-500);
+  }
+}
+
+.additional {
+  & > *:not(:last-child) {
+    margin-bottom: calc(var(--space) / 2);
+  }
+}
+
+.map {
+  padding: 0;
+  width: 100%;
+  height: 200px;
+}

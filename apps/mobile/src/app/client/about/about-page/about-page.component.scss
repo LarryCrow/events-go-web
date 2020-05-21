@@ -1,0 +1,24 @@
+:host {
+  --space: 16px;
+}
+
+.info {
+  padding: var(--space);
+  background: var(--primary-background-color);
+  color: var(--primary-color);
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.feedback {
+  padding: var(--space);
+
+  h2 {
+    padding-bottom: calc(var(--space) / 2);
+  }
+
+  form > *:not(:last-child) {
+    display: block;
+    margin-bottom: calc(var(--space) / 3);
+  }
+}

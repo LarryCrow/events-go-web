@@ -1,0 +1,31 @@
+<div class="form">
+  <ng-container *ngIf="roleFormShown; else clientForm">
+    <header class="margin form-header">
+      <h1>Регистрация</h1>
+      <button class="link" type="button" (click)="changeForm()">
+        Я участник
+      </button>
+    </header>
+    <div class="registration-form">
+      <ego-host-registration></ego-host-registration>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #clientForm>
+  <header class="margin form-header">
+    <h1>Регистрация</h1>
+    <button
+      class="link"
+      type="button"
+      title="Я участник"
+      (click)="changeForm()"
+    >
+      Я организатор
+    </button>
+  </header>
+
+  <div class="registration-form">
+    <ego-client-registration-form></ego-client-registration-form>
+  </div>
+</ng-template>

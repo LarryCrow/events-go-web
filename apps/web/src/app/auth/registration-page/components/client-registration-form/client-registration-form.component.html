@@ -1,0 +1,32 @@
+<form
+  *ngIf="form"
+  [formGroup]="form"
+  (ngSubmit)="onFormSubmit()"
+  class="margin"
+>
+  <label>
+    <span>Email*</span>
+    <input type="email" formControlName="email" />
+    <egoc-form-control-validation-message
+      controlName="email"
+    ></egoc-form-control-validation-message>
+  </label>
+  <label>
+    <span>Пароль*</span>
+    <input type="password" formControlName="pass" />
+    <egoc-form-control-validation-message
+      controlName="pass"
+    ></egoc-form-control-validation-message>
+  </label>
+  <label>
+    <span>Имя*</span>
+    <input type="text" formControlName="name" />
+    <egoc-form-control-validation-message
+      controlName="name"
+    ></egoc-form-control-validation-message>
+  </label>
+  <button class="primary submit-btn" type="submit">Вперёд</button>
+  <div class="errors">
+    <p class="error-msg">{{ error }}</p>
+  </div>
+</form>

@@ -1,0 +1,55 @@
+<ion-content class="ion-no-padding">
+  <div class="logo">
+    <img src="assets/logocropped.png" />
+  </div>
+  <p class="ion-text-center greetings">
+    Найди мероприятие по душе и проведи время с пользой и удовольствием.
+  </p>
+  <form [formGroup]="form" (ngSubmit)="onFormSubmit(form)" #loginForm="ngForm">
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label position="stacked" color="light">Email</ion-label>
+      <ion-input type="email" class="ion-padding" formControlName="email">
+      </ion-input>
+    </ion-item>
+    <egoc-form-control-validation-message
+      controlName="email"
+    ></egoc-form-control-validation-message>
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label position="stacked" color="light">Пароль</ion-label>
+      <ion-input type="password" class="ion-padding" formControlName="pass">
+      </ion-input>
+    </ion-item>
+    <egoc-form-control-validation-message
+      controlName="pass"
+    ></egoc-form-control-validation-message>
+  </form>
+  <div class="ion-text-center">
+    <ion-text color="danger" *ngIf="apiError$ | async as error">
+      {{ error }}
+    </ion-text>
+  </div>
+</ion-content>
+<ion-footer no-border>
+  <ion-button color="light" expand="full" (click)="loginForm.ngSubmit.emit()"
+    >Войти</ion-button
+  >
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-button color="light" expand="full" fill="clear">
+          Забыли пароль?
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-no-padding">
+        <ion-button
+          color="light"
+          expand="full"
+          fill="clear"
+          [routerLink]="['/auth', 'register']"
+        >
+          Нет аккаунта?
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

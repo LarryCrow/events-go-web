@@ -1,17 +1,3 @@
 {
-  "extends": "@saritasa/tslint-config-angular",
-  "rules": {
-    "directive-selector": [
-      true,
-      "attribute",
-      "ego",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "ego",
-      "kebab-case"
-    ]
-  }
+  "extends": "@saritasa/tslint-config-angular"
 }

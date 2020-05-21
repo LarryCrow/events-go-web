@@ -1,0 +1,25 @@
+<input
+  type="file"
+  [(ngModel)]="value"
+  hidden
+  accept=".jpg,.jpeg,.png"
+  #inputFile
+/>
+<div class="container">
+  <div *ngIf="imgSrc$ | async as imgSrc" class="image">
+    <img [src]="imgSrc" />
+  </div>
+  <div class="action-buttons">
+    <button type="button" class="load-btn dark" (click)="inputFile.click()">
+      Выбрать изображение
+    </button>
+    <button
+      type="button"
+      class="remove-btn"
+      *ngIf="isSelected"
+      (click)="removeImage()"
+    >
+      Удалить
+    </button>
+  </div>
+</div>

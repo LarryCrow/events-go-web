@@ -1,0 +1,10 @@
+<ion-card class="ion-no-margin" [routerLink]="[event.id]">
+  <img [src]="event.avatar || '/assets/default-image.jpg'" />
+  <ion-card-header>
+    <ion-card-subtitle>{{ event.start | date }}</ion-card-subtitle>
+    <ion-card-title>{{ event.title }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-text class="description">{{ event.description }}</ion-text>
+  </ion-card-content>
+</ion-card>

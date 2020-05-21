@@ -1,0 +1,83 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@import "theme/input-controls.scss";
+@import "theme/variables.scss";
+
+:root {
+  --ion-tab-bar-color-selected: var(--ion-color-primary-tint);
+  --ion-font-family: "FiraSans", Roboto, "Helvetica Neue", sans-serif;
+  --ion-padding: 1.25rem;
+  --ion-margin: 1.25rem;
+
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+
+  --ion-text-color: #000000;
+  --ion-text-color-rgb: 0, 0, 0;
+
+  --ion-color-step-100: #e6e6e6;
+  --ion-color-step-200: #cccccc;
+  --ion-color-step-300: #b3b3b3;
+  --ion-color-step-400: #999999;
+  --ion-color-step-500: #808080;
+  --ion-color-step-600: #666666;
+  --ion-color-step-700: #4d4d4d;
+  --ion-color-step-800: #333333;
+  --ion-color-step-900: #191919;
+}
+
+* {
+  font-size: var(--font-size);
+}
+
+p,
+a,
+h1,
+h2 {
+  margin: 0;
+}
+
+p {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+ion-title {
+  font-size: 1.25rem;
+}
+
+label > ion-text {
+  margin-bottom: 8px;
+}
