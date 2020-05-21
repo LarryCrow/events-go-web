@@ -1,0 +1,94 @@
+<form
+  *ngIf="form$ | async as form"
+  [formGroup]="form"
+  (ngSubmit)="onFormSubmit(form)"
+>
+  <label>
+    <span>Название* </span>
+    <input formControlName="title" type="text" />
+    <egoc-form-control-validation-message
+      controlName="title"
+    ></egoc-form-control-validation-message>
+  </label>
+  <label>
+    <span>Адрес*</span>
+    <input
+      formControlName="address"
+      type="text"
+      [matAutocomplete]="addressAutocomplete"
+    />
+    <mat-autocomplete
+      #addressAutocomplete="matAutocomplete"
+      (optionSelected)="onAddressSelect($event)"
+      [displayWith]="displayAddressValue"
+      autoActiveFirstOption
+    >
+      <mat-option *ngFor="let address of addresses$ | async" [value]="address">
+        {{ address.value }}
+      </mat-option>
+    </mat-autocomplete>
+    <egoc-form-control-validation-message
+      controlName="address"
+    ></egoc-form-control-validation-message>
+  </label>
+  <div class="row">
+    <label>
+      <span>Время начала*</span>
+      <input
+        [owlDateTime]="startDate"
+        [owlDateTimeTrigger]="startDate"
+        [min]="minDate"
+        formControlName="start"
+      />
+      <owl-date-time #startDate></owl-date-time>
+      <egoc-form-control-validation-message
+        controlName="start"
+      ></egoc-form-control-validation-message>
+    </label>
+    <label>
+      <span>Время окончания*</span>
+      <input
+        [owlDateTime]="endDate"
+        [owlDateTimeTrigger]="endDate"
+        [min]="minDate"
+        formControlName="end"
+      />
+      <owl-date-time #endDate></owl-date-time>
+      <egoc-form-control-validation-message
+        controlName="end"
+      ></egoc-form-control-validation-message>
+    </label>
+  </div>
+  <div class="row">
+    <label>
+      <span>Стоимость*</span>
+      <input formControlName="price" type="number" />
+      <egoc-form-control-validation-message
+        controlName="price"
+      ></egoc-form-control-validation-message>
+    </label>
+    <label>
+      <span>Тип события*</span>
+      <select formControlName="type">
+        <option *ngFor="let type of types$ | async" [ngValue]="type.id">
+          {{ type.value }}
+        </option>
+      </select>
+      <egoc-form-control-validation-message
+        controlName="type"
+      ></egoc-form-control-validation-message>
+    </label>
+  </div>
+  <label>
+    <span>Описание*</span>
+    <textarea formControlName="description"></textarea>
+    <egoc-form-control-validation-message
+      controlName="description"
+    ></egoc-form-control-validation-message>
+  </label>
+  <ego-uploader class="uploader" formControlName="avatar"></ego-uploader>
+  <egoc-form-control-validation-message
+    controlName="avatar"
+  ></egoc-form-control-validation-message>
+  <button type="submit" class="primary submit-btn">Сохранить</button>
+</form>

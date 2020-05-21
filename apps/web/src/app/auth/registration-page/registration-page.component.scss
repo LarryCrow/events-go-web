@@ -1,0 +1,42 @@
+:host {
+  --space: 40px;
+}
+
+.links {
+  width: 100%;
+  padding: 0 var(--space);
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc(var(--space) / 2);
+
+  a {
+    color: var(--primary-background-color);
+  }
+}
+
+.form-header {
+  margin: calc(var(--space) / 4) 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+
+  * {
+    margin: 0;
+  }
+
+  button.link {
+    text-decoration: underline;
+  }
+}
+
+.form {
+  width: 650px;
+  margin: 5vh auto 5vh auto;
+}
+
+.registration-form {
+  background: var(--primary-contrast-color);
+  padding: 40px;
+}

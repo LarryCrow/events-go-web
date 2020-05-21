@@ -1,0 +1,12 @@
+.greetings {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+}
+
+ion-list {
+  padding: 0;
+}
+
+ion-item {
+  font-size: 1.25rem;
+}

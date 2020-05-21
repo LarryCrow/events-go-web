@@ -1,0 +1,35 @@
+:host {
+  --space: 20px;
+}
+
+.feedback {
+  background-color: var(--card-color);
+  padding: var(--space);
+  width: 600px;
+  margin: 10vh auto 0 auto;
+
+  h2 {
+    font-weight: normal;
+    margin-bottom: var(--space);
+  }
+
+  p {
+    margin-bottom: var(--space);
+  }
+}
+
+form {
+  & > *:not(:last-child) {
+    display: block;
+    margin-bottom: calc(var(--space) / 2);
+    width: 100%;
+  }
+
+  textarea {
+    height: 10rem;
+  }
+
+  button {
+    padding: calc(var(--space) / 3) calc(var(--space) / 2);
+  }
+}

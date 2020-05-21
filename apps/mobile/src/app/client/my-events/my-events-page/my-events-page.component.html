@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Мои события</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <h2 class="title">Ближайшие события</h2>
+    <ng-container *ngIf="upcomingEvents$ | async as events">
+      <egom-event-card
+        class="card"
+        *ngFor="let event of events"
+        [event]="event"
+      ></egom-event-card>
+      <ion-item color="warning" lines="none" *ngIf="events.length === 0">
+        Нет ближайших событий
+      </ion-item>
+    </ng-container>
+    <h2 class="title">Остальные</h2>
+    <ng-container *ngIf="otherEvents$ | async as events">
+      <egom-event-card
+        class="card"
+        *ngFor="let event of events"
+        [event]="event"
+      ></egom-event-card>
+    </ng-container>
+  </div>
+</ion-content>

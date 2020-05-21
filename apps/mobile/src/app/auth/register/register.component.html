@@ -1,0 +1,57 @@
+<ion-content>
+  <div class="logo">
+    <img src="assets/logocropped.png" />
+  </div>
+  <div class="ion-text-center greetings">
+    <ion-text color="light">
+      Присоединяйся к дружному сообществу чтобы всегда быть в центре событий.
+    </ion-text>
+  </div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onFormSubmit(form)"
+    #registerForm="ngForm"
+  >
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label position="stacked" color="light">Email</ion-label>
+      <ion-input type="email" class="ion-padding" formControlName="email">
+      </ion-input>
+    </ion-item>
+    <egoc-form-control-validation-message
+      controlName="email"
+    ></egoc-form-control-validation-message>
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label position="stacked" color="light">Пароль</ion-label>
+      <ion-input type="password" class="ion-padding" formControlName="pass">
+      </ion-input>
+    </ion-item>
+    <egoc-form-control-validation-message
+      controlName="pass"
+    ></egoc-form-control-validation-message>
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-label position="stacked" color="light">Имя</ion-label>
+      <ion-input type="text" class="ion-padding" formControlName="name">
+      </ion-input>
+    </ion-item>
+    <egoc-form-control-validation-message
+      controlName="name"
+    ></egoc-form-control-validation-message>
+  </form>
+  <div class="ion-text-center">
+    <ion-text color="danger" *ngIf="apiError$ | async as error">
+      {{ error }}
+    </ion-text>
+  </div>
+</ion-content>
+<ion-footer no-border>
+  <ion-button
+    color="light"
+    expand="full"
+    (click)="registerForm.ngSubmit.emit()"
+  >
+    Создать
+  </ion-button>
+  <ion-button color="light" expand="full" fill="clear" (click)="goLoginBack()">
+    Назад
+  </ion-button>
+</ion-footer>

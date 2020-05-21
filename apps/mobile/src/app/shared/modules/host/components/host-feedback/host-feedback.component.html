@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onCloseClick()" fill="clear" class="ion-no-padding">
+        <ion-icon
+          slot="icon-only"
+          size="small"
+          src="assets/icon/close.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Отзыв</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-text>
+    <h2>Оставьте отзыв об организаторе <br />{{ name }}</h2>
+  </ion-text>
+  <div class="note ion-margin-vertical">
+    <ion-text>
+      Вам понравилось мероприятие? Или наоборот, всё прошло совсем не важно и не
+      так, как было запланировано? Напиши об этом и дайте знать людям, чего им
+      стоит ожидать от этого организатора.
+    </ion-text>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+    <ion-item class="ion-no-padding" lines="full">
+      <ion-textarea
+        formControlName="feedback"
+        class="ion-no-padding"
+        auto-grow="true"
+        placeholder="Пишите здесь"
+      >
+      </ion-textarea>
+    </ion-item>
+    <egoc-form-control-validation-message
+      controlName="feedback"
+    ></egoc-form-control-validation-message>
+    <ion-button class="ion-margin-top" type="submit" expand="full"
+      >Отправить</ion-button
+    >
+  </form>
+</ion-content>

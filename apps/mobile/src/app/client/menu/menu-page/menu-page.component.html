@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Меню</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item class="greetings">
+      Здравствуйте, {{ (currentUser$ | async)?.details.name }}
+    </ion-item>
+    <ion-item *ngFor="let item of menu" [routerLink]="item.path" lines="full">
+      {{ item.title }}
+    </ion-item>
+    <ion-item (click)="onLogoutClick()" lines="full">
+      Выход
+    </ion-item>
+  </ion-list>
+</ion-content>

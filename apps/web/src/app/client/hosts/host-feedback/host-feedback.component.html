@@ -1,0 +1,17 @@
+<div class="feedback">
+  <h2>Оставьте отзыв об организаторе {{ hostName$ | async }}</h2>
+  <p>
+    Вам понравилось мероприятие? Или наоборот, всё прошло совсем не важно и не
+    так, как было запланировано? Напиши об этом и дайте знать людям, чего им
+    стоит ожидать от этого организатора.
+  </p>
+  <form [formGroup]="form" (ngSubmit)="onFormSubmitted()">
+    <label>
+      <textarea formControlName="feedback" placeholder="Сообщение"></textarea>
+      <egoc-form-control-validation-message
+        controlName="message"
+      ></egoc-form-control-validation-message>
+    </label>
+    <button class="dark" type="submit">Отправить</button>
+  </form>
+</div>

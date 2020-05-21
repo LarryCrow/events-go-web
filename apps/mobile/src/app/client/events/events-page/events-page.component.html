@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Все события</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="onFiltersButton()">
+        <ion-icon
+          size="small"
+          slot="icon-only"
+          src="assets/icon/filter.svg"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ng-container *ngIf="pagination$ | async as pagination">
+    <egom-event-card
+      class="card"
+      *ngFor="let event of pagination.items"
+      [event]="event"
+    ></egom-event-card>
+    <div
+      *ngIf="pagination.items.length === 0"
+      class="ion-no-padding ion-text-center"
+    >
+      <ion-text color="warning">
+        Мероприятий нет :(<br />Попробуйте изменить значения фильтров
+      </ion-text>
+    </div>
+    <ion-infinite-scroll
+      *ngIf="pagination.items.length < pagination.itemsCount"
+      threshold="200px"
+      (ionInfinite)="loadMoreEvents($event)"
+    >
+      <ion-infinite-scroll-content loadingText="Loading more events...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+</ion-content>
