@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { first, finalize } from 'rxjs/operators';
-import { AuthService } from '@ego/web/app/core/services/auth.service';
 
 /**
  * Login page.

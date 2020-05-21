@@ -7,7 +7,6 @@ import { HostsService } from '@ego/common/core/services/hosts.service';
 import { Observable } from 'rxjs';
 import { first, switchMap, map, mapTo, switchMapTo } from 'rxjs/operators';
 
-
 const SUCCESS_MESSAGE = 'Ваше сообщение было отправлено! Скоро вы cможете увидеть свой отзыв на странице организатора.';
 
 /**

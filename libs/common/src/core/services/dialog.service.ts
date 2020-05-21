@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { DialogInfoComponent } from '@ego/web/app/shared/components/dialog-info/dialog-info.component';
+import { Observable } from 'rxjs';
 
 /**
  * Dialog service.

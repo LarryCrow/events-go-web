@@ -1,6 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Event } from '@ego/common/core/models/event';
 
 /**

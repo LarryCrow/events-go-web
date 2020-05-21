@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
 import { AppConfig } from './app-config.service';
-import { mapTo } from 'rxjs/operators';
 
 /** Feedback service */
 @Injectable({ providedIn: 'root' })

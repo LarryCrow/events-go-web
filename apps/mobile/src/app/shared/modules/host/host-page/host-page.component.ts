@@ -4,12 +4,13 @@ import { Event } from '@ego/common/core/models/event';
 import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
 import { Host } from '@ego/common/core/models/host';
 import { EventsService } from '@ego/common/core/services/events.service';
+import { FeedbackService } from '@ego/common/core/services/feedback.service';
 import { HostsService } from '@ego/common/core/services/hosts.service';
+import { PopoverController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { shareReplay, switchMap, map } from 'rxjs/operators';
-import { PopoverController } from '@ionic/angular';
+
 import { HostPopoverComponent } from '../components/host-popover/host-popover.component';
-import { FeedbackService } from '@ego/common/core/services/feedback.service';
 
 /** Host page. */
 @Component({

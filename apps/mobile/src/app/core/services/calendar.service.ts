@@ -1,21 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Calendar } from '@ionic-native/calendar/ngx';
-import { Observable, from } from 'rxjs';
-import { mapTo, switchMap, switchMapTo, filter } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { Observable, from } from 'rxjs';
+import { mapTo, switchMap, filter } from 'rxjs/operators';
 
-export interface CalendarOptions {
-  /** Title */
-  title: string;
-  /** Start date */
-  startDate: Date;
-  /** Endd ate */
-  endDate: Date;
-  /** Location */
-  location?: string;
-  /** Notes */
-  notes?: string;
-}
+import { CalendarOptions } from '../models/calendar';
 
 /** Wrap service to work with Calendar plugin */
 @Injectable({

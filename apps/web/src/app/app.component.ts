@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MenuLink } from '@ego/common/core/models/menu-link';
 import { Role } from '@ego/common/core/models/role.enum';
-import { AuthService } from '@ego/web/app/core/services/auth.service';
 import { UserService } from '@ego/common/core/services/user.service';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 

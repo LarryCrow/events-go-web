@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserMapper } from '@ego/common/core/mappers/user.mapper';
 import { HostRegistrationData } from '@ego/common/core/models/registration-data';
 import { AppConfig } from '@ego/common/core/services/app-config.service';
 import { BaseAuthService } from '@ego/common/core/services/auth.service';
 import { AuthDto } from '@ego/common/core/services/dto/login-dto';
 import { Observable, throwError } from 'rxjs';
 import { tap, map, catchError, mapTo } from 'rxjs/operators';
-import { UserMapper } from '@ego/common/core/mappers/user.mapper';
 
 /**
  * Authorization service.

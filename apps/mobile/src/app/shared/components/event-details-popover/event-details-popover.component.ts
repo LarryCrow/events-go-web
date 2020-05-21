@@ -1,8 +1,9 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { CalendarService, CalendarOptions } from '@ego/mobile/app/core/services/calendar.service';
-import { first } from 'rxjs/operators';
 import { Event } from '@ego/common/core/models/event';
+import { CalendarOptions } from '@ego/mobile/app/core/models/calendar';
+import { CalendarService } from '@ego/mobile/app/core/services/calendar.service';
 import { PopoverController } from '@ionic/angular';
+import { first } from 'rxjs/operators';
 
 /**
  * Event details popover component.
@@ -14,12 +15,14 @@ import { PopoverController } from '@ionic/angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventDetailsPopoverComponent {
+  /** Event. */
   @Input()
   public event: Event;
 
   /**
    * @constructor
    *
+   * @param popoverCtrl Popover controller.
    * @param calendar Calendar plugin service.
    */
   public constructor(

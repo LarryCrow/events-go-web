@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AuthService } from '@ego/mobile/app/core/services/auth.service';
 import { DialogService } from '@ego/mobile/app/core/services/dialog.service';
 import { NavController } from '@ionic/angular';
 import { first, filter } from 'rxjs/operators';
-import { AuthService } from '@ego/mobile/app/core/services/auth.service';
 
 /**
  * Menu item model.

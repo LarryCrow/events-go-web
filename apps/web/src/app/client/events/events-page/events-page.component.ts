@@ -1,5 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Event } from '@ego/common/core/models/event';
+import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
+import { Pagination } from '@ego/common/core/models/pagination';
+import { EventsService } from '@ego/common/core/services/events.service';
 import { Observable, BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -13,11 +17,6 @@ import {
   shareReplay,
   withLatestFrom,
 } from 'rxjs/operators';
-import { Pagination } from '@ego/common/core/models/pagination';
-
-import { Event } from '@ego/common/core/models/event';
-import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
-import { EventsService } from '@ego/common/core/services/events.service';
 
 /**
  * Events list page.

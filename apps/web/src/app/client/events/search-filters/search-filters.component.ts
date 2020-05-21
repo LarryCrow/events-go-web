@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Observable, ReplaySubject, NEVER, merge, of } from 'rxjs';
-import { tap, switchMapTo } from 'rxjs/operators';
 import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
 import { EventType } from '@ego/common/core/models/event-type';
 import { EventTypesService } from '@ego/common/core/services/event-types.service';
 import { parseDateToFilterString } from '@ego/common/shared/utils/date';
+import { Observable, ReplaySubject, NEVER, merge, of } from 'rxjs';
+import { tap, switchMapTo } from 'rxjs/operators';
 
 /**
  * Filters for events searching.

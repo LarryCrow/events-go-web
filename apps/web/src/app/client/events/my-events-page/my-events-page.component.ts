@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { share, map } from 'rxjs/operators';
 import { Event } from '@ego/common/core/models/event';
 import { EventsService } from '@ego/common/core/services/events.service';
 import { isDateGreaterThan } from '@ego/common/shared/utils/date';
+import { Observable } from 'rxjs';
+import { share, map } from 'rxjs/operators';
 
 /** Number of days to filter upcoming events */
 const UPCOMING_FILTER_DAY = 5;

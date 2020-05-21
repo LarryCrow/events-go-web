@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { Event } from '@ego/common/core/models/event';
 import { SaveEventModel } from '@ego/common/core/models/save-event';
 import { EventsService } from '@ego/common/core/services/events.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 /**
  * Page to edit an event.

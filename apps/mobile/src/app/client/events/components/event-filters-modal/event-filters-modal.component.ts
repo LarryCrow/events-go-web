@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
 import { EventType } from '@ego/common/core/models/event-type';
 import { EventTypesService } from '@ego/common/core/services/event-types.service';
+import { parseDateToFilterString } from '@ego/common/shared/utils/date';
 import { ModalController } from '@ionic/angular';
 import { Observable, NEVER, merge, of, ReplaySubject } from 'rxjs';
 import { tap, switchMapTo, first } from 'rxjs/operators';
-import { parseDateToFilterString } from '@ego/common/shared/utils/date';
 
 /**
  * Event filters modal
