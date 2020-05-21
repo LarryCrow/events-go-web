@@ -1,12 +1,5 @@
 :host {
   --space: 40px;
-
-  display: flex;
-  flex-direction: row;
-
-  > * {
-    flex: 1 1 0px;
-  }
 }
 
 .links {
@@ -21,8 +14,8 @@
   }
 }
 
-.functionality .form-header {
-  margin: calc(var(--space) / 3) 0;
+.form-header {
+  margin: calc(var(--space) / 4) 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,16 +29,6 @@
   button.link {
     text-decoration: underline;
   }
-}
-
-.banner {
-  background: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5) 100%),
-    url("/assets/preview.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  position: sticky;
-  top: 0;
 }
 
 .form {

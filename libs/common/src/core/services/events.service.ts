@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, mapTo } from 'rxjs/operators';
 
 import { createHttpParams } from '../../shared/utils/http-params';
 import { EventMapper } from '../mappers/event.mapper';
@@ -76,14 +76,12 @@ export class EventsService {
    *
    * @param eventId Event id.
    */
-  public subscribe(eventId: number): Observable<number> {
+  public subscribe(eventId: number): Observable<boolean> {
     const body = {
       event_id: eventId,
     };
     return this.http.post<SubscriptionDto>(this.SUBSCRIPTION_URL, body)
-      .pipe(
-        map((res) => res.event_id),
-      );
+      .pipe(mapTo(true));
   }
 
   /**
@@ -91,11 +89,9 @@ export class EventsService {
    *
    * @param eventId Event id.
    */
-  public unsubscribe(eventId: number): Observable<number> {
+  public unsubscribe(eventId: number): Observable<boolean> {
     return this.http.delete<SubscriptionDto>(`${this.SUBSCRIPTION_URL}${eventId}`)
-      .pipe(
-        map((res) => res.event_id),
-      );
+      .pipe(mapTo(true));
   }
 
   /**

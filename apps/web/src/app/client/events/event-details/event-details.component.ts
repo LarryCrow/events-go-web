@@ -97,12 +97,12 @@ export class EventDetailsComponent {
         first(),
         switchMap((user) => {
           if (!user) {
-            return this.dialogService.openInformationDialog(UNAUTHORIZED_SUBSCRIBE);
+            return this.dialogService.openInformationDialog(UNAUTHORIZED_SUBSCRIBE).pipe(first());
           }
           if (user.role === Role.Host) {
-            return this.dialogService.openInformationDialog(INCORRECT_ROLE);
+            return this.dialogService.openInformationDialog(INCORRECT_ROLE).pipe(first());
           }
-          return this.eventsService.subscribe(eventId);
+          return this.eventsService.subscribe(eventId).pipe(first());
         }),
         // If dialog is shown, null returns.
         filter(res => res),

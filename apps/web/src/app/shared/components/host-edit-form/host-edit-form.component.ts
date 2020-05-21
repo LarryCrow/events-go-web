@@ -20,7 +20,7 @@ export class HostEditFormComponent {
    * Emit data on form submit.
    */
   @Output()
-  public submit = new EventEmitter<HostRegistrationData>();
+  public formSubmit = new EventEmitter<HostRegistrationData>();
   /**
    * Host form.
    */
@@ -52,7 +52,7 @@ export class HostEditFormComponent {
       return;
     }
     const data = this.gatherDataFromForm(this.form);
-    this.submit.emit(data);
+    this.formSubmit.emit(data);
   }
 
   private initHostForm(): FormGroup {

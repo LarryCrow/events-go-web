@@ -1,20 +1,16 @@
-<section class="functionality">
-  <div class="form">
-    <ng-container *ngIf="roleFormShown; else clientForm">
-      <header class="margin form-header">
-        <h1>Регистрация</h1>
-        <button class="link" type="button" (click)="changeForm()">
-          Я участник
-        </button>
-      </header>
-      <div class="registration-form">
-        <ego-host-registration></ego-host-registration>
-      </div>
-    </ng-container>
-  </div>
-</section>
-
-<section class="banner"></section>
+<div class="form">
+  <ng-container *ngIf="roleFormShown; else clientForm">
+    <header class="margin form-header">
+      <h1>Регистрация</h1>
+      <button class="link" type="button" (click)="changeForm()">
+        Я участник
+      </button>
+    </header>
+    <div class="registration-form">
+      <ego-host-registration></ego-host-registration>
+    </div>
+  </ng-container>
+</div>
 
 <ng-template #clientForm>
   <header class="margin form-header">

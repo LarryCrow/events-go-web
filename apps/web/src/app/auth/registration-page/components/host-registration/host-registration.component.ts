@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { HostRegistrationData } from '@ego/common/core/models/registration-data';
+import { DialogService } from '@ego/common/core/services/dialog.service';
+import { AuthService } from '@ego/web/app/core/services/auth.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first } from 'rxjs/internal/operators/first';
-import { finalize, switchMapTo } from 'rxjs/operators';
-import { HostRegistrationData } from '@ego/common/core/models/registration-data';
-import { AuthService } from '@ego/web/app/core/services/auth.service';
-import { DialogService } from '@ego/common/core/services/dialog.service';
+import { finalize, switchMap } from 'rxjs/operators';
 
 const NOTIFICATION_MESSAGE = `Ваш аккаунт зарегистрирован, но нам нужно время, чтобы проверить его.
                               Это может занять несколько дней.
@@ -49,7 +49,7 @@ export class HostRegistrationComponent {
     this.authService.registerHost(data)
       .pipe(
         first(),
-        switchMapTo(this.showNotificationDialog()),
+        switchMap(() => this.showNotificationDialog()),
         finalize(() => this.isLoading$.next(false)),
       ).subscribe(
         () => this.router.navigate(['/events']),

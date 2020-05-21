@@ -1,10 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-
 import { ClientRegistrationData } from '@ego/common/core/models/registration-data';
 import { AuthService } from '@ego/web/app/core/services/auth.service';
+import { first } from 'rxjs/operators';
 
 /**
  * Host form component for registration.
@@ -49,8 +48,7 @@ export class ClientRegistrationFormComponent {
     const data: ClientRegistrationData = {
       email: this.form.value.email as string,
       pass: this.form.value.pass as string,
-      // TODO: Expand form.
-      name: '',
+      name: this.form.value.name as string,
     };
     this.authService.registerClient(data)
       .pipe(first())
@@ -72,6 +70,7 @@ export class ClientRegistrationFormComponent {
     return this.fb.group({
       email: [null, [Validators.email, Validators.required]],
       pass: [null, [Validators.required]],
+      name: [null, [Validators.required]],
     });
   }
 
