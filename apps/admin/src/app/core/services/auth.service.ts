@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
+import { UserMapper } from '@ego/common/core/mappers/user.mapper';
 import { User } from '@ego/common/core/models/user';
 import { AppConfig } from '@ego/common/core/services/app-config.service';
-import { UserMapper } from '@ego/common/core/mappers/user.mapper';
 import { AuthDto } from '@ego/common/core/services/dto/login-dto';
-import { tap, mapTo, catchError, first, map } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { tap, mapTo, catchError, first } from 'rxjs/operators';
 
 /**
  * List of keys to apply local storage.
@@ -19,7 +19,7 @@ enum StorageKeys {
 
 const API_ERRORS = {
   credentials: 'Invalid credentials',
-  wrongRole: 'User has wrong role for this action',
+  wrongRole: 'Inappropriate role',
 };
 
 /** Auth service. */
