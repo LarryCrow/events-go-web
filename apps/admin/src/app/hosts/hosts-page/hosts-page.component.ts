@@ -1,16 +1,26 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Host } from '@ego/common/core/models/host';
+import { Observable } from 'rxjs';
 
+/** Hosts page. */
 @Component({
   selector: 'egoa-hosts-page',
   templateUrl: './hosts-page.component.html',
   styleUrls: ['./hosts-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HostsPageComponent implements OnInit {
+export class HostsPageComponent {
+  /** Hosts */
+  public readonly hosts$: Observable<Host>;
 
-  constructor() { }
+  public constructor() { }
 
-  ngOnInit() {
+  /**
+   * Handle 'click' of confirm.
+   *
+   * @param id Host id.
+   */
+  public onConfirmClick(id: number): void {
+
   }
-
 }

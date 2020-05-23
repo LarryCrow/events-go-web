@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, first, tap } from 'rxjs/operators';
+import { AuthService } from './core/services/auth.service';
 
 /** App component. */
 @Component({
@@ -25,7 +26,18 @@ export class AppComponent {
    */
   public constructor(
     private readonly router: Router,
+    private readonly authService: AuthService,
   ) {
+    this.authService.isLoggedIn().pipe(
+      first(),
+      tap((val) => {
+        if (val) {
+          this.router.navigate(['/hosts']);
+        } else {
+          this.router.navigate(['/auth']);
+        }
+      }),
+    ).subscribe();
     this.isMenuDisplayed$ = this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
