@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Host } from '@ego/common/core/models/host';
 import { Observable } from 'rxjs';
-import { map, switchMap, shareReplay } from 'rxjs/operators';
+import { map, switchMap, shareReplay, first } from 'rxjs/operators';
 
 import { HostsService } from '../../core/services/hosts.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,6 +29,8 @@ export class HostPageComponent {
   /** Host name */
   public readonly hostName$: Observable<string>;
 
+  private readonly hostId$: Observable<number>;
+
   /**
    * @constructor
    *
@@ -36,6 +38,7 @@ export class HostPageComponent {
    * @param hostsService Hosts service.
    */
   public constructor(
+    private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly hostsService: HostsService,
   ) {
@@ -54,6 +57,19 @@ export class HostPageComponent {
     );
 
     this.hostName$ = host$.pipe(map((host) => host.name));
+    this.hostId$ = host$.pipe(map(host => host.id));
+  }
+
+  /**
+   * Handle 'click' of confirm.
+   *
+   * @param id Host id.
+   */
+  public onConfirmClick(): void {
+    this.hostId$.pipe(
+      switchMap((id) => this.hostsService.confirmHost(id)),
+      first(),
+    ).subscribe(() => this.router.navigate(['/hosts']));
   }
 
   private mapHostToTableData(host: Host): HostTable[] {
