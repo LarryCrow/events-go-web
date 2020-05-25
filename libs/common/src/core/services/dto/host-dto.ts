@@ -8,6 +8,8 @@ export interface HostDto {
     user: number;
     /** Name. */
     name: string;
+    /** Email. */
+    email: string;
     /** Is activated. */
     is_activated: boolean;
     /** Avatar. */

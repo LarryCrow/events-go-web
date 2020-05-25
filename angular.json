@@ -25,7 +25,9 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/web/src/styles.scss",
-              "theme/variables.scss"
+              "theme/variables.scss",
+              "theme/default-theme.scss",
+              "theme/input-controls.scss"
             ],
             "scripts": []
           },
@@ -350,8 +352,11 @@
               "apps/admin/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/admin/src/styles.scss",
-              "theme/variables.scss"
+              "theme/variables.scss",
+              "theme/default-theme.scss",
+              "theme/input-controls.scss"
             ],
             "scripts": []
           },
