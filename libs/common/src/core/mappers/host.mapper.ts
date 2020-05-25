@@ -21,6 +21,7 @@ export class HostMapper {
     return new Host({
       id: dto.user,
       avatar: dto.avatar,
+      email: dto.email,
       isActivated: dto.is_activated,
       name: dto.name,
       social: this.socialMediaMapper.fromDto(dto.social),

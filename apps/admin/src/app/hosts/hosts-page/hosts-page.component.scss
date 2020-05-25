@@ -1,0 +1,33 @@
+.table {
+  width: 60%;
+  min-width: 700px;
+  margin: 10vh auto 0 auto;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.avatar {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.mat-column-id {
+  width: 10% !important;
+  flex: 0 0 10% !important;
+}
+
+.mat-column-confirm {
+  width: 15% !important;
+  flex: 0 0 15% !important;
+}
+
+a.link {
+  text-decoration: underline;
+}
+
+.confirm-btn {
+  color: var(--primary-background-color);
+}

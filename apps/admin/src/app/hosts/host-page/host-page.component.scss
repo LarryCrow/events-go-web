@@ -1,0 +1,16 @@
+.container {
+  width: 60%;
+  min-width: 700px;
+  margin: 10vh auto 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  button {
+    padding: 10px;
+  }
+}
