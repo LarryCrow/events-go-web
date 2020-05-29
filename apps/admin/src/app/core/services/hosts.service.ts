@@ -5,7 +5,7 @@ import { Host } from '@ego/common/core/models/host';
 import { AppConfig } from '@ego/common/core/services/app-config.service';
 import { HostDto } from '@ego/common/core/services/dto/host-dto';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mapTo } from 'rxjs/operators';
 
 /** Host service. */
 @Injectable({ 'providedIn': 'root' })
@@ -44,6 +44,9 @@ export class HostsService {
    * Confirm host
    */
   public confirmHost(id: number): Observable<void> {
-    return null;
+    const url = new URL(`${id}/`, this.hostsUrl);
+    return this.http.patch(url.toString(), {}).pipe(
+      mapTo(null),
+    );
   }
 }
