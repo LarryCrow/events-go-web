@@ -56,9 +56,10 @@ export class FeedbackService {
    *
    * @param message Message.
    */
-  public handleFeedback(message: string): Observable<void> {
+  public handleFeedback(id: number, message: string): Observable<void> {
+    const url = new URL(`${id}/`, this.feedbackUrl);
     const body = { message };
-    return this.http.patch(this.feedbackUrl, body)
+    return this.http.patch(url.toString(), body)
       .pipe(mapTo(null));
   }
 }

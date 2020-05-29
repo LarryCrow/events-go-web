@@ -1,0 +1,12 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <textarea formControlName="message"></textarea>
+    <egoc-form-control-validation-message
+      controlName="message"
+    ></egoc-form-control-validation-message>
+    <button type="submit" class="dark">Ответить</button>
+  </form>
+  <div class="message">
+    {{ (feedback$ | async)?.message }}
+  </div>
+</div>

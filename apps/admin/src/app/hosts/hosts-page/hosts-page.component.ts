@@ -40,7 +40,7 @@ export class HostsPageComponent {
     );
 
     this.dataSource$ = hosts$.pipe(
-      map((hosts) => new MatTableDataSource(Array(30).fill(hosts[0]))),
+      map((hosts) => new MatTableDataSource(hosts)),
       tap((source) => source.paginator = this.paginator),
     );
   }

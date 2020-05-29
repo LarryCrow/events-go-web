@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "ego",
+      "egoa",
       "kebab-case"
     ]
   }
