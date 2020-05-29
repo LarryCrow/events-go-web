@@ -1,0 +1,36 @@
+<div class="table">
+  <h2 class="title">Отзывы</h2>
+  <mat-table
+    *ngIf="dataSource$ | async as dataSource"
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let feedback">
+        {{ feedback.id }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let feedback"> {{ feedback.email }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="message">
+      <mat-header-cell *matHeaderCellDef> Сообщение </mat-header-cell>
+      <mat-cell *matCellDef="let feedback">
+        <a class="ellipsis" [routerLink]="feedback.id">{{
+          feedback.message
+        }}</a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

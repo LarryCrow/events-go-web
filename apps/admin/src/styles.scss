@@ -2,7 +2,6 @@
 @import "theme/default-theme.scss";
 @import "theme/input-controls.scss";
 @import "theme/variables.scss";
-@import "~ng-pick-datetime/assets/style/picker.min.css";
 
 * {
   box-sizing: border-box;
@@ -13,39 +12,15 @@
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  color: var(--primary-font-color);
-}
-
 html,
 body {
   height: 100%;
 }
 
-html {
-  background: var(--page-background-color);
-}
 body {
   margin: 0;
 }
 
 a {
   text-decoration: none;
-}
-
-.note {
-  color: var(--placeholder-color);
-  font-size: 0.86rem;
-  font-style: italic;
-}
-
-/***** MATERIAL CUSTOMIZATION *****/
-.mat-menu-panel .mat-menu-content:not(:empty) {
-  padding: 0;
 }

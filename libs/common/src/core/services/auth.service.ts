@@ -4,12 +4,9 @@ import { tap, catchError, mapTo, first } from 'rxjs/operators';
 
 import { UserMapper } from '../mappers/user.mapper';
 import { ClientRegistrationData } from '../models/registration-data';
-import { Role } from '../models/role.enum';
 import { User } from '../models/user';
 
 import { AppConfig } from './app-config.service';
-import { ClientDto } from './dto/client.dto';
-import { HostDto } from './dto/host-dto';
 import { AuthDto } from './dto/login-dto';
 
 /**
