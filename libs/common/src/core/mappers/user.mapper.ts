@@ -16,18 +16,16 @@ import { HostMapper } from './host.mapper';
   providedIn: 'root',
 })
 export class UserMapper {
-  private readonly hostMapper = new HostMapper();
-  private readonly clientMapper = new ClientMapper();
   /**
    * Cast DTO to Host model.
    * @param dto - Host DTO.
    */
   public fromDto(dto: AuthDto): User {
     return new User({
-      role: dto.role === 1 ? Role.Host : Role.Client,
-      details: dto.role === 1
-        ? this.hostMapper.fromDto(dto.details as HostDto)
-        : this.clientMapper.fromDto(dto.details as ClientDto),
+      role: dto.role,
+      email: dto.email,
+      id: dto.id,
+      name: dto.name,
     });
   }
 }

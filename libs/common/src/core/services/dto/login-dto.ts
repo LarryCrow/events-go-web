@@ -1,5 +1,4 @@
-import { ClientDto } from './client.dto';
-import { HostDto } from './host-dto';
+import { Role } from '../../models/role.enum';
 
 /**
  * Login DTO model.
@@ -10,7 +9,9 @@ export interface AuthDto {
     /** Token */
     token: string;
     /** User role */
-    role: number;
-    /** User details. */
-    details: HostDto | ClientDto;
+    role: Role;
+    /** Email. */
+    email: string;
+    /** Name. */
+    name: string;
 }

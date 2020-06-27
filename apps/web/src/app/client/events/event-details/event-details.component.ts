@@ -162,7 +162,7 @@ export class EventDetailsComponent {
       .pipe(
         first(),
         filter(([_, user]) => user && user.role === Role.Host),
-        map(([event, user]) => event.host.id === (user.details as Host).id),
+        map(([event, user]) => event.host.id === user.id),
         startWith(false),
       );
   }

@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from '@ego/common/core/services/dialog.service';
-import { first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
+import { FeedbackService } from '@ego/common/core/services/feedback.service';
 
 /**
  * About us page.
@@ -27,6 +28,7 @@ export class AboutPageComponent {
   public constructor(
     private readonly fb: FormBuilder,
     private readonly dialogService: DialogService,
+    private readonly feedbackService: FeedbackService,
   ) { }
 
   /**
@@ -37,9 +39,13 @@ export class AboutPageComponent {
     if (this.form.invalid) {
       return;
     }
-    this.dialogService.openInformationDialog(
-      'Ваше сообщение было отправлено. Мы обязательно прочтём его!', 'Спасибо',
-    ).pipe(first()).subscribe();
+    this.feedbackService.sendPlatformFeedback(this.form.value.email, this.form.value.message)
+      .pipe(
+        switchMap(() => this.dialogService.openInformationDialog(
+          'Ваше сообщение было отправлено. Мы обязательно прочтём его!', 'Спасибо',
+        )),
+        first(),
+      ).subscribe();
   }
 
   private createFeedbackForm(): FormGroup {

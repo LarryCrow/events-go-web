@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { EventSearchFilters } from '@ego/common/core/models/event-search-filters';
 import { EventType } from '@ego/common/core/models/event-type';
-import { EventTypesService } from '@ego/common/core/services/event-types.service';
+import { EventsService } from '@ego/common/core/services/events.service';
 import { parseDateToFilterString } from '@ego/common/shared/utils/date';
 import { Observable, ReplaySubject, NEVER, merge, of } from 'rxjs';
 import { tap, switchMapTo } from 'rxjs/operators';
@@ -45,15 +45,15 @@ export class SearchFiltersComponent implements OnInit {
   /**
    * @constructor
    *
+   * @param eventsService Events service.
    * @param fb Form builder.
-   * @param eventTypesService Event types service.
    */
   public constructor(
+    eventsService: EventsService,
     private readonly fb: FormBuilder,
-    private readonly eventTypesService: EventTypesService,
   ) {
     this.form$ = this.initFormStream();
-    this.eventTypes$ = this.eventTypesService.getEventTypes();
+    this.eventTypes$ = eventsService.getEventTypes();
   }
 
   /** @inheritdoc */

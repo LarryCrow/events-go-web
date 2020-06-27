@@ -9,6 +9,7 @@ import { AppConfig } from './app-config.service';
 @Injectable({ providedIn: 'root' })
 export class FeedbackService {
   private readonly hostFeedbackUrl = `${this.appConfig.baseUrl}hosts/`;
+  private readonly feedbackUrl = `${this.appConfig.baseUrl}feedback/`;
 
   public constructor(
     private readonly http: HttpClient,
@@ -21,7 +22,9 @@ export class FeedbackService {
    * Send feedback about the platform
    */
   public sendPlatformFeedback(email: string, message: string): Observable<void> {
-    return of(null);
+    const body = { email, message };
+    return this.http.post(this.feedbackUrl, body)
+      .pipe(mapTo(null));
   }
 
   /**

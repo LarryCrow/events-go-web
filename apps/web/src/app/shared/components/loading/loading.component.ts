@@ -1,5 +1,6 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, ChangeDetectionStrategy, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { LoadingService } from '@ego/common/core/services/loading.service';
+import { Observable } from 'rxjs';
 
 /**
  * Loading component
@@ -10,22 +11,20 @@ import { Component, ChangeDetectionStrategy, Inject, OnInit, OnDestroy } from '@
   styleUrls: ['./loading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoadingComponent implements OnInit, OnDestroy {
+export class LoadingComponent {
+  /**
+   * Loading controller.
+   */
+  public readonly isLoading$: Observable<boolean>;
 
   /**
    * @constructor
    *
-   * @param document Document object.
+   * @param loadingService Loading service.
    */
-  public constructor(@Inject(DOCUMENT) private document: Document) { }
-
-  /** @inheritdoc */
-  public ngOnInit(): void {
-    this.document.body.style.overflow = 'hidden';
-  }
-
-  /** @inheritdoc */
-  public ngOnDestroy(): void {
-    this.document.body.style.overflow = 'unset';
+  public constructor(
+    loadingService: LoadingService,
+  ) {
+    this.isLoading$ = loadingService.isLoading$;
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError, mapTo } from 'rxjs/operators';
+import { map, catchError, mapTo, shareReplay } from 'rxjs/operators';
 
 import { createHttpParams } from '../../shared/utils/http-params';
 import { EventMapper } from '../mappers/event.mapper';
@@ -14,6 +14,11 @@ import { AppConfig } from './app-config.service';
 import { EventDto } from './dto/event-dto';
 import { PaginationDto } from './dto/pagination-dto';
 import { SubscriptionDto } from './dto/subscription-dto';
+import { EventType } from '../models/event-type';
+import { EventTypeMapper } from '../mappers/event-type-mapper';
+import { EventTypeDto } from './dto/event-type-dto';
+
+const EVENTS_PER_PAGE = 12;
 
 /**
  * Events service.
@@ -22,10 +27,9 @@ import { SubscriptionDto } from './dto/subscription-dto';
   providedIn: 'root',
 })
 export class EventsService {
-  private readonly EVENTS_URL = `${this.appConfig.baseUrl}events`;
-  private readonly SUBSCRIPTION_URL = `${this.appConfig.baseUrl}subscription/`;
-
-  private readonly EVENTS_PER_PAGE = 12;
+  private readonly eventsBaseUrl = `${this.appConfig.baseUrl}events/`;
+  private readonly subscriptionBaseUrl = `${this.appConfig.baseUrl}subscriptions/`;
+  private readonly eventTypes$: Observable<EventType[]>;
 
   /**
    * @constructor
@@ -38,7 +42,10 @@ export class EventsService {
     private readonly http: HttpClient,
     private readonly appConfig: AppConfig,
     private readonly eventMapper: EventMapper,
-  ) { }
+    private readonly eventTypeMapper: EventTypeMapper,
+  ) {
+    this.eventTypes$ = this.getTypes().pipe(shareReplay(1));
+  }
 
   /**
    * Gets list of events.
@@ -46,8 +53,8 @@ export class EventsService {
   public getEvents(filters?: EventSearchFilters, page: number = 1): Observable<Pagination<Event>> {
     const params = createHttpParams(filters)
       .set('page', page.toString())
-      .set('limit', this.EVENTS_PER_PAGE.toString());
-    return this.http.get<PaginationDto<EventDto>>(`${this.EVENTS_URL}/`, { params })
+      .set('limit', EVENTS_PER_PAGE.toString());
+    return this.http.get<PaginationDto<EventDto>>(this.eventsBaseUrl, { params })
       .pipe(map(this.mapTopicPagination));
   }
 
@@ -56,7 +63,7 @@ export class EventsService {
    * @param id - Event id.
    */
   public getEvent(id: number | string): Observable<Event> {
-    return this.http.get<EventDto>(`${this.EVENTS_URL}/${id}`)
+    return this.http.get<EventDto>(`${this.eventsBaseUrl}${id}`)
       .pipe(
         map((event) => this.eventMapper.fromDto(event)),
         catchError((err) => {
@@ -80,7 +87,7 @@ export class EventsService {
     const body = {
       event_id: eventId,
     };
-    return this.http.post<SubscriptionDto>(this.SUBSCRIPTION_URL, body)
+    return this.http.post<SubscriptionDto>(this.subscriptionBaseUrl, body)
       .pipe(mapTo(true));
   }
 
@@ -90,7 +97,7 @@ export class EventsService {
    * @param eventId Event id.
    */
   public unsubscribe(eventId: number): Observable<boolean> {
-    return this.http.delete<SubscriptionDto>(`${this.SUBSCRIPTION_URL}${eventId}`)
+    return this.http.delete<SubscriptionDto>(`${this.subscriptionBaseUrl}${eventId}`)
       .pipe(mapTo(true));
   }
 
@@ -100,7 +107,7 @@ export class EventsService {
    * @param eventId Event id.
    */
   public isUserSubscribed(eventId: number): Observable<boolean> {
-    return this.http.get(`${this.SUBSCRIPTION_URL}${eventId}`)
+    return this.http.get(`${this.subscriptionBaseUrl}${eventId}`)
       .pipe(
         map((res) => res['is_subscribed']),
       );
@@ -121,7 +128,7 @@ export class EventsService {
     formData.append('end', data.end);
     formData.append('avatar', data.avatar);
     formData.append('type_id', data.type_id.toString());
-    return this.http.post<EventDto>(`${this.EVENTS_URL}/`, formData)
+    return this.http.post<EventDto>(this.eventsBaseUrl, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
       );
@@ -142,17 +149,24 @@ export class EventsService {
       formData.append('avatar', data.avatar);
     }
     formData.append('type_id', data.type_id.toString());
-    return this.http.patch<EventDto>(`${this.EVENTS_URL}/${data.id}/`, formData)
+    return this.http.patch<EventDto>(`${this.eventsBaseUrl}${data.id}/`, formData)
       .pipe(
         map((res) => this.eventMapper.fromDto(res)),
       );
   }
 
   /**
+   * Get event types.
+   */
+  public getEventTypes(): Observable<EventType[]> {
+    return this.eventTypes$;
+  }
+
+  /**
    * Get a user events.
    */
   public getMyEvents(): Observable<Event[]> {
-    return this.http.get<EventDto[]>(`${this.EVENTS_URL}/my`)
+    return this.http.get<EventDto[]>(`${this.eventsBaseUrl}/my`)
       .pipe(
         map((events) => events.map(event => this.eventMapper.fromDto(event))),
       );
@@ -163,9 +177,15 @@ export class EventsService {
       items: pagination.results.map((event: EventDto) =>
         this.eventMapper.fromDto(event),
       ),
-      pagesCount: Math.ceil(pagination.count / this.EVENTS_PER_PAGE),
+      pagesCount: Math.ceil(pagination.count / EVENTS_PER_PAGE),
       itemsCount: pagination.count,
     };
   }
 
+  private getTypes(): Observable<EventType[]> {
+    return this.http.get<EventTypeDto[]>(`${this.eventsBaseUrl}types/`)
+      .pipe(
+        map((events) => events.map(t => this.eventTypeMapper.fromDto(t))),
+      );
+  }
 }

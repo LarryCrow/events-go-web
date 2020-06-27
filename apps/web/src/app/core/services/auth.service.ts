@@ -16,7 +16,7 @@ import { tap, map, catchError, mapTo } from 'rxjs/operators';
 })
 export abstract class AuthService extends BaseAuthService {
 
-  private readonly REGISTER_HOST_URL = `${this.appConfig.baseUrl}user/create/host`;
+  private readonly REGISTER_HOST_URL = `${this.appConfig.baseUrl}users/hosts/`;
 
   public constructor(
     protected readonly http: HttpClient,

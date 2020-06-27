@@ -33,11 +33,11 @@ const API_ERRORS = {
 export class BaseAuthService {
   private readonly baseUrl = `${this.appConfig.baseUrl}`;
   private readonly REGISTER_CLIENT_URL = `${this.baseUrl}user/create/client`;
-  private readonly CURRENT_USER_URL = `${this.baseUrl}user/me`;
+  private readonly CURRENT_USER_URL = `${this.baseUrl}users/current/`;
   private token: string | null = null;
 
   /** Login url */
-  public readonly LOGIN_URL = `${this.baseUrl}user/login`;
+  public readonly LOGIN_URL = `${this.baseUrl}auth/login/`;
 
   /**
    * Emmited when a user is changed.

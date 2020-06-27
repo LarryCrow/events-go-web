@@ -6,7 +6,7 @@ import { Event } from '@ego/common/core/models/event';
 import { EventType } from '@ego/common/core/models/event-type';
 import { SaveEventModel } from '@ego/common/core/models/save-event';
 import { AddressesService } from '@ego/common/core/services/addresses.service';
-import { EventTypesService } from '@ego/common/core/services/event-types.service';
+import { EventsService } from '@ego/common/core/services/events.service';
 import { DestroyableBase } from '@ego/common/shared/components/destroyable-base/destroyable-base.component';
 import { Observable, of, ReplaySubject, merge, NEVER } from 'rxjs';
 import { switchMap, tap, debounceTime, filter, switchMapTo, startWith, share, takeUntil } from 'rxjs/operators';
@@ -56,12 +56,12 @@ export class EventFormComponent extends DestroyableBase implements OnInit {
    *
    * @param fb Form builder.
    * @param addressesService Addresses service.
-   * @param eventTypeService Event type service.
+   * @param eventsService Events service.
    */
   public constructor(
     private readonly fb: FormBuilder,
     private readonly addressesService: AddressesService,
-    private readonly eventTypeService: EventTypesService,
+    private readonly eventsService: EventsService,
   ) {
     super();
     this.form$ = this.initFormStream();
@@ -171,7 +171,7 @@ export class EventFormComponent extends DestroyableBase implements OnInit {
   }
 
   private initTypesStream(): Observable<EventType[]> {
-    return this.eventTypeService.getEventTypes()
+    return this.eventsService.getEventTypes()
       .pipe(share());
   }
 }
