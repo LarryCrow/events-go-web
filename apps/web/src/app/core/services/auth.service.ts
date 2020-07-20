@@ -14,7 +14,7 @@ import { tap, map, catchError, mapTo } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class AuthService extends BaseAuthService {
+export class AuthService extends BaseAuthService {
 
   private readonly REGISTER_HOST_URL = `${this.appConfig.baseUrl}users/hosts/`;
 
